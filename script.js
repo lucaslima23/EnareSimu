@@ -119,11 +119,10 @@ function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
     
-    // Se não for um quiz salvo, reseta o tempo
     if (startButton.innerText === 'Iniciar Simulado') {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
-        timeRemaining = 5 * 60 * 60; // <--- Tempo reiniciado aqui
+        timeRemaining = 5 * 60 * 60;
     }
     
     renderQuestion();
@@ -152,7 +151,7 @@ function renderQuestion() {
 
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
-            label.classList.add('selected'); // Adiciona a classe de seleção ao carregar
+            label.classList.add('selected');
         }
 
         alternativesContainer.appendChild(label);
@@ -205,7 +204,7 @@ function renderTimer() {
 
 // Inicia o cronômetro
 function startTimer() {
-    renderTimer(); // <--- Exibe o tempo inicial imediatamente
+    renderTimer();
     timerInterval = setInterval(() => {
         timeRemaining--;
         if (timeRemaining >= 0) {
@@ -234,9 +233,7 @@ function renderResults() {
 
     const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
 
-    // Processa os resultados para calcular o desempenho por área e assunto
     const performanceData = {};
-
     questions.forEach((q, index) => {
         const userAnswer = userAnswers[index];
         const isCorrect = userAnswer === q.resposta_correta;
@@ -260,23 +257,19 @@ function renderResults() {
         }
     });
 
-    // Gera o HTML para cada área
     areas.forEach(area => {
         const areaPerformance = performanceData[area] || { correct: 0, total: 0, subjects: {} };
         const areaPercentage = areaPerformance.total > 0 ? (areaPerformance.correct / areaPerformance.total * 100).toFixed(2) : 0;
         const areaIncorrect = areaPerformance.total - areaPerformance.correct;
 
-        // Processa os assuntos específicos para a lista ordenada
         const subjectsList = Object.keys(areaPerformance.subjects).map(assunto => {
             const subjectData = areaPerformance.subjects[assunto];
             const percentage = (subjectData.correct / subjectData.total * 100).toFixed(2);
             return { assunto, percentage };
-        }).sort((a, b) => b.percentage - a.percentage); // Ordena por porcentagem decrescente
+        }).sort((a, b) => b.percentage - a.percentage);
 
-        // Filtra assuntos com menos de 50% de acerto para a sugestão de revisão
         const subjectsToReview = subjectsList.filter(s => s.percentage < 50);
 
-        // Gera o HTML da seção
         const areaHtml = `
             <div class="report-area">
                 <h3>${area}</h3>
@@ -310,62 +303,19 @@ function renderResults() {
 
         resultsContainer.innerHTML += areaHtml;
     });
-
-    // Limpa o localStorage para um novo simulado
-    localStorage.removeItem('enareSimuProgress');
 }
 
-    const summaryHtml = `
-        <p>Você acertou **${score}** de **${questions.length}** questões.</p>
-        <h3>Desempenho por Área:</h3>
-        <ul>
-            ${Object.keys(areasPerformance).map(area => `
-                <li>**${area}**: ${areasPerformance[area].correct} acertos de ${areasPerformance[area].total} (${(areasPerformance[area].correct / areasPerformance[area].total * 100).toFixed(2)}%)</li>
-            `).join('')}
-        </ul>
-    `;
-    document.getElementById('results-summary').innerHTML = summaryHtml;
-}
 
-// Inicia o modo de revisão
-function startReview() {
-    resultsScreen.classList.remove('active');
-    reviewScreen.classList.add('active');
-    currentQuestionIndex = 0;
-    renderReviewQuestion();
-}
-
-// Exibe a questão na tela de revisão
-function renderReviewQuestion() {
-    const question = questions[currentQuestionIndex];
-    const reviewQuestionTextElement = document.getElementById('review-question-text');
-    const reviewAlternativesContainer = document.getElementById('review-alternatives-container');
-    const reviewExplanationElement = document.getElementById('review-explanation').querySelector('p');
-
-    reviewQuestionTextElement.innerText = question.enunciado;
-    reviewAlternativesContainer.innerHTML = '';
-    document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
-
-    question.alternativas.forEach((alt, index) => {
-        const optionLetter = String.fromCharCode(65 + index);
-        const label = document.createElement('label');
-        label.innerText = alt;
-        
-        if (optionLetter === question.resposta_correta) {
-            label.classList.add('correct');
-            label.innerHTML += ' **(Correta)**';
-        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
-            label.classList.add('incorrect');
-            label.innerHTML += ' **(Sua resposta)**';
-        }
-
-        reviewAlternativesContainer.appendChild(label);
-    });
-
-    reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
+// Função de depuração para pular para a tela de resultados
+function debugEndQuiz() {
+    clearInterval(timerInterval);
     
-    document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
-    document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
+    userAnswers = new Array(questions.length).fill('A');
+    
+    quizScreen.classList.remove('active');
+    resultsScreen.classList.add('active');
+    
+    renderResults();
 }
 
 // Event Listeners
@@ -399,24 +349,4 @@ backToResultsButton.addEventListener('click', () => {
     resultsScreen.classList.add('active');
 });
 
-// Inicializa a aplicação
 loadQuestions();
-
-
-
-// Função de depuração para pular para a tela de resultados
-function debugEndQuiz() {
-    // Parar o cronômetro para evitar que ele continue rodando
-    clearInterval(timerInterval);
-    
-    // Preencher as respostas com dados fictícios (ex: todas 'A') para que o relatório funcione
-    userAnswers = new Array(questions.length).fill('A');
-    
-    // Esconder a tela do quiz e mostrar a de resultados
-    quizScreen.classList.remove('active');
-    resultsScreen.classList.add('active');
-    
-    // Gerar e exibir o relatório de desempenho
-    renderResults();
-}
-
