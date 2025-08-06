@@ -1,7 +1,10 @@
+/* Importação da fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 /* Paleta de Cores e Fundo */
 :root {
     /* Modo Claro (Padrão) */
-    --bg-color: linear-gradient(135deg, #f0f4f8, #e4e7ea); /* Gradiente adicionado */
+    --bg-color: linear-gradient(135deg, #f0f4f8, #e4e7ea);
     --text-color: #352f23;
     --main-bg-color: #ffffff;
     --card-bg-color: #f9f9f9;
@@ -32,10 +35,9 @@
         --shadow-color: rgba(0, 0, 0, 0.4);
     }
 }
-/* O resto do código CSS permanece o mesmo */
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Poppins', sans-serif; /* Fonte atualizada para Poppins */
     background: var(--bg-color);
     color: var(--text-color);
     margin: 0;
@@ -98,7 +100,7 @@ header {
     background-color: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
-    box-shadow: 0 2px 8px rgba(245, 133, 63, 0.5); /* Sombra da cor primária */
+    box-shadow: 0 2px 8px rgba(245, 133, 63, 0.5);
 }
 
 /* Esconde o botão de rádio na tela do quiz */
@@ -108,7 +110,7 @@ header {
 
 /* Estilos para as alternativas do quiz ao passar o mouse */
 #quiz-screen .alternatives label:hover {
-    background-color: var(--border-color); /* Mudança sutil na cor */
+    background-color: var(--border-color);
 }
 
 .navigation-buttons {
@@ -127,6 +129,7 @@ header {
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
+    font-family: 'Poppins', sans-serif; /* Aplica a fonte aos botões */
     transition: background-color 0.3s, transform 0.2s;
 }
 
@@ -134,7 +137,7 @@ header {
 #start-button:hover,
 .actions button:hover {
     transform: translateY(-2px);
-    background-color: #d67138; /* Um tom mais escuro do Pumpkin */
+    background-color: #d67138;
 }
 
 .navigation-buttons button:disabled {
@@ -269,4 +272,3 @@ header {
 .subjects-list li .percentage.red {
     color: var(--secondary-color);
 }
-
