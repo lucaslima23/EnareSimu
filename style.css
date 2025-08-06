@@ -1,13 +1,13 @@
 /* Paleta de Cores e Fundo */
 :root {
-    /* Modo Claro (Baseado em Beige e Walnut Brown) */
-    --bg-color: #f6f7f0; /* Um tom mais claro do Beige */
-    --text-color: #352f23; /* Walnut Brown 300 para o texto */
-    --main-bg-color: #e3e7d1; /* Beige 700 */
-    --card-bg-color: #d2d8b3; /* Beige DEFAULT */
-    --border-color: #b2bc7e; /* Beige 400 */
-    --primary-color: #f5853f; /* Pumpkin DEFAULT */
-    --secondary-color: #dc3545; /* Mantido para erros/vermelho */
+    /* Modo Claro (Padrão) */
+    --bg-color: linear-gradient(135deg, #f0f4f8, #e4e7ea); /* Gradiente adicionado */
+    --text-color: #352f23;
+    --main-bg-color: #ffffff;
+    --card-bg-color: #f9f9f9;
+    --border-color: #ddd;
+    --primary-color: #f5853f;
+    --secondary-color: #dc3545;
     --correct-color: #d4edda;
     --correct-border: #c3e6cb;
     --incorrect-color: #f8d7da;
@@ -17,14 +17,14 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        /* Modo Escuro (Baseado em Dark Purple e Federal Blue) */
-        --bg-color: #0a0208; /* Dark Purple 100 */
-        --text-color: #fde6d8; /* Um tom claro da paleta Pumpkin */
-        --main-bg-color: #320a28; /* Dark Purple DEFAULT */
-        --card-bg-color: #080357; /* Federal blue DEFAULT */
-        --border-color: #594f3b; /* Walnut Brown */
-        --primary-color: #f5853f; /* Pumpkin DEFAULT */
-        --secondary-color: #f04747; /* Mantido para erros */
+        /* Modo Escuro */
+        --bg-color: #0a0208;
+        --text-color: #fde6d8;
+        --main-bg-color: #320a28;
+        --card-bg-color: #080357;
+        --border-color: #594f3b;
+        --primary-color: #f5853f;
+        --secondary-color: #f04747;
         --correct-color: #43b581;
         --correct-border: #2e8b57;
         --incorrect-color: #f04747;
@@ -32,6 +32,7 @@
         --shadow-color: rgba(0, 0, 0, 0.4);
     }
 }
+/* O resto do código CSS permanece o mesmo */
 
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -268,3 +269,4 @@ header {
 .subjects-list li .percentage.red {
     color: var(--secondary-color);
 }
+
