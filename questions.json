@@ -363,7 +363,7 @@
     "id": 25,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Obstrutivo",
-    "enunciado": "Um paciente de 48 anos apresenta-se no pronto-socorro com dor abdominal intensa e intermitente há 18 horas, com náuseas e vômitos. Ele relata não ter evacuado ou eliminado gases nas últimas 48 horas. Sua história patológica pregressa inclui uma apendicectomia realizada há 20 anos e uma cirurgia para correção de hérnia inguinoescrotal há 5 anos. O exame físico mostrou o paciente lúcido e apirético; sinais vitais: PA $125/80$ mmHg, FC 90 bpm, FR 20 ipm, T $36,8^{\circ}C$. O abdômen está distendido. Peristalse de luta apresenta ruídos metálicos e hipercinéticos. Sente dor à palpação difusa, porém sem sinais de defesa e com ausência de hérnias palpáveis. Os exames laboratoriais registram hemograma com leucócitos de $8.000/mm³$ e eletrólitos dentro dos limites normais. Os exames de imagem revelam rotina de abdômen agudo, mostrando distensão de alças intestinais com níveis hidroaéreos, e sem evidências de tumorações. Diante desse quadro clínico, a etapa inicial mais apropriada para o manejo do caso é:",
+        "enunciado": "Um paciente de 48 anos apresenta-se no pronto-socorro com dor abdominal intensa e intermitente há 18 horas, com náuseas e vômitos. Ele relata não ter evacuado ou eliminado gases nas últimas 48 horas. Sua história patológica pregressa inclui uma apendicectomia realizada há 20 anos e uma cirurgia para correção de hérnia inguinoescrotal há 5 anos. O exame físico mostrou o paciente lúcido e apirético; sinais vitais: PA 125/80 mmHg, FC 90 bpm, FR 20 ipm, T 36,8ºC. O abdômen está distendido. Peristalse de luta apresenta ruídos metálicos e hipercinéticos. Sente dor à palpação difusa, porém sem sinais de defesa e com ausência de hérnias palpáveis. Os exames laboratoriais registram hemograma com leucócitos de $8.000/mm³$ e eletrólitos dentro dos limites normais. Os exames de imagem revelam rotina de abdômen agudo, mostrando distensão de alças intestinais com níveis hidroaéreos, e sem evidências de tumorações. Diante desse quadro clínico, a etapa inicial mais apropriada para o manejo do caso é:",
     "alternativas": [
       "(A) colonoscopia urgente;",
       "(B) administração de laxantes e observação;",
@@ -528,7 +528,7 @@
     "id": 36,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Biliar",
-    "enunciado": "Uma paciente de 45 anos, com diagnóstico de colelitíase há 1 ano, apresenta dor em hipocôndrio direito, icterícia $++/4$, temperatura axilar de $38^{\circ}C$. PA: $110\times70$ mmHg e bilirrubina total de $4,6~mg/dL$ com bilirrubina direta de $3,2~mg/dL$ Realizou ultrassonografia de abdômen, que mostrou vesícula de paredes finas, contendo múltiplos cálculos e discreta dilatação das vias biliares extra-hepáticas. Além da antibioticoterapia venosa, a conduta mais apropriada neste momento é:",
+    "enunciado": "Uma paciente de 45 anos, com diagnóstico de colelitíase há 1 ano, apresenta dor em hipocôndrio direito, icterícia ++/4, temperatura axilar de 38ºC. PA: 110x70 mmHg e bilirrubina total de 4,6mg/dL com bilirrubina direta de 3,2mg/dL Realizou ultrassonografia de abdômen, que mostrou vesícula de paredes finas, contendo múltiplos cálculos e discreta dilatação das vias biliares extra-hepáticas. Além da antibioticoterapia venosa, a conduta mais apropriada neste momento é:",
     "alternativas": [
       "(A) hidratação e medidas de suporte, somente;",
       "(B) papilotomia endoscópica de urgência;",
@@ -633,7 +633,7 @@
     "id": 43,
     "area": "Pediatria",
     "assunto_especifico": "Exantemas Infantis",
-    "enunciado": "Um lactente de 10 meses apresentou febre alta ($39^{\circ}C$) e coriza hialina por 3 dias. No quarto dia de doença, 12 horas após o último pico febril, surge exantema maculopapular em tronco que se dissemina para os membros. Ao exame, apresenta discreta hiperemia de orofaringe, linfonodos cervicais sem características inflamatórias e exantema maculopapular eritematoso difuso. Diante desse quadro, o diagnóstico correto é:",
+    "enunciado": "Um lactente de 10 meses apresentou febre alta (39ºC) e coriza hialina por 3 dias. No quarto dia de doença, 12 horas após o último pico febril, surge exantema maculopapular em tronco que se dissemina para os membros. Ao exame, apresenta discreta hiperemia de orofaringe, linfonodos cervicais sem características inflamatórias e exantema maculopapular eritematoso difuso. Diante desse quadro, o diagnóstico correto é:",
     "alternativas": [
       "(A) escarlatina;",
       "(B) sarampo;",
@@ -1340,11 +1340,11 @@
     "assunto_especifico": "Diabetes Mellitus",
     "enunciado": "Foram atendidas 5 irmãs na unidade básica de saúde. A única que tem características que permitem o diagnóstico de diabetes mellitus é:",
     "alternativas": [
-      "(A) Maria Hilma, de 49 anos, que realizou teste de glicemia capilar com resultado $179~mg/dl$;",
-      "(B) Maria José, que, em 01/03/2024, apresentou hemoglobina glicada ($HbA1c)=5,6\%$ e, em 12/07/2024, apresentou hemoglobina glicada ($HbA1c)=6,1\%$;",
-      "(C) Maria Lina, que apresentou, em 01/03/2024, glicemia de jejum =$136~mg/dl$ e, em 12/07/2024, glicemia de jejum=$152~mg/dl$;",
-      "(D) Maria Cláudia, que apresenta glicemia de jejum =$126~mg/dl$;",
-      "(E) Maria Antônia, que apresenta hemoglobina glicada ($HbA1c)=4,5\%$."
+      "(A) Maria Hilma, de 49 anos, que realizou teste de glicemia capilar com resultado 179mg/dl;",
+      "(B) Maria José, que, em 01/03/2024, apresentou hemoglobina glicada (HbA1c)=5,6% e, em 12/07/2024, apresentou hemoglobina glicada (HbA1c)=6,1%;",
+      "(C) Maria Lina, que apresentou, em 01/03/2024, glicemia de jejum =136mg/dl e, em 12/07/2024, glicemia de jejum=152mg/dl;",
+      "(D) Maria Cláudia, que apresenta glicemia de jejum =126mg/dl;",
+      "(E) Maria Antônia, que apresenta hemoglobina glicada (HbA1c)=4,5%."
     ],
     "resposta_correta": "C",
     "explicacao": ""
@@ -1428,11 +1428,11 @@
     "id": 96,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Registro Clínico",
-    "enunciado": "Tatiana vem à consulta médica com queixa de dor lombar. Em sua consulta anterior, apresentou pressão arterial de $120\times65$ mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal. Ela declara ter alergia a dipirona. De acordo com seu prontuário, seu último Papanicolau foi há 3 anos. Tatiana relata se sentir sem energia e ter medo de essas dores serem alguma doença ruim. Diz que não tem conseguido mais dormir de preocupação. Em relação ao registro das informações fornecidas por Tatiana no Registro Clínico Orientado por Problemas (RCOP), é correto afirmar que:",
+    "enunciado": "Tatiana vem à consulta médica com queixa de dor lombar. Em sua consulta anterior, apresentou pressão arterial de 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal. Ela declara ter alergia a dipirona. De acordo com seu prontuário, seu último Papanicolau foi há 3 anos. Tatiana relata se sentir sem energia e ter medo de essas dores serem alguma doença ruim. Diz que não tem conseguido mais dormir de preocupação. Em relação ao registro das informações fornecidas por Tatiana no Registro Clínico Orientado por Problemas (RCOP), é correto afirmar que:",
     "alternativas": [
-      "(A) devem ser registradas no campo Subjetivo as informações 'apresentou pressão arterial $120\times65$ mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
-      "(B) devem ser registradas no campo Objetivo as informações 'apresentou pressão arterial $120\times65$ mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
-      "(C) devem ser registradas no campo Avaliação as informações 'apresentou pressão arterial $120\times65$ mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
+      "(A) devem ser registradas no campo Subjetivo as informações 'apresentou pressão arterial 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
+      "(B) devem ser registradas no campo Objetivo as informações 'apresentou pressão arterial 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
+      "(C) devem ser registradas no campo Avaliação as informações 'apresentou pressão arterial 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
       "(D) devem ser registradas no campo Avaliação as informações 'Tatiana relata se sentir sem energia e ter medo de essas dores serem alguma doença ruim. Diz que não tem conseguido mais dormir de preocupação';",
       "(E) as informações 'Tatiana relata se sentir sem energia e ter medo de essas dores serem alguma doença ruim. Diz que não tem conseguido mais dormir de preocupação' não são relevantes; logo, não devem ser registradas no RCOP."
     ],
@@ -1488,7 +1488,7 @@
     "id": 100,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Imunização/Difteria",
-    "enunciado": "Os movimentos antivacina, causados por um sistema de desinformação, trazem muitos danos para as pessoas não vacinadas, pois já está mais que provado pela ciência que vacinas são muito efetivas e salvam vidas. Uma dessas doenças preveníveis por vacinas tem como manifestação clínica típica a presença de placas pseudomembranosas branco-acinzentadas, aderentes, que se instalam nas amigdalas e invadem estruturas vizinhas. Essas placas podem se localizar na faringe, na laringe e nas fossas nasais; e, com menos frequência, também são observadas na conjuntiva, na pele, no conduto auditivo, na vulva, no pênis (pós-circuncisão) e no cordão umbilical. A doença manifesta-se clinicamente por comprometimento do estado geral do paciente, que pode se apresentar prostrado e pálido. A dor de garganta é discreta, independentemente da localização ou da quantidade de placas existentes, e a febre normalmente não é muito elevada, variando de $37,5^{\circ}C$ a $38,5^{\circ}C$ embora temperaturas mais altas não afastem o diagnóstico. Nos casos mais graves, há intenso edema do pescoço, com grande aumento dos gânglios linfáticos dessa área (pescoço taurino) e edema periganglionar nas cadeias cervicais e submandibulares. Dependendo do tamanho e da localização da placa pseudomembranosa, pode ocorrer asfixia mecânica aguda no paciente, o que muitas vezes exige imediata traqueostomia para evitar a morte. A descrição acima é característica de:",
+    "enunciado": "Os movimentos antivacina, causados por um sistema de desinformação, trazem muitos danos para as pessoas não vacinadas, pois já está mais que provado pela ciência que vacinas são muito efetivas e salvam vidas. Uma dessas doenças preveníveis por vacinas tem como manifestação clínica típica a presença de placas pseudomembranosas branco-acinzentadas, aderentes, que se instalam nas amigdalas e invadem estruturas vizinhas. Essas placas podem se localizar na faringe, na laringe e nas fossas nasais; e, com menos frequência, também são observadas na conjuntiva, na pele, no conduto auditivo, na vulva, no pênis (pós-circuncisão) e no cordão umbilical. A doença manifesta-se clinicamente por comprometimento do estado geral do paciente, que pode se apresentar prostrado e pálido. A dor de garganta é discreta, independentemente da localização ou da quantidade de placas existentes, e a febre normalmente não é muito elevada, variando de 37,5ºC a 38,5ºC embora temperaturas mais altas não afastem o diagnóstico. Nos casos mais graves, há intenso edema do pescoço, com grande aumento dos gânglios linfáticos dessa área (pescoço taurino) e edema periganglionar nas cadeias cervicais e submandibulares. Dependendo do tamanho e da localização da placa pseudomembranosa, pode ocorrer asfixia mecânica aguda no paciente, o que muitas vezes exige imediata traqueostomia para evitar a morte. A descrição acima é característica de:",
     "alternativas": [
       "(A) vírus sincicial respiratório;",
       "(B) difteria;",
@@ -1500,5 +1500,6 @@
     "explicacao": ""
   }
 ]
+
 
 
