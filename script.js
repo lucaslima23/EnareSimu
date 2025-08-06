@@ -485,23 +485,6 @@ function renderReviewQuestion() {
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
 
-async function signUp(email, password) {
-    if (!supabaseClient) {
-        console.error('Supabase client is not initialized.');
-        return;
-    }
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
-    if (error) {
-        console.error('Erro no registro:', error.message);
-        alert('Erro no registro: ' + error.message);
-    } else {
-        alert('Registro realizado! Por favor, verifique seu e-mail.');
-    }
-}
-
 // Função de depuração para pular para a tela de resultados
 function debugEndQuiz() {
     clearInterval(timerInterval);
@@ -554,4 +537,5 @@ registerButton.addEventListener('click', async () => {
 
 
 loadQuestions();
+
 
