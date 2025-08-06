@@ -23,26 +23,52 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
-// Carrega as questões do arquivo JSON
+// Carrega as questões do arquivo JSON e inicia o processo
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
         selectAndShuffleQuestions();
-        console.log('Questões carregadas com sucesso! Agora você pode iniciar o simulado.'); // Mensagem de depuração
-        enableStartButton(); // <--- Nova chamada: habilita o botão após o carregamento
+        loadProgress(); // <--- Tenta carregar o progresso salvo
+        enableStartButton();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
 }
 
-// Nova função para habilitar o botão de início
+// Salva o progresso no localStorage
+function saveProgress() {
+    const progress = {
+        questions: questions,
+        userAnswers: userAnswers,
+        currentQuestionIndex: currentQuestionIndex,
+        timeRemaining: timeRemaining
+    };
+    localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
+}
+
+// Carrega o progresso do localStorage
+function loadProgress() {
+    const savedProgress = localStorage.getItem('enareSimuProgress');
+    if (savedProgress) {
+        const progress = JSON.parse(savedProgress);
+        questions = progress.questions;
+        userAnswers = progress.userAnswers;
+        currentQuestionIndex = progress.currentQuestionIndex;
+        timeRemaining = progress.timeRemaining;
+        
+        startButton.innerText = 'Continuar Simulado';
+        console.log('Progresso carregado. Continue a partir da questão ' + (currentQuestionIndex + 1));
+    }
+}
+
+// Habilita o botão de início
 function enableStartButton() {
     startButton.disabled = false;
 }
 
-// Função que seleciona 20 questões de cada área e embaralha o resultado
+// Embaralha as questões de forma proporcional
 function selectAndShuffleQuestions() {
     const groupedQuestions = {
         'Clínica Médica': [],
@@ -59,7 +85,6 @@ function selectAndShuffleQuestions() {
     });
 
     let finalQuestions = [];
-
     for (const area in groupedQuestions) {
         for (let i = groupedQuestions[area].length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -72,7 +97,6 @@ function selectAndShuffleQuestions() {
         const j = Math.floor(Math.random() * (i + 1));
         [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
     }
-
     questions = finalQuestions;
 }
 
@@ -80,8 +104,12 @@ function selectAndShuffleQuestions() {
 function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
-    currentQuestionIndex = 0;
-    userAnswers = new Array(questions.length).fill(null);
+    
+    if (startButton.innerText === 'Iniciar Simulado') {
+        currentQuestionIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+    }
+    
     renderQuestion();
     startTimer();
 }
@@ -103,20 +131,16 @@ function renderQuestion() {
         const label = document.createElement('label');
         label.htmlFor = input.id;
         
-        // Adiciona o input e o texto dentro do label
         label.appendChild(input);
         label.innerHTML += alt;
 
-        // Se o usuário já respondeu, marca a resposta
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
         }
 
-        // Adiciona o label completo (com o input dentro) ao contêiner
         alternativesContainer.appendChild(label);
     });
 
-    // Atualiza o estado dos botões de navegação
     previousButton.disabled = currentQuestionIndex === 0;
     nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
     finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
@@ -126,6 +150,7 @@ function renderQuestion() {
 function handleAnswer(event) {
     if (event.target.type === 'radio') {
         userAnswers[currentQuestionIndex] = event.target.value;
+        saveProgress(); // <--- Salva o progresso a cada resposta
     }
 }
 
@@ -134,6 +159,7 @@ function nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         renderQuestion();
+        saveProgress(); // <--- Salva o progresso ao navegar
     }
 }
 
@@ -142,6 +168,7 @@ function previousQuestion() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         renderQuestion();
+        saveProgress(); // <--- Salva o progresso ao navegar
     }
 }
 
@@ -153,6 +180,7 @@ function startTimer() {
         const minutes = Math.floor((timeRemaining % 3600) / 60);
         const seconds = timeRemaining % 60;
         timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        saveProgress(); // <--- Salva o tempo restante
         if (timeRemaining <= 0) {
             endQuiz();
         }
@@ -162,6 +190,7 @@ function startTimer() {
 // Finaliza o simulado
 function endQuiz() {
     clearInterval(timerInterval);
+    localStorage.removeItem('enareSimuProgress'); // Remove o progresso salvo
     quizScreen.classList.remove('active');
     resultsScreen.classList.add('active');
     renderResults();
@@ -252,8 +281,10 @@ alternativesContainer.addEventListener('change', handleAnswer);
 finishButton.addEventListener('click', endQuiz);
 reviewButton.addEventListener('click', startReview);
 restartButton.addEventListener('click', () => {
+    localStorage.removeItem('enareSimuProgress');
     resultsScreen.classList.remove('active');
     startScreen.classList.add('active');
+    startButton.innerText = 'Iniciar Simulado';
 });
 
 document.getElementById('review-next-button').addEventListener('click', () => {
@@ -275,4 +306,3 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
-
