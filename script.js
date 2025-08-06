@@ -4,7 +4,6 @@ let userAnswers = [];
 let currentQuestionIndex = 0;
 let timerInterval;
 let timeRemaining = 5 * 60 * 60; // 5 horas em segundos
-let quizStarted = false; // Nova flag para controlar se o quiz foi iniciado
 
 // Elementos da interface
 const startScreen = document.getElementById('start-screen');
@@ -24,13 +23,13 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
-// Carrega as questões do arquivo JSON
+// Carrega as questões do arquivo JSON e inicia o processo
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
         
-        const isProgressLoaded = loadProgress(data); // Tenta carregar o progresso
+        const isProgressLoaded = loadProgress(data);
 
         if (!isProgressLoaded) {
             questions = data;
@@ -120,14 +119,15 @@ function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
     
+    // Se não for um quiz salvo, reseta o tempo
     if (startButton.innerText === 'Iniciar Simulado') {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
+        timeRemaining = 5 * 60 * 60; // <--- Tempo reiniciado aqui
     }
     
     renderQuestion();
     startTimer();
-    quizStarted = true;
 }
 
 // Exibe a questão atual
@@ -150,10 +150,9 @@ function renderQuestion() {
         label.appendChild(input);
         label.innerHTML += alt;
 
-        // Adiciona a classe 'selected' se esta for a resposta do usuário
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
-            label.classList.add('selected');
+            label.classList.add('selected'); // Adiciona a classe de seleção ao carregar
         }
 
         alternativesContainer.appendChild(label);
@@ -164,19 +163,17 @@ function renderQuestion() {
     finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
 }
 
-// Salva a resposta do usuário e atualiza o estilo
+// Salva a resposta do usuário
 function handleAnswer(event) {
     if (event.target.type === 'radio') {
-        // Remove a classe 'selected' de todas as alternativas
         document.querySelectorAll('.alternatives label').forEach(label => {
             label.classList.remove('selected');
         });
         
-        // Adiciona a classe 'selected' apenas na alternativa clicada
         event.target.parentNode.classList.add('selected');
         
         userAnswers[currentQuestionIndex] = event.target.value;
-        saveProgress(); // Salva o progresso a cada resposta
+        saveProgress();
     }
 }
 
@@ -198,15 +195,23 @@ function previousQuestion() {
     }
 }
 
+// Atualiza a exibição do cronômetro
+function renderTimer() {
+    const hours = Math.floor(timeRemaining / 3600);
+    const minutes = Math.floor((timeRemaining % 3600) / 60);
+    const seconds = timeRemaining % 60;
+    timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
 // Inicia o cronômetro
 function startTimer() {
+    renderTimer(); // <--- Exibe o tempo inicial imediatamente
     timerInterval = setInterval(() => {
         timeRemaining--;
-        const hours = Math.floor(timeRemaining / 3600);
-        const minutes = Math.floor((timeRemaining % 3600) / 60);
-        const seconds = timeRemaining % 60;
-        timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        saveProgress();
+        if (timeRemaining >= 0) {
+            renderTimer();
+            saveProgress();
+        }
         if (timeRemaining <= 0) {
             endQuiz();
         }
@@ -284,7 +289,7 @@ function renderReviewQuestion() {
         if (optionLetter === question.resposta_correta) {
             label.classList.add('correct');
             label.innerHTML += ' **(Correta)**';
-        } else if (userAnswers[currentQuestionIndex] === input.value && optionLetter !== question.resposta_correta) {
+        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
             label.classList.add('incorrect');
             label.innerHTML += ' **(Sua resposta)**';
         }
@@ -331,5 +336,3 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
-
-
