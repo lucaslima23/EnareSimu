@@ -1,0 +1,15 @@
+{
+  "name": "enare-simu",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo \"VITE_SUPABASE_URL=\\\"$VITE_SUPABASE_URL\\\"\\nVITE_SUPABASE_ANON_KEY=\\\"$VITE_SUPABASE_ANON_KEY\\\"\" > .env && vite build",
+    "dev": "vite",
+    "start": "vite"
+  },
+  "dependencies": {
+    "supabase-js": "^2.39.8"
+  },
+  "devDependencies": {
+    "vite": "^5.0.12"
+  }
+}
