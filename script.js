@@ -32,13 +32,17 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
+const authContainer = document.getElementById('auth-container');
 const authForm = document.getElementById('auth-form');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 const loginButton = document.getElementById('login-button');
 const registerButton = document.getElementById('register-button');
+const paymentOptions = document.getElementById('payment-options');
+const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
+const logoutButton = document.getElementById('logout-button');
 
 
 // FUNÇÕES DE LÓGICA E ESTADO
@@ -62,14 +66,23 @@ async function checkUser() {
     userSession = user;
     
     if (user) {
-        authForm.style.display = 'none';
+        authContainer.style.display = 'none';
         quizOptions.style.display = 'block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        await loadProgress();
-        enableStartButton();
+        // Lógica de verificação de assinatura
+        const hasSubscription = false; // <<< AQUI VOCÊ FARÁ A VERIFICAÇÃO DO STATUS DE ASSINATURA
+
+        if (hasSubscription) {
+            await loadProgress(); // Carrega o progresso do usuário logado
+            enableStartButton();
+        } else {
+            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
+            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
+        }
     } else {
-        authForm.style.display = 'block';
+        authContainer.style.display = 'block';
+        paymentOptions.style.display = 'none';
         quizOptions.style.display = 'none';
         enableStartButton(); // Habilita o botão para o login/cadastro
     }
