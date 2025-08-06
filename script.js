@@ -38,6 +38,8 @@ const passwordInput = document.getElementById('password-input');
 const loginButton = document.getElementById('login-button');
 const registerButton = document.getElementById('register-button');
 const quizOptions = document.getElementById('quiz-options');
+const userWelcomeMessage = document.getElementById('user-welcome-message');
+
 
 // FUNÇÕES DE LÓGICA E ESTADO
 
@@ -57,15 +59,16 @@ async function loadQuestions() {
 // Verifica se o usuário está logado e atualiza a interface
 async function checkUser() {
     const { data: { user } } = await supabaseClient.auth.getUser();
+    userSession = user;
+    
     if (user) {
-        userSession = user;
         authForm.style.display = 'none';
         quizOptions.style.display = 'block';
+        userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        await loadProgress(); // <--- Só carrega o progresso se houver usuário
+        await loadProgress();
         enableStartButton();
     } else {
-        userSession = null;
         authForm.style.display = 'block';
         quizOptions.style.display = 'none';
         enableStartButton(); // Habilita o botão para o login/cadastro
@@ -85,7 +88,7 @@ async function saveProgress() {
         if (userSession) {
             const { data, error } = await supabaseClient
                 .from('performance')
-                .upsert({ user_id: userSession.id, data: progress });
+                .upsert({ user_id: userSession.id, data: progress }, { onConflict: 'user_id' });
             
             if (error) console.error('Erro ao salvar desempenho no Supabase:', error);
         } else {
@@ -113,7 +116,7 @@ async function loadProgress() {
                 currentQuestionIndex = progress.currentQuestionIndex;
                 timeRemaining = progress.timeRemaining;
                 startButton.innerText = 'Continuar Simulador';
-                return true;
+                return;
             }
         }
         
@@ -125,13 +128,12 @@ async function loadProgress() {
             currentQuestionIndex = progress.currentQuestionIndex;
             timeRemaining = progress.timeRemaining;
             startButton.innerText = 'Continuar Simulador';
-            return true;
+            return;
         }
     } catch (error) {
         console.error('Erro ao carregar o progresso:', error);
     }
     selectAndShuffleQuestions();
-    return false;
 }
 
 // Habilita o botão de início
