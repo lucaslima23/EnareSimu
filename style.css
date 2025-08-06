@@ -68,8 +68,9 @@ header {
 }
 
 header img {
-    height: 80px; /* Aumenta a altura da logo */
+    height: 120px; /* Aumenta a altura da logo */
     width: auto;
+    text-align: center; /* Alinha a logo no centro */
 }
 
 .screen {
@@ -190,3 +191,4 @@ header img {
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background-
+
