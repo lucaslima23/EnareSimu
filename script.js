@@ -485,25 +485,6 @@ function renderReviewQuestion() {
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
 
-// Funções de Autenticação
-async function signIn(email, password) {
-    if (!supabaseClient) {
-        console.error('Supabase client is not initialized.');
-        return;
-    }
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-    });
-    if (error) {
-        console.error('Erro no login:', error.message);
-        alert('Erro no login: ' + error.message);
-    } else {
-        userSession = data.user;
-        checkUser();
-    }
-}
-
 async function signUp(email, password) {
     if (!supabaseClient) {
         console.error('Supabase client is not initialized.');
@@ -573,3 +554,4 @@ registerButton.addEventListener('click', async () => {
 
 
 loadQuestions();
+
