@@ -23,6 +23,7 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
+// FUNÇÕES DE LÓGICA E ESTADO
 // Carrega as questões do arquivo JSON e inicia o processo
 async function loadQuestions() {
     try {
@@ -260,7 +261,6 @@ function renderResults() {
     areas.forEach(area => {
         const areaPerformance = performanceData[area] || { correct: 0, total: 0, subjects: {} };
         const areaPercentage = areaPerformance.total > 0 ? (areaPerformance.correct / areaPerformance.total * 100).toFixed(2) : 0;
-        const areaIncorrect = areaPerformance.total - areaPerformance.correct;
 
         const subjectsList = Object.keys(areaPerformance.subjects).map(assunto => {
             const subjectData = areaPerformance.subjects[assunto];
@@ -305,20 +305,57 @@ function renderResults() {
     });
 }
 
+// Inicia o modo de revisão
+function startReview() {
+    resultsScreen.classList.remove('active');
+    reviewScreen.classList.add('active');
+    currentQuestionIndex = 0;
+    renderReviewQuestion();
+}
+
+// Exibe a questão na tela de revisão
+function renderReviewQuestion() {
+    const question = questions[currentQuestionIndex];
+    const reviewQuestionTextElement = document.getElementById('review-question-text');
+    const reviewAlternativesContainer = document.getElementById('review-alternatives-container');
+    const reviewExplanationElement = document.getElementById('review-explanation').querySelector('p');
+
+    reviewQuestionTextElement.innerText = question.enunciado;
+    reviewAlternativesContainer.innerHTML = '';
+    document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+
+    question.alternativas.forEach((alt, index) => {
+        const optionLetter = String.fromCharCode(65 + index);
+        const label = document.createElement('label');
+        label.innerText = alt;
+        
+        if (optionLetter === question.resposta_correta) {
+            label.classList.add('correct');
+            label.innerHTML += ' **(Correta)**';
+        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
+            label.classList.add('incorrect');
+            label.innerHTML += ' **(Sua resposta)**';
+        }
+
+        reviewAlternativesContainer.appendChild(label);
+    });
+
+    reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
+    
+    document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
+    document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
+}
 
 // Função de depuração para pular para a tela de resultados
 function debugEndQuiz() {
     clearInterval(timerInterval);
-    
     userAnswers = new Array(questions.length).fill('A');
-    
     quizScreen.classList.remove('active');
     resultsScreen.classList.add('active');
-    
     renderResults();
 }
 
-// Event Listeners
+// LISTA DE EVENT LISTENERS
 startButton.addEventListener('click', startQuiz);
 nextButton.addEventListener('click', nextQuestion);
 previousButton.addEventListener('click', previousQuestion);
@@ -331,7 +368,6 @@ restartButton.addEventListener('click', () => {
     startScreen.classList.add('active');
     startButton.innerText = 'Iniciar Simulado';
 });
-
 document.getElementById('review-next-button').addEventListener('click', () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
@@ -349,4 +385,5 @@ backToResultsButton.addEventListener('click', () => {
     resultsScreen.classList.add('active');
 });
 
+// Inicializa a aplicação
 loadQuestions();
