@@ -1,6 +1,6 @@
 // ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente injetadas no HTML
-const SUPABASE_URL = window.SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
+const SUPABASE_URL = "SUA_URL_SUPABASE";
+const SUPABASE_ANON_KEY = "SUA_CHAVE_ANON";
 
 // Inicializa o cliente Supabase
 const { createClient } = supabase;
