@@ -30,12 +30,19 @@ async function loadQuestions() {
         const data = await response.json();
         questions = data;
         selectAndShuffleQuestions();
+        console.log('Questões carregadas com sucesso! Agora você pode iniciar o simulado.'); // Mensagem de depuração
+        enableStartButton(); // <--- Nova chamada: habilita o botão após o carregamento
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
 }
 
-// Nova função que seleciona 20 questões de cada área e embaralha o resultado
+// Nova função para habilitar o botão de início
+function enableStartButton() {
+    startButton.disabled = false;
+}
+
+// Função que seleciona 20 questões de cada área e embaralha o resultado
 function selectAndShuffleQuestions() {
     const groupedQuestions = {
         'Clínica Médica': [],
@@ -45,7 +52,6 @@ function selectAndShuffleQuestions() {
         'Medicina Preventiva e Social': []
     };
 
-    // 1. Agrupa as questões por área
     questions.forEach(q => {
         if (groupedQuestions[q.area]) {
             groupedQuestions[q.area].push(q);
@@ -54,18 +60,14 @@ function selectAndShuffleQuestions() {
 
     let finalQuestions = [];
 
-    // 2. Embaralha e seleciona 20 de cada grupo
     for (const area in groupedQuestions) {
-        // Embaralha as questões dentro da área
         for (let i = groupedQuestions[area].length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [groupedQuestions[area][i], groupedQuestions[area][j]] = [groupedQuestions[area][j], groupedQuestions[area][i]];
         }
-        // Adiciona as primeiras 20 questões do grupo embaralhado
         finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
     }
     
-    // 3. Embaralha a lista final para misturar as áreas na prova
     for (let i = finalQuestions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
@@ -102,7 +104,6 @@ function renderQuestion() {
         label.htmlFor = input.id;
         label.innerText = alt;
 
-        // Se o usuário já respondeu, marca a resposta
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
         }
@@ -111,10 +112,9 @@ function renderQuestion() {
         alternativesContainer.appendChild(label);
     });
 
-    // Atualiza o estado dos botões de navegação
     previousButton.disabled = currentQuestionIndex === 0;
-    nextButton.disabled = currentQuestionIndex === questions.length - 1;
-    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
 }
 
 // Salva a resposta do usuário
@@ -175,7 +175,6 @@ function renderResults() {
             score++;
         }
 
-        // Popula o objeto de desempenho por área
         const area = q.area;
         if (!areasPerformance[area]) {
             areasPerformance[area] = { correct: 0, total: 0 };
