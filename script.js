@@ -459,16 +459,21 @@ function renderReviewQuestion() {
     document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
 
     question.alternativas.forEach((alt, index) => {
-        const optionLetter = String.fromCharCode(65 + index);
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'alternative';
+        input.id = `q${currentQuestionIndex}-alt${index}`;
+        input.value = String.fromCharCode(65 + index);
+
         const label = document.createElement('label');
-        label.innerText = alt;
+        label.htmlFor = input.id;
         
-        if (optionLetter === question.resposta_correta) {
-            label.classList.add('correct');
-            label.innerHTML += ' **(Correta)**';
-        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
-            label.classList.add('incorrect');
-            label.innerHTML += ' **(Sua resposta)**';
+        label.appendChild(input);
+        label.innerHTML += alt;
+
+        if (userAnswers[currentQuestionIndex] === input.value) {
+            input.checked = true;
+            label.classList.add('selected');
         }
 
         reviewAlternativesContainer.appendChild(label);
