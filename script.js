@@ -162,11 +162,19 @@ function renderQuestion() {
     finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
 }
 
-// Salva a resposta do usuário
+// Salva a resposta do usuário e atualiza o estilo
 function handleAnswer(event) {
     if (event.target.type === 'radio') {
+        // Remove a classe 'selected' de todas as alternativas
+        document.querySelectorAll('.alternatives label').forEach(label => {
+            label.classList.remove('selected');
+        });
+        
+        // Adiciona a classe 'selected' apenas na alternativa clicada
+        event.target.parentNode.classList.add('selected');
+        
         userAnswers[currentQuestionIndex] = event.target.value;
-        saveProgress();
+        saveProgress(); // Salva o progresso a cada resposta
     }
 }
 
@@ -321,3 +329,4 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
+
