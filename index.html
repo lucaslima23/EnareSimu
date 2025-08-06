@@ -16,8 +16,19 @@
     <main>
         <section id="start-screen" class="screen active">
             <h2>Bem-vindo ao Simulador ENARE!</h2>
-            <p>Preparado para testar seus conhecimentos?</p>
-            <button id="start-button" disabled>Iniciar Simulado</button>
+            <p>Faça login para continuar ou crie uma conta.</p>
+            
+            <form id="auth-form">
+                <input type="email" id="email-input" placeholder="Seu e-mail" required>
+                <input type="password" id="password-input" placeholder="Sua senha" required>
+                <button type="submit" id="login-button" class="form-button">Entrar</button>
+                <button type="button" id="register-button" class="form-button">Cadastrar</button>
+            </form>
+            
+            <div id="quiz-options" style="display:none;">
+                <p>Usuário logado. Preparado para testar seus conhecimentos?</p>
+                <button id="start-button" disabled>Iniciar Simulado</button>
+            </div>
         </section>
 
         <section id="quiz-screen" class="screen">
@@ -72,8 +83,8 @@
         <p>© 2025 Todos os direitos reservados. Página desenvolvida por Lucas Matheus de Sousa Lima.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
-    
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
