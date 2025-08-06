@@ -350,11 +350,11 @@
     "assunto_especifico": "Trauma/Queimaduras",
     "enunciado": "Pedro Paulo, um homem de 41 anos, foi admitido no pronto-socorro após sofrer queimaduras extensas em um incêndio no seu local de trabalho. Ele apresentava queimaduras de segundo grau que cobriam aproximadamente 45% de sua superfície corporal total (SCT). O paciente pesava 70 kg e estava consciente e lúcido, mas sentia dor intensa e desconforto. Os sinais vitais eram: frequência cardíaca: 120 bpm; pressão arterial de $100/60$ mmHg; frequência respiratória de 24 ipm e saturação de oxigênio de 94% em ar ambiente. Seu médico decidiu iniciar a reanimação hídrica imediatamente. A melhor abordagem inicial para a reanimação hídrica de Pedro Paulo é:",
     "alternativas": [
-      "(A) administrar $2~ml/kg/\%SCT$ de solução de Ringer Lactato nas primeiras 24 horas, dividindo o volume total igualmente ao longo do período;",
-      "(B) administrar $8~ml/kg/\%SCT$ de solução cristaloide de NaCl a 0,9% nas primeiras 24 horas, com um ajuste para cada %SCT adicional acima de 50%;",
-      "(C) administrar $6~ml/kg/\%SCT$ de solução de Ringer Lactato nas primeiras 24 horas, com um ajuste de 10% para cada grau adicional de queimadura acima do segundo grau;",
-      "(D) administrar $4~ml/kg/\%SCT$ de solução de Ringer Lactato nas primeiras 24 horas, dividindo o volume total em duas metades: uma nas primeiras 8 horas e a outra nas 16 horas seguintes;",
-      "(E) administrar $4~ml/kg/\%SCT$ de solução coloidal de albumina nas primeiras 24 horas, dividindo o volume total em duas metades: uma nas primeiras 8 horas e a outra nas 16 horas seguintes."
+      "(A) administrar 2ml/kg/%SCT de solução de Ringer Lactato nas primeiras 24 horas, dividindo o volume total igualmente ao longo do período;",
+      "(B) administrar 8ml/kg/%SCT de solução cristaloide de NaCl a 0,9% nas primeiras 24 horas, com um ajuste para cada %SCT adicional acima de 50%;",
+      "(C) administrar 6ml/kg/%SCT de solução de Ringer Lactato nas primeiras 24 horas, com um ajuste de 10% para cada grau adicional de queimadura acima do segundo grau;",
+      "(D) administrar 4ml/kg/%SCT de solução de Ringer Lactato nas primeiras 24 horas, dividindo o volume total em duas metades: uma nas primeiras 8 horas e a outra nas 16 horas seguintes;",
+      "(E) administrar 4ml/kg/%SCT de solução coloidal de albumina nas primeiras 24 horas, dividindo o volume total em duas metades: uma nas primeiras 8 horas e a outra nas 16 horas seguintes."
     ],
     "resposta_correta": "D",
     "explicacao": ""
@@ -1500,4 +1500,5 @@
     "explicacao": ""
   }
 ]
+
 
