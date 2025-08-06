@@ -1,7 +1,0 @@
-{
-  "name": "enare-simu",
-  "version": "1.0.0",
-  "scripts": {
-    "build": "sed -i 's|VITE_SUPABASE_URL_PLACEHOLDER|'$VITE_SUPABASE_URL'|g' index.html && sed -i 's|VITE_SUPABASE_ANON_KEY_PLACEHOLDER|'$VITE_SUPABASE_ANON_KEY'|g' index.html"
-  }
-}
