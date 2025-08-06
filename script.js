@@ -1,6 +1,6 @@
 // ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente do Vercel
-const SUPABASE_URL = window.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.env.VITE_SUPABASE_ANON_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Inicializa o cliente Supabase
 const { createClient } = supabase;
