@@ -1,7 +1,8 @@
-// ATENÇÃO: SUBSTITUA ESSAS VARIÁVEIS PELAS DO SEU PROJETO SUPABASE
-const SUPABASE_URL = 'SUA_URL_SUPABASE';
-const SUPABASE_ANON_KEY = 'SUA_CHAVE_ANON';
+// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente do Vercel
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Inicializa o cliente Supabase
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -39,20 +40,21 @@ const registerButton = document.getElementById('register-button');
 const quizOptions = document.getElementById('quiz-options');
 
 // FUNÇÕES DE LÓGICA E ESTADO
+
 // Carrega as questões do arquivo JSON e inicia o processo
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
         
-        const isProgressLoaded = loadProgress(data);
+        const isProgressLoaded = await loadProgress(data);
 
         if (!isProgressLoaded) {
             questions = data;
             selectAndShuffleQuestions();
         }
         
-        checkUser(); // <--- Verifica se há usuário logado ao carregar
+        checkUser(); // Verifica se há usuário logado ao carregar
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -69,11 +71,12 @@ async function checkUser() {
     } else {
         authForm.style.display = 'block';
         quizOptions.style.display = 'none';
+        enableStartButton();
     }
 }
 
 // Salva o progresso no Supabase ou no localStorage
-function saveProgress() {
+async function saveProgress() {
     try {
         const progress = {
             questions: questions,
@@ -83,8 +86,13 @@ function saveProgress() {
         };
         
         if (userSession) {
-            // Lógica para salvar no Supabase (será implementada na próxima etapa)
-            console.log('Salvando progresso no banco de dados...');
+            // Lógica para salvar no Supabase (precisa de uma tabela configurada)
+            // Esta é uma implementação de exemplo. A sua tabela pode ser diferente.
+            const { data, error } = await supabaseClient
+                .from('performance')
+                .upsert({ user_id: userSession.id, data: progress });
+            
+            if (error) console.error('Erro ao salvar desempenho no Supabase:', error);
         } else {
             localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
         }
@@ -93,9 +101,31 @@ function saveProgress() {
     }
 }
 
-// Carrega o progresso do localStorage
-function loadProgress(data) {
+// Carrega o progresso do Supabase ou do localStorage
+async function loadProgress(data) {
     try {
+        // Tenta carregar do Supabase primeiro se houver usuário logado
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (user) {
+            const { data: progressData, error } = await supabaseClient
+                .from('performance')
+                .select('data')
+                .eq('user_id', user.id)
+                .single();
+
+            if (progressData && !error) {
+                const progress = progressData.data;
+                questions = progress.questions;
+                userAnswers = progress.userAnswers;
+                currentQuestionIndex = progress.currentQuestionIndex;
+                timeRemaining = progress.timeRemaining;
+                startButton.innerText = 'Continuar Simulador';
+                userSession = user;
+                return true;
+            }
+        }
+        
+        // Se não houver usuário ou dados no Supabase, tenta o localStorage
         const savedProgress = localStorage.getItem('enareSimuProgress');
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
@@ -107,7 +137,7 @@ function loadProgress(data) {
             return true;
         }
     } catch (error) {
-        console.error('Erro ao carregar o progresso do localStorage:', error);
+        console.error('Erro ao carregar o progresso:', error);
     }
     return false;
 }
@@ -309,7 +339,7 @@ function renderResults() {
             <div class="report-area">
                 <h3>${area}</h3>
                 <div class="performance-charts">
-                    <div class="chart-container" style="background: conic-gradient(#007BFF ${areaPercentage}%, #dc3545 0%);">
+                    <div class="chart-container" style="background: conic-gradient(var(--primary-color) ${areaPercentage}%, var(--secondary-color) 0%);">
                         <span class="chart-text">Seu Desempenho<br>${areaPercentage}%</span>
                     </div>
                     <div class="chart-container" style="background: conic-gradient(lightgrey 50%, #ccc 0%);">
@@ -381,6 +411,34 @@ function renderReviewQuestion() {
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
 
+// Funções de Autenticação
+async function signIn(email, password) {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no login:', error.message);
+        alert('Erro no login: ' + error.message);
+    } else {
+        userSession = data.user;
+        checkUser();
+    }
+}
+
+async function signUp(email, password) {
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no registro:', error.message);
+        alert('Erro no registro: ' + error.message);
+    } else {
+        alert('Registro realizado! Por favor, verifique seu e-mail.');
+    }
+}
+
 // Função de depuração para pular para a tela de resultados
 function debugEndQuiz() {
     clearInterval(timerInterval);
@@ -420,5 +478,16 @@ backToResultsButton.addEventListener('click', () => {
     reviewScreen.classList.remove('active');
     resultsScreen.classList.add('active');
 });
+
+// Event listeners do formulário de autenticação
+authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await signIn(emailInput.value, passwordInput.value);
+});
+
+registerButton.addEventListener('click', async () => {
+    await signUp(emailInput.value, passwordInput.value);
+});
+
 
 loadQuestions();
