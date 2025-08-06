@@ -128,3 +128,82 @@ header {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+/* Estilos para o novo relatório de resultados */
+.report-area {
+    margin-bottom: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+}
+
+.report-area h3 {
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+.performance-charts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.chart-text {
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    z-index: 10;
+}
+
+.subjects-list {
+    list-style: none;
+    padding: 0;
+}
+
+.subjects-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.subjects-list li .subject-title {
+    font-weight: bold;
+}
+
+.subjects-list li .percentage {
+    float: right;
+    font-weight: bold;
+}
+
+.subjects-list li .percentage.red {
+    color: #dc3545;
+}
+
+.review-suggestion {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9f5ff;
+    border-left: 5px solid #007BFF;
+}
+
+.review-suggestion strong {
+    color: #dc3545;
+}
+
