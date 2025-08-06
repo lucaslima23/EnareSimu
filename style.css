@@ -44,6 +44,7 @@ header {
     font-weight: bold;
 }
 
+/* Estilos para as alternativas do quiz */
 #quiz-screen .alternatives label {
     display: flex;
     align-items: center;
@@ -55,46 +56,23 @@ header {
     cursor: pointer;
 }
 
+/* Estilo para alternativa selecionada no quiz */
 #quiz-screen .alternatives label.selected {
     background-color: #d1e7f9;
     border-color: #007bff;
 }
 
-/* Regra mais específica para ocultar o botão de rádio */
+/* Esconde o botão de rádio na tela do quiz */
 #quiz-screen .alternatives input[type="radio"] {
     display: none !important;
 }
 
+/* Estilos para as alternativas do quiz ao passar o mouse */
 #quiz-screen .alternatives label:hover {
     background-color: #e9e9e9;
 }
 
-.navigation-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.navigation-buttons button,
-#start-button,
-.actions button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.navigation-buttons button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.navigation-buttons .finish-button {
-    background-color: #dc3545;
-}
-
+/* Estilos para a tela de resultados */
 #results-screen {
     text-align: center;
 }
@@ -111,25 +89,37 @@ header {
     margin-top: 20px;
 }
 
-.explanation {
+/* Estilos para a tela de revisão */
+#review-screen .alternatives label {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#review-screen .alternatives .correct {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+#review-screen .alternatives .incorrect {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.review-suggestion {
     margin-top: 20px;
     padding: 15px;
     background-color: #e9f5ff;
     border-left: 5px solid #007BFF;
 }
 
-/* Estilos de revisão */
-.alternatives .correct {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+.review-suggestion strong {
+    color: #dc3545;
 }
 
-.alternatives .incorrect {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-}
-
-/* Estilos para o novo relatório de resultados */
+/* Estilos para o relatório */
 .report-area {
     margin-bottom: 40px;
     padding: 20px;
@@ -206,4 +196,3 @@ header {
 .review-suggestion strong {
     color: #dc3545;
 }
-
