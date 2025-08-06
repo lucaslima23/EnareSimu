@@ -482,6 +482,10 @@ function renderReviewQuestion() {
 
 // Funções de Autenticação
 async function signIn(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
     const { data, error } = await supabaseClient.auth.signInWithPassword({
         email: email,
         password: password
@@ -496,6 +500,10 @@ async function signIn(email, password) {
 }
 
 async function signUp(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
     const { data, error } = await supabaseClient.auth.signUp({
         email: email,
         password: password
