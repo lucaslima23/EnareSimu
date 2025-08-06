@@ -16,22 +16,21 @@
     <main>
         <section id="start-screen" class="screen active">
             <h2>Bem-vindo ao Simulador ENARE!</h2>
-            
+
             <div id="auth-container">
                 <form id="auth-form">
-                    <p>Faça login para continuar ou crie uma conta.</p>
+                    <p>Faça login para continuar.</p>
                     <input type="email" id="email-input" placeholder="Seu e-mail" required>
                     <input type="password" id="password-input" placeholder="Sua senha" required>
                     <button type="submit" id="login-button" class="form-button">Entrar</button>
-                    <button type="button" id="register-button" class="form-button">Cadastrar</button>
                 </form>
 
-                <div id="payment-options" style="display:none;">
-                    <p>Para acessar o simulado completo, assine agora:</p>
-                    <button id="payment-button" class="form-button">Acesso Anual (R$ 299,90)</button>
+                <div id="payment-options">
+                    <p>Para ter acesso, assine nossa plataforma.</p>
+                    <button id="payment-button" class="form-button">Assinar Plataforma (R$ 299,90/ano)</button>
                 </div>
             </div>
-            
+
             <div id="quiz-options" style="display:none;">
                 <p id="user-welcome-message">Olá!</p>
                 <button id="start-button" disabled>Iniciar Simulador</button>
@@ -57,7 +56,7 @@
         </section>
 
         <section id="results-screen" class="screen">
-            <h2>Resultados do Simulador</h2>
+            <h2>Resultados do Simulado</h2>
             <div id="results-summary">
                 </div>
             <div class="actions">
