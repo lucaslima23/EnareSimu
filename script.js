@@ -1,8 +1,4 @@
-// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente injetadas no HTML
-const SUPABASE_URL = "SUA_URL_SUPABASE";
-const SUPABASE_ANON_KEY = "SUA_CHAVE_ANON";
-
-// Inicializa o cliente Supabase
+// A inicialização do cliente Supabase será feita de forma assíncrona
 let supabaseClient = null;
 
 // Variáveis do simulador
