@@ -92,6 +92,12 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        window.env = {
+            VITE_SUPABASE_URL: "SUA_URL_SUPABASE",
+            VITE_SUPABASE_ANON_KEY: "SUA_CHAVE_ANON"
+        };
+    </script>
     <script type="module" src="script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
