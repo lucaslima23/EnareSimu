@@ -1,6 +1,6 @@
 // ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente do Vercel
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const SUPABASE_URL = window.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.env.VITE_SUPABASE_ANON_KEY;
 
 // Inicializa o cliente Supabase
 const { createClient } = supabase;
@@ -54,7 +54,7 @@ async function loadQuestions() {
         const data = await response.json();
         questions = data;
         
-        await checkUser(); // <--- O primeiro passo é sempre checar o usuário
+        await checkUser();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -70,21 +70,20 @@ async function checkUser() {
         quizOptions.style.display = 'block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        // Lógica de verificação de assinatura
-        const hasSubscription = false; // <<< AQUI VOCÊ FARÁ A VERIFICAÇÃO DO STATUS DE ASSINATURA
+        const hasSubscription = false;
 
         if (hasSubscription) {
-            await loadProgress(); // Carrega o progresso do usuário logado
+            await loadProgress();
             enableStartButton();
         } else {
-            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
-            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
+            paymentOptions.style.display = 'block';
+            startButton.style.display = 'none';
         }
     } else {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'none';
         quizOptions.style.display = 'none';
-        enableStartButton(); // Habilita o botão para o login/cadastro
+        enableStartButton();
     }
 }
 
