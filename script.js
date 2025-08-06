@@ -102,16 +102,21 @@ function renderQuestion() {
 
         const label = document.createElement('label');
         label.htmlFor = input.id;
-        label.innerText = alt;
+        
+        // Adiciona o input e o texto dentro do label
+        label.appendChild(input);
+        label.innerHTML += alt;
 
+        // Se o usuário já respondeu, marca a resposta
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
         }
 
-        alternativesContainer.appendChild(input);
+        // Adiciona o label completo (com o input dentro) ao contêiner
         alternativesContainer.appendChild(label);
     });
 
+    // Atualiza o estado dos botões de navegação
     previousButton.disabled = currentQuestionIndex === 0;
     nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
     finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
@@ -270,3 +275,4 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
+
