@@ -46,15 +46,10 @@ async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
+        questions = data;
         
-        const isProgressLoaded = await loadProgress(data);
-
-        if (!isProgressLoaded) {
-            questions = data;
-            selectAndShuffleQuestions();
-        }
+        await checkUser(); // <--- O primeiro passo é sempre checar o usuário
         
-        checkUser(); // Verifica se há usuário logado ao carregar
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -67,11 +62,14 @@ async function checkUser() {
         userSession = user;
         authForm.style.display = 'none';
         quizOptions.style.display = 'block';
+        
+        await loadProgress(); // <--- Só carrega o progresso se houver usuário
         enableStartButton();
     } else {
+        userSession = null;
         authForm.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton();
+        enableStartButton(); // Habilita o botão para o login/cadastro
     }
 }
 
@@ -86,8 +84,6 @@ async function saveProgress() {
         };
         
         if (userSession) {
-            // Lógica para salvar no Supabase (precisa de uma tabela configurada)
-            // Esta é uma implementação de exemplo. A sua tabela pode ser diferente.
             const { data, error } = await supabaseClient
                 .from('performance')
                 .upsert({ user_id: userSession.id, data: progress });
@@ -102,30 +98,26 @@ async function saveProgress() {
 }
 
 // Carrega o progresso do Supabase ou do localStorage
-async function loadProgress(data) {
+async function loadProgress() {
     try {
-        // Tenta carregar do Supabase primeiro se houver usuário logado
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user) {
+        if (userSession) {
             const { data: progressData, error } = await supabaseClient
                 .from('performance')
                 .select('data')
-                .eq('user_id', user.id)
+                .eq('user_id', userSession.id)
                 .single();
 
-            if (progressData && !error) {
+            if (progressData && progressData.data) {
                 const progress = progressData.data;
                 questions = progress.questions;
                 userAnswers = progress.userAnswers;
                 currentQuestionIndex = progress.currentQuestionIndex;
                 timeRemaining = progress.timeRemaining;
                 startButton.innerText = 'Continuar Simulador';
-                userSession = user;
                 return true;
             }
         }
         
-        // Se não houver usuário ou dados no Supabase, tenta o localStorage
         const savedProgress = localStorage.getItem('enareSimuProgress');
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
@@ -133,12 +125,13 @@ async function loadProgress(data) {
             userAnswers = progress.userAnswers;
             currentQuestionIndex = progress.currentQuestionIndex;
             timeRemaining = progress.timeRemaining;
-            startButton.innerText = 'Continuar Simulado';
+            startButton.innerText = 'Continuar Simulador';
             return true;
         }
     } catch (error) {
         console.error('Erro ao carregar o progresso:', error);
     }
+    selectAndShuffleQuestions();
     return false;
 }
 
