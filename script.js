@@ -459,21 +459,16 @@ function renderReviewQuestion() {
     document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
 
     question.alternativas.forEach((alt, index) => {
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'alternative';
-        input.id = `q${currentQuestionIndex}-alt${index}`;
-        input.value = String.fromCharCode(65 + index);
-
+        const optionLetter = String.fromCharCode(65 + index);
         const label = document.createElement('label');
-        label.htmlFor = input.id;
+        label.innerText = alt;
         
-        label.appendChild(input);
-        label.innerHTML += alt;
-
-        if (userAnswers[currentQuestionIndex] === input.value) {
-            input.checked = true;
-            label.classList.add('selected');
+        if (optionLetter === question.resposta_correta) {
+            label.classList.add('correct');
+            label.innerHTML += ' **(Correta)**';
+        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
+            label.classList.add('incorrect');
+            label.innerHTML += ' **(Sua resposta)**';
         }
 
         reviewAlternativesContainer.appendChild(label);
@@ -483,6 +478,42 @@ function renderReviewQuestion() {
     
     document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
+}
+
+// Funções de Autenticação
+async function signIn(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no login:', error.message);
+        alert('Erro no login: ' + error.message);
+    } else {
+        userSession = data.user;
+        checkUser();
+    }
+}
+
+async function signUp(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no registro:', error.message);
+        alert('Erro no registro: ' + error.message);
+    } else {
+        alert('Registro realizado! Por favor, verifique seu e-mail.');
+    }
 }
 
 // Função de depuração para pular para a tela de resultados
@@ -537,5 +568,3 @@ registerButton.addEventListener('click', async () => {
 
 
 loadQuestions();
-
-
