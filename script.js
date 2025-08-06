@@ -480,19 +480,6 @@ async function signUp(email, password) {
     }
 }
 
-async function signOut() {
-    if (!supabaseClient) {
-        return;
-    }
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-        console.error('Erro ao sair:', error.message);
-    } else {
-        userSession = null;
-        window.location.reload();
-    }
-}
-
 // Função de depuração para pular para a tela de resultados
 function debugEndQuiz() {
     clearInterval(timerInterval);
@@ -545,4 +532,5 @@ registerButton.addEventListener('click', async () => {
 
 // Inicia a aplicação após a definição de todas as funções
 init();
+
 
