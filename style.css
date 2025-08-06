@@ -45,8 +45,8 @@ header {
 }
 
 .alternatives label {
-    display: flex; /* Faz com que os itens dentro da label fiquem lado a lado */
-    align-items: center; /* Alinha o conteúdo verticalmente no centro */
+    display: flex;
+    align-items: center;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
@@ -55,8 +55,14 @@ header {
     cursor: pointer;
 }
 
+.alternatives label.selected {
+    background-color: #d1e7f9;
+    border-color: #007bff;
+}
+
+/* Esconde o botão de rádio, mas a label continua funcional */
 .alternatives input[type="radio"] {
-    margin-right: 10px; /* Adiciona um espaço entre o botão e o texto */
+    display: none;
 }
 
 .alternatives label:hover {
@@ -122,4 +128,3 @@ header {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
-
