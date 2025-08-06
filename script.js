@@ -1,10 +1,5 @@
-// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente injetadas no HTML
-const SUPABASE_URL = "SUA_URL_SUPABASE";
-const SUPABASE_ANON_KEY = "SUA_CHAVE_ANON";
-
-// Inicializa o cliente Supabase
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// A inicialização do cliente Supabase será feita de forma assíncrona
+let supabaseClient = null;
 
 // Variáveis do simulador
 let questions = [];
@@ -46,6 +41,25 @@ const logoutButton = document.getElementById('logout-button');
 
 
 // FUNÇÕES DE LÓGICA E ESTADO
+
+// Carrega as chaves do Supabase e depois as questões
+async function init() {
+    try {
+        const response = await fetch('/api/config');
+        const env = await response.json();
+        
+        if (!env.supabaseUrl || !env.supabaseAnonKey) {
+            throw new Error('As chaves do Supabase não foram carregadas. Verifique as variáveis de ambiente no Vercel.');
+        }
+
+        const { createClient } = supabase;
+        supabaseClient = createClient(env.supabaseUrl, env.supabaseAnonKey);
+
+        await loadQuestions();
+    } catch (error) {
+        console.error('Falha na inicialização:', error);
+    }
+}
 
 // Carrega as questões do arquivo JSON
 async function loadQuestions() {
