@@ -44,6 +44,9 @@ body {
     padding: 0;
     min-height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 main {
@@ -51,19 +54,17 @@ main {
     max-width: 800px;
     background-color: var(--main-bg-color);
     padding: 30px;
-    margin: 30px auto;
+    margin: 30px 20px;
     border-radius: 12px;
     box-shadow: 0 6px 20px var(--shadow-color);
 }
 
 header {
-    width: auto;
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    z-index: 100;
-    padding-bottom: 0;
-    margin: 0;
+    width: 90%;
+    max-width: 800px;
+    padding-bottom: 20px;
+    text-align: left;
+    margin-top: 20px;
 }
 
 header img {
@@ -83,6 +84,44 @@ header img {
 
 #start-screen {
     text-align: center;
+}
+
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+#auth-form input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+#auth-form .form-button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#auth-form .form-button:hover {
+    transform: translateY(-2px);
+    background-color: #275da9;
+    box-shadow: 0 4px 8px rgba(51, 114, 227, 0.3);
+}
+
+#quiz-options {
+    margin-top: 30px;
 }
 
 .header-quiz {
@@ -294,7 +333,7 @@ header img {
     }
     
     header {
-        position: static; /* Voltar ao fluxo normal */
+        position: static;
         width: 100%;
         text-align: center;
         padding-top: 15px;
@@ -302,7 +341,7 @@ header img {
     }
     
     header img {
-        height: 60px; /* Reduz o tamanho da logo */
+        height: 60px;
         margin: 0 auto;
     }
     
@@ -313,12 +352,12 @@ header img {
     }
     
     .performance-charts {
-        flex-direction: column; /* Empilha os gráficos na vertical */
+        flex-direction: column;
         align-items: center;
     }
     
     .chart-container {
-        width: 120px; /* Reduz o tamanho dos gráficos */
+        width: 120px;
         height: 120px;
     }
     
