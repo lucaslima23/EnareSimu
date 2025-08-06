@@ -229,26 +229,91 @@ function endQuiz() {
 
 // Exibe a tela de resultados
 function renderResults() {
-    let score = 0;
-    const areasPerformance = {};
+    let resultsContainer = document.getElementById('results-summary');
+    resultsContainer.innerHTML = '';
+
+    const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
+
+    // Processa os resultados para calcular o desempenho por área e assunto
+    const performanceData = {};
 
     questions.forEach((q, index) => {
         const userAnswer = userAnswers[index];
         const isCorrect = userAnswer === q.resposta_correta;
-
-        if (isCorrect) {
-            score++;
-        }
-
         const area = q.area;
-        if (!areasPerformance[area]) {
-            areasPerformance[area] = { correct: 0, total: 0 };
+        const assunto = q.assunto_especifico;
+
+        if (!performanceData[area]) {
+            performanceData[area] = { correct: 0, total: 0, subjects: {} };
         }
-        areasPerformance[area].total++;
+        performanceData[area].total++;
         if (isCorrect) {
-            areasPerformance[area].correct++;
+            performanceData[area].correct++;
+        }
+
+        if (!performanceData[area].subjects[assunto]) {
+            performanceData[area].subjects[assunto] = { correct: 0, total: 0 };
+        }
+        performanceData[area].subjects[assunto].total++;
+        if (isCorrect) {
+            performanceData[area].subjects[assunto].correct++;
         }
     });
+
+    // Gera o HTML para cada área
+    areas.forEach(area => {
+        const areaPerformance = performanceData[area] || { correct: 0, total: 0, subjects: {} };
+        const areaPercentage = areaPerformance.total > 0 ? (areaPerformance.correct / areaPerformance.total * 100).toFixed(2) : 0;
+        const areaIncorrect = areaPerformance.total - areaPerformance.correct;
+
+        // Processa os assuntos específicos para a lista ordenada
+        const subjectsList = Object.keys(areaPerformance.subjects).map(assunto => {
+            const subjectData = areaPerformance.subjects[assunto];
+            const percentage = (subjectData.correct / subjectData.total * 100).toFixed(2);
+            return { assunto, percentage };
+        }).sort((a, b) => b.percentage - a.percentage); // Ordena por porcentagem decrescente
+
+        // Filtra assuntos com menos de 50% de acerto para a sugestão de revisão
+        const subjectsToReview = subjectsList.filter(s => s.percentage < 50);
+
+        // Gera o HTML da seção
+        const areaHtml = `
+            <div class="report-area">
+                <h3>${area}</h3>
+                <div class="performance-charts">
+                    <div class="chart-container" style="background: conic-gradient(#007BFF ${areaPercentage}%, #dc3545 0%);">
+                        <span class="chart-text">Seu Desempenho<br>${areaPercentage}%</span>
+                    </div>
+                    <div class="chart-container" style="background: conic-gradient(lightgrey 50%, #ccc 0%);">
+                        <span class="chart-text">Média Geral<br>Em breve</span>
+                    </div>
+                </div>
+
+                <h4>Desempenho por Assunto:</h4>
+                <ul class="subjects-list">
+                    ${subjectsList.map(s => `
+                        <li>
+                            <span class="subject-title">${s.assunto}</span>
+                            <span class="percentage ${s.percentage < 50 ? 'red' : ''}">${s.percentage}%</span>
+                        </li>
+                    `).join('')}
+                </ul>
+
+                <div class="review-suggestion">
+                    <p>
+                        **Análise e Sugestão:**
+                        ${subjectsToReview.length > 0 ? `Seu desempenho nesta área foi de **${areaPercentage}%**. Sugerimos revisar os seguintes assuntos, do mais fraco para o menos fraco: <strong>${subjectsToReview.map(s => s.assunto).join(', ')}</strong>.` : `Seu desempenho nesta área foi excelente! Não há assuntos com menos de 50% de acerto para revisar.`}
+                    </p>
+                </div>
+            </div>
+        `;
+
+        resultsContainer.innerHTML += areaHtml;
+    });
+
+    // Limpa o localStorage para um novo simulado
+    localStorage.removeItem('enareSimuProgress');
+}
 
     const summaryHtml = `
         <p>Você acertou **${score}** de **${questions.length}** questões.</p>
@@ -354,3 +419,4 @@ function debugEndQuiz() {
     // Gerar e exibir o relatório de desempenho
     renderResults();
 }
+
