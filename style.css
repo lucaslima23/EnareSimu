@@ -67,7 +67,7 @@ header {
 }
 
 header img {
-    height: 80px;
+    height: 200px;
     width: auto;
     margin: 0;
 }
@@ -284,3 +284,4 @@ header img {
 .subjects-list li .percentage.red {
     color: var(--secondary-color);
 }
+
