@@ -5,7 +5,7 @@
 :root {
     /* Modo Claro (Padrão) */
     --bg-color: linear-gradient(135deg, #e0e9ec, #ffffff);
-    --text-color: #333;
+    --text-color: #352f23;
     --main-bg-color: #ffffff;
     --card-bg-color: #f9f9f9;
     --border-color: #ddd;
@@ -42,11 +42,8 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
     min-height: 100vh;
+    position: relative; /* Adiciona posição relativa para posicionar o header */
 }
 
 main {
@@ -54,24 +51,25 @@ main {
     max-width: 800px;
     background-color: var(--main-bg-color);
     padding: 30px;
-    margin: 30px 20px;
+    margin: 30px auto; /* Centraliza o bloco main */
     border-radius: 12px;
     box-shadow: 0 6px 20px var(--shadow-color);
 }
 
 header {
-    width: 90%;
-    max-width: 800px;
-    padding-bottom: 20px;
-    text-align: left;
-    margin-top: 20px;
+    width: auto;
+    position: absolute; /* Posição absoluta para fixar no canto */
+    top: 30px; /* Distância do topo */
+    left: 30px; /* Distância da esquerda */
+    z-index: 100; /* Garante que a logo fique sobre outros elementos */
+    padding-bottom: 0; /* Remove o padding do cabeçalho */
+    margin: 0;
 }
 
 header img {
-    height: auto;
-    width: 25%; /* Define a largura da logo para 25% */
-    max-width: 200px; /* Adiciona uma largura máxima para evitar que a logo fique muito grande em telas amplas */
-    margin: 10px 0;
+    height: 80px;
+    width: auto;
+    margin: 0;
 }
 
 .screen {
