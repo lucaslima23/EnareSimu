@@ -150,8 +150,10 @@ function renderQuestion() {
         label.appendChild(input);
         label.innerHTML += alt;
 
+        // Adiciona a classe 'selected' se esta for a resposta do usuário
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
+            label.classList.add('selected');
         }
 
         alternativesContainer.appendChild(label);
@@ -329,4 +331,5 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
+
 
