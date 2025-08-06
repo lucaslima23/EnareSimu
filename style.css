@@ -1,7 +1,42 @@
+/* Paleta de Cores e Fundo */
+:root {
+    /* Modo Claro (Baseado em Beige e Walnut Brown) */
+    --bg-color: #f6f7f0; /* Um tom mais claro do Beige */
+    --text-color: #352f23; /* Walnut Brown 300 para o texto */
+    --main-bg-color: #e3e7d1; /* Beige 700 */
+    --card-bg-color: #d2d8b3; /* Beige DEFAULT */
+    --border-color: #b2bc7e; /* Beige 400 */
+    --primary-color: #f5853f; /* Pumpkin DEFAULT */
+    --secondary-color: #dc3545; /* Mantido para erros/vermelho */
+    --correct-color: #d4edda;
+    --correct-border: #c3e6cb;
+    --incorrect-color: #f8d7da;
+    --incorrect-border: #f5c6cb;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Modo Escuro (Baseado em Dark Purple e Federal Blue) */
+        --bg-color: #0a0208; /* Dark Purple 100 */
+        --text-color: #fde6d8; /* Um tom claro da paleta Pumpkin */
+        --main-bg-color: #320a28; /* Dark Purple DEFAULT */
+        --card-bg-color: #080357; /* Federal blue DEFAULT */
+        --border-color: #594f3b; /* Walnut Brown */
+        --primary-color: #f5853f; /* Pumpkin DEFAULT */
+        --secondary-color: #f04747; /* Mantido para erros */
+        --correct-color: #43b581;
+        --correct-border: #2e8b57;
+        --incorrect-color: #f04747;
+        --incorrect-border: #cc3e3e;
+        --shadow-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,11 +48,11 @@ body {
 main {
     width: 90%;
     max-width: 800px;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     padding: 20px;
     margin: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 header {
@@ -48,18 +83,21 @@ header {
 #quiz-screen .alternatives label {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 /* Estilo para alternativa selecionada no quiz */
 #quiz-screen .alternatives label.selected {
-    background-color: #d1e7f9;
-    border-color: #007bff;
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(245, 133, 63, 0.5); /* Sombra da cor primária */
 }
 
 /* Esconde o botão de rádio na tela do quiz */
@@ -69,10 +107,49 @@ header {
 
 /* Estilos para as alternativas do quiz ao passar o mouse */
 #quiz-screen .alternatives label:hover {
-    background-color: #e9e9e9;
+    background-color: var(--border-color); /* Mudança sutil na cor */
 }
 
-/* Estilos para a tela de resultados */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.navigation-buttons button,
+#start-button,
+.actions button {
+    padding: 12px 24px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.navigation-buttons button:hover,
+#start-button:hover,
+.actions button:hover {
+    transform: translateY(-2px);
+    background-color: #d67138; /* Um tom mais escuro do Pumpkin */
+}
+
+.navigation-buttons button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.navigation-buttons .finish-button {
+    background-color: var(--secondary-color);
+}
+
+.navigation-buttons .finish-button:hover {
+    background-color: #a52933;
+}
+
 #results-screen {
     text-align: center;
 }
@@ -94,42 +171,47 @@ header {
     display: block;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
+    background-color: var(--card-bg-color);
 }
 
 #review-screen .alternatives .correct {
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+    background-color: var(--correct-color);
+    border-color: var(--correct-border);
+    color: var(--text-color);
 }
 
 #review-screen .alternatives .incorrect {
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
+    background-color: var(--incorrect-color);
+    border-color: var(--incorrect-border);
+    color: var(--text-color);
 }
 
 .review-suggestion {
     margin-top: 20px;
     padding: 15px;
-    background-color: #e9f5ff;
-    border-left: 5px solid #007BFF;
+    background-color: var(--card-bg-color);
+    border-left: 5px solid var(--primary-color);
+    color: var(--text-color);
 }
 
 .review-suggestion strong {
-    color: #dc3545;
+    color: var(--secondary-color);
 }
 
 /* Estilos para o relatório */
 .report-area {
     margin-bottom: 40px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fcfcfc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: var(--main-bg-color);
+    box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 .report-area h3 {
-    border-bottom: 2px solid #007BFF;
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
 }
 
@@ -151,15 +233,16 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--text-color);
     font-weight: bold;
+    border: 3px solid var(--border-color);
 }
 
 .chart-text {
     position: absolute;
     font-size: 1.2em;
     font-weight: bold;
-    color: #333;
+    color: var(--text-color);
     z-index: 10;
 }
 
@@ -170,7 +253,7 @@ header {
 
 .subjects-list li {
     padding: 8px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .subjects-list li .subject-title {
@@ -183,16 +266,5 @@ header {
 }
 
 .subjects-list li .percentage.red {
-    color: #dc3545;
-}
-
-.review-suggestion {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #e9f5ff;
-    border-left: 5px solid #007BFF;
-}
-
-.review-suggestion strong {
-    color: #dc3545;
+    color: var(--secondary-color);
 }
