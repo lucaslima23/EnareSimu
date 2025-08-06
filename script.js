@@ -32,7 +32,6 @@ const authForm = document.getElementById('auth-form');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 const loginButton = document.getElementById('login-button');
-const registerButton = document.getElementById('register-button');
 const paymentOptions = document.getElementById('payment-options');
 const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
@@ -57,23 +56,6 @@ async function signIn(email, password) {
     } else {
         userSession = data.user;
         checkUser();
-    }
-}
-
-async function signUp(email, password) {
-    if (!supabaseClient) {
-        console.error('Supabase client is not initialized.');
-        return;
-    }
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
-    if (error) {
-        console.error('Erro no registro:', error.message);
-        alert('Erro no registro: ' + error.message);
-    } else {
-        alert('Registro realizado! Por favor, verifique seu e-mail.');
     }
 }
 
@@ -112,7 +94,7 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
-        
+
         await checkUser();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
@@ -127,26 +109,27 @@ async function checkUser() {
     }
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
-    
+
     if (user) {
         authContainer.style.display = 'none';
         quizOptions.style.display = 'block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
-        
-        const hasSubscription = false;
+
+        // Lógica de verificação de assinatura
+        const hasSubscription = false; // <<< AQUI VOCÊ FARÁ A VERIFICAÇÃO DO STATUS DE ASSINATURA
 
         if (hasSubscription) {
-            await loadProgress();
+            await loadProgress(); // Carrega o progresso do usuário logado
             enableStartButton();
         } else {
-            paymentOptions.style.display = 'block';
-            startButton.style.display = 'none';
+            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
+            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
         }
     } else {
         authContainer.style.display = 'block';
-        paymentOptions.style.display = 'none';
+        paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton();
+        enableStartButton(); // Habilita o botão para o login/cadastro
     }
 }
 
@@ -159,12 +142,12 @@ async function saveProgress() {
             currentQuestionIndex: currentQuestionIndex,
             timeRemaining: timeRemaining
         };
-        
+
         if (userSession) {
             const { data, error } = await supabaseClient
                 .from('performance')
                 .upsert({ user_id: userSession.id, data: progress }, { onConflict: 'user_id' });
-            
+
             if (error) console.error('Erro ao salvar desempenho no Supabase:', error);
         } else {
             localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
@@ -194,7 +177,7 @@ async function loadProgress() {
                 return;
             }
         }
-        
+
         const savedProgress = localStorage.getItem('enareSimuProgress');
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
@@ -241,7 +224,7 @@ function selectAndShuffleQuestions() {
         }
         finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
     }
-    
+
     for (let i = finalQuestions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
@@ -253,13 +236,13 @@ function selectAndShuffleQuestions() {
 function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
-    
+
     if (startButton.innerText === 'Iniciar Simulador') {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         timeRemaining = 5 * 60 * 60;
     }
-    
+
     renderQuestion();
     startTimer();
 }
@@ -280,7 +263,7 @@ function renderQuestion() {
 
         const label = document.createElement('label');
         label.htmlFor = input.id;
-        
+
         label.appendChild(input);
         label.innerHTML += alt;
 
@@ -303,9 +286,9 @@ function handleAnswer(event) {
         document.querySelectorAll('.alternatives label').forEach(label => {
             label.classList.remove('selected');
         });
-        
+
         event.target.parentNode.classList.add('selected');
-        
+
         userAnswers[currentQuestionIndex] = event.target.value;
         saveProgress();
     }
@@ -462,7 +445,7 @@ function renderReviewQuestion() {
         const optionLetter = String.fromCharCode(65 + index);
         const label = document.createElement('label');
         label.innerText = alt;
-        
+
         if (optionLetter === question.resposta_correta) {
             label.classList.add('correct');
             label.innerHTML += ' **(Correta)**';
@@ -475,9 +458,58 @@ function renderReviewQuestion() {
     });
 
     reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
-    
+
     document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
+}
+
+// Funções de Autenticação
+async function signIn(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no login:', error.message);
+        alert('Erro no login: ' + error.message);
+    } else {
+        userSession = data.user;
+        checkUser();
+    }
+}
+
+async function signUp(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no registro:', error.message);
+        alert('Erro no registro: ' + error.message);
+    } else {
+        alert('Registro realizado! Por favor, verifique seu e-mail.');
+    }
+}
+
+async function signOut() {
+    if (!supabaseClient) {
+        return;
+    }
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) {
+        console.error('Erro ao sair:', error.message);
+    } else {
+        userSession = null;
+        window.location.reload();
+    }
 }
 
 // Função de depuração para pular para a tela de resultados
@@ -530,6 +562,5 @@ registerButton.addEventListener('click', async () => {
     await signUp(emailInput.value, passwordInput.value);
 });
 
-
-loadQuestions();
-
+// Inicia a aplicação após a definição de todas as funções
+init();
