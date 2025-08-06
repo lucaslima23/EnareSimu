@@ -1,102 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador ENARE</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css?v=2">
-</head>
-<body>
-    <header>
-        <img src="logo.svg" alt="Logo EnareSimu">
-    </header>
+<section id="start-screen" class="screen active">
+    <h2>Bem-vindo ao Simulador ENARE!</h2>
+    <p>Faça login para continuar ou crie uma conta.</p>
+    
+    <div id="auth-container">
+        <form id="auth-form">
+            <input type="email" id="email-input" placeholder="Seu e-mail" required>
+            <input type="password" id="password-input" placeholder="Sua senha" required>
+            <button type="submit" id="login-button" class="form-button">Entrar</button>
+            <button type="button" id="register-button" class="form-button">Cadastrar</button>
+        </form>
 
-    <main>
-        <section id="start-screen" class="screen active">
-            <h2>Bem-vindo ao Simulador ENARE!</h2>
-            <p>Faça login para continuar ou crie uma conta.</p>
-            
-            <form id="auth-form">
-                <input type="email" id="email-input" placeholder="Seu e-mail" required>
-                <input type="password" id="password-input" placeholder="Sua senha" required>
-                <button type="submit" id="login-button" class="form-button">Entrar</button>
-                <button type="button" id="register-button" class="form-button">Cadastrar</button>
-            </form>
-            
-            <div id="quiz-options" style="display:none;">
-                <p>Usuário logado. Preparado para testar seus conhecimentos?</p>
-                <button id="start-button" disabled>Iniciar Simulado</button>
-            </div>
-        </section>
-
-        <section id="quiz-screen" class="screen">
-            <div class="header-quiz">
-                <span id="question-counter">Questão 1/100</span>
-                <span id="timer">Tempo: 05:00:00</span>
-            </div>
-            <div id="question-container">
-                <p id="question-text">Carregando...</p>
-                <div id="alternatives-container" class="alternatives">
-                    </div>
-            </div>
-            <div class="navigation-buttons">
-                <button id="previous-button" disabled>Anterior</button>
-                <button id="next-button">Próxima</button>
-                <button id="finish-button" class="finish-button" style="display:none;">Finalizar</button>
-            </div>
-        </section>
-
-        <section id="results-screen" class="screen">
-            <h2>Resultados do Simulado</h2>
-            <div id="results-summary">
-                </div>
-            <div class="actions">
-                <button id="review-button">Revisar Prova</button>
-                <button id="restart-button">Fazer Novamente</button>
-            </div>
-        </section>
-
-        <section id="review-screen" class="screen">
-            <div class="header-quiz">
-                <span id="review-counter">Questão 1/100</span>
-            </div>
-            <div id="review-container">
-                <p id="review-question-text"></p>
-                <div id="review-alternatives-container" class="alternatives">
-                    </div>
-                <div id="review-explanation" class="explanation">
-                    <h3>Explicação:</h3>
-                    <p></p>
-                </div>
-            </div>
-            <div class="navigation-buttons">
-                <button id="review-previous-button" disabled>Anterior</button>
-                <button id="review-next-button">Próxima</button>
-                <button id="back-to-results-button">Voltar aos Resultados</button>
-            </div>
-        </section>
-    </main>
-
-    <footer class="page-footer">
-        <p>© 2025 Todos os direitos reservados. Página desenvolvida por Lucas Matheus de Sousa Lima.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('Service Worker registrado com sucesso:', registration);
-                    })
-                    .catch(error => {
-                        console.log('Falha ao registrar o Service Worker:', error);
-                    });
-            });
-        }
-    </script>
-</body>
-</html>
+        <div id="payment-options" style="display:none;">
+            <p>Para acessar o simulado completo, assine agora:</p>
+            <button id="payment-button" class="form-button">Acesso Anual (R$ 299,90)</button>
+        </div>
+    </div>
+    
+    <div id="quiz-options" style="display:none;">
+        <p>Usuário logado. Preparado para testar seus conhecimentos?</p>
+        <button id="start-button" disabled>Iniciar Simulado</button>
+        <button id="logout-button" class="form-button">Sair</button>
+    </div>
+</section>
