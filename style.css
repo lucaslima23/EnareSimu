@@ -45,7 +45,8 @@ header {
 }
 
 .alternatives label {
-    display: block;
+    display: flex; /* Faz com que os itens dentro da label fiquem lado a lado */
+    align-items: center; /* Alinha o conteúdo verticalmente no centro */
     padding: 10px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
@@ -54,12 +55,12 @@ header {
     cursor: pointer;
 }
 
-.alternatives label:hover {
-    background-color: #e9e9e9;
+.alternatives input[type="radio"] {
+    margin-right: 10px; /* Adiciona um espaço entre o botão e o texto */
 }
 
-.alternatives input[type="radio"] {
-    margin-right: 10px;
+.alternatives label:hover {
+    background-color: #e9e9e9;
 }
 
 .navigation-buttons {
@@ -121,3 +122,4 @@ header {
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
