@@ -41,7 +41,7 @@ const quizOptions = document.getElementById('quiz-options');
 
 // FUNÇÕES DE LÓGICA E ESTADO
 
-// Carrega as questões do arquivo JSON e inicia o processo
+// Carrega as questões do arquivo JSON
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
@@ -49,7 +49,6 @@ async function loadQuestions() {
         questions = data;
         
         await checkUser(); // <--- O primeiro passo é sempre checar o usuário
-        
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -178,7 +177,7 @@ function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
     
-    if (startButton.innerText === 'Iniciar Simulado') {
+    if (startButton.innerText === 'Iniciar Simulador') {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         timeRemaining = 5 * 60 * 60;
@@ -452,7 +451,7 @@ restartButton.addEventListener('click', () => {
     localStorage.removeItem('enareSimuProgress');
     resultsScreen.classList.remove('active');
     startScreen.classList.add('active');
-    startButton.innerText = 'Iniciar Simulado';
+    startButton.innerText = 'Iniciar Simulador';
 });
 
 document.getElementById('review-next-button').addEventListener('click', () => {
