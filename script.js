@@ -336,3 +336,21 @@ backToResultsButton.addEventListener('click', () => {
 
 // Inicializa a aplicação
 loadQuestions();
+
+
+
+// Função de depuração para pular para a tela de resultados
+function debugEndQuiz() {
+    // Parar o cronômetro para evitar que ele continue rodando
+    clearInterval(timerInterval);
+    
+    // Preencher as respostas com dados fictícios (ex: todas 'A') para que o relatório funcione
+    userAnswers = new Array(questions.length).fill('A');
+    
+    // Esconder a tela do quiz e mostrar a de resultados
+    quizScreen.classList.remove('active');
+    resultsScreen.classList.add('active');
+    
+    // Gerar e exibir o relatório de desempenho
+    renderResults();
+}
