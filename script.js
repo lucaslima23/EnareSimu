@@ -4,6 +4,7 @@ let userAnswers = [];
 let currentQuestionIndex = 0;
 let timerInterval;
 let timeRemaining = 5 * 60 * 60; // 5 horas em segundos
+let quizStarted = false; // Nova flag para controlar se o quiz foi iniciado
 
 // Elementos da interface
 const startScreen = document.getElementById('start-screen');
@@ -23,14 +24,19 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
-// Carrega as questões do arquivo JSON e inicia o processo
+// Carrega as questões do arquivo JSON
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
-        questions = data;
-        selectAndShuffleQuestions();
-        loadProgress(); // <--- Tenta carregar o progresso salvo
+        
+        const isProgressLoaded = loadProgress(data); // Tenta carregar o progresso
+
+        if (!isProgressLoaded) {
+            questions = data;
+            selectAndShuffleQuestions();
+        }
+        
         enableStartButton();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
@@ -39,28 +45,36 @@ async function loadQuestions() {
 
 // Salva o progresso no localStorage
 function saveProgress() {
-    const progress = {
-        questions: questions,
-        userAnswers: userAnswers,
-        currentQuestionIndex: currentQuestionIndex,
-        timeRemaining: timeRemaining
-    };
-    localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
+    try {
+        const progress = {
+            questions: questions,
+            userAnswers: userAnswers,
+            currentQuestionIndex: currentQuestionIndex,
+            timeRemaining: timeRemaining
+        };
+        localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
+    } catch (error) {
+        console.error('Erro ao salvar o progresso no localStorage:', error);
+    }
 }
 
 // Carrega o progresso do localStorage
-function loadProgress() {
-    const savedProgress = localStorage.getItem('enareSimuProgress');
-    if (savedProgress) {
-        const progress = JSON.parse(savedProgress);
-        questions = progress.questions;
-        userAnswers = progress.userAnswers;
-        currentQuestionIndex = progress.currentQuestionIndex;
-        timeRemaining = progress.timeRemaining;
-        
-        startButton.innerText = 'Continuar Simulado';
-        console.log('Progresso carregado. Continue a partir da questão ' + (currentQuestionIndex + 1));
+function loadProgress(data) {
+    try {
+        const savedProgress = localStorage.getItem('enareSimuProgress');
+        if (savedProgress) {
+            const progress = JSON.parse(savedProgress);
+            questions = progress.questions;
+            userAnswers = progress.userAnswers;
+            currentQuestionIndex = progress.currentQuestionIndex;
+            timeRemaining = progress.timeRemaining;
+            startButton.innerText = 'Continuar Simulado';
+            return true;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar o progresso do localStorage:', error);
     }
+    return false;
 }
 
 // Habilita o botão de início
@@ -70,6 +84,7 @@ function enableStartButton() {
 
 // Embaralha as questões de forma proporcional
 function selectAndShuffleQuestions() {
+    const originalQuestions = questions;
     const groupedQuestions = {
         'Clínica Médica': [],
         'Cirurgia Geral': [],
@@ -78,7 +93,7 @@ function selectAndShuffleQuestions() {
         'Medicina Preventiva e Social': []
     };
 
-    questions.forEach(q => {
+    originalQuestions.forEach(q => {
         if (groupedQuestions[q.area]) {
             groupedQuestions[q.area].push(q);
         }
@@ -112,6 +127,7 @@ function startQuiz() {
     
     renderQuestion();
     startTimer();
+    quizStarted = true;
 }
 
 // Exibe a questão atual
@@ -150,7 +166,7 @@ function renderQuestion() {
 function handleAnswer(event) {
     if (event.target.type === 'radio') {
         userAnswers[currentQuestionIndex] = event.target.value;
-        saveProgress(); // <--- Salva o progresso a cada resposta
+        saveProgress();
     }
 }
 
@@ -159,7 +175,7 @@ function nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         renderQuestion();
-        saveProgress(); // <--- Salva o progresso ao navegar
+        saveProgress();
     }
 }
 
@@ -168,7 +184,7 @@ function previousQuestion() {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
         renderQuestion();
-        saveProgress(); // <--- Salva o progresso ao navegar
+        saveProgress();
     }
 }
 
@@ -180,7 +196,7 @@ function startTimer() {
         const minutes = Math.floor((timeRemaining % 3600) / 60);
         const seconds = timeRemaining % 60;
         timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        saveProgress(); // <--- Salva o tempo restante
+        saveProgress();
         if (timeRemaining <= 0) {
             endQuiz();
         }
@@ -190,7 +206,7 @@ function startTimer() {
 // Finaliza o simulado
 function endQuiz() {
     clearInterval(timerInterval);
-    localStorage.removeItem('enareSimuProgress'); // Remove o progresso salvo
+    localStorage.removeItem('enareSimuProgress');
     quizScreen.classList.remove('active');
     resultsScreen.classList.add('active');
     renderResults();
@@ -258,7 +274,7 @@ function renderReviewQuestion() {
         if (optionLetter === question.resposta_correta) {
             label.classList.add('correct');
             label.innerHTML += ' **(Correta)**';
-        } else if (optionLetter === userAnswers[currentQuestionIndex] && optionLetter !== question.resposta_correta) {
+        } else if (userAnswers[currentQuestionIndex] === input.value && optionLetter !== question.resposta_correta) {
             label.classList.add('incorrect');
             label.innerHTML += ' **(Sua resposta)**';
         }
@@ -268,7 +284,6 @@ function renderReviewQuestion() {
 
     reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
     
-    // Atualiza botões de navegação da revisão
     document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
