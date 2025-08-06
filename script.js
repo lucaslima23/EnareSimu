@@ -39,21 +39,67 @@ const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
 
-
 // FUNÇÕES DE LÓGICA E ESTADO
+
+// Funções de Autenticação
+async function signIn(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no login:', error.message);
+        alert('Erro no login: ' + error.message);
+    } else {
+        userSession = data.user;
+        checkUser();
+    }
+}
+
+async function signUp(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no registro:', error.message);
+        alert('Erro no registro: ' + error.message);
+    } else {
+        alert('Registro realizado! Por favor, verifique seu e-mail.');
+    }
+}
+
+async function signOut() {
+    if (!supabaseClient) {
+        return;
+    }
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) {
+        console.error('Erro ao sair:', error.message);
+    } else {
+        userSession = null;
+        window.location.reload(); // Recarrega a página para resetar o estado
+    }
+}
 
 // Carrega as chaves do Supabase e depois as questões
 async function init() {
     try {
-        const response = await fetch('/api/config');
-        const env = await response.json();
-        
-        if (!env.supabaseUrl || !env.supabaseAnonKey) {
-            throw new Error('As chaves do Supabase não foram carregadas. Verifique as variáveis de ambiente no Vercel.');
+        // Inicializa o cliente Supabase com as chaves injetadas no HTML
+        if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+            console.error('As chaves do Supabase não foram encontradas. Verifique a configuração.');
+            return;
         }
-
         const { createClient } = supabase;
-        supabaseClient = createClient(env.supabaseUrl, env.supabaseAnonKey);
+        supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
         await loadQuestions();
     } catch (error) {
