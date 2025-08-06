@@ -1,6 +1,6 @@
-// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente do Vercel
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente injetadas no HTML
+const SUPABASE_URL = window.SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
 
 // Inicializa o cliente Supabase
 const { createClient } = supabase;
@@ -62,6 +62,10 @@ async function loadQuestions() {
 
 // Verifica se o usuário está logado e atualiza a interface
 async function checkUser() {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
     
