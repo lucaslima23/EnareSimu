@@ -1,9 +1,17 @@
+// ATENÇÃO: SUBSTITUA ESSAS VARIÁVEIS PELAS DO SEU PROJETO SUPABASE
+const SUPABASE_URL = 'SUA_URL_SUPABASE';
+const SUPABASE_ANON_KEY = 'SUA_CHAVE_ANON';
+
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Variáveis do simulador
 let questions = [];
 let userAnswers = [];
 let currentQuestionIndex = 0;
 let timerInterval;
 let timeRemaining = 5 * 60 * 60; // 5 horas em segundos
+let userSession = null;
 
 // Elementos da interface
 const startScreen = document.getElementById('start-screen');
@@ -23,6 +31,13 @@ const reviewButton = document.getElementById('review-button');
 const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
+const authForm = document.getElementById('auth-form');
+const emailInput = document.getElementById('email-input');
+const passwordInput = document.getElementById('password-input');
+const loginButton = document.getElementById('login-button');
+const registerButton = document.getElementById('register-button');
+const quizOptions = document.getElementById('quiz-options');
+
 // FUNÇÕES DE LÓGICA E ESTADO
 // Carrega as questões do arquivo JSON e inicia o processo
 async function loadQuestions() {
@@ -37,13 +52,27 @@ async function loadQuestions() {
             selectAndShuffleQuestions();
         }
         
-        enableStartButton();
+        checkUser(); // <--- Verifica se há usuário logado ao carregar
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
 }
 
-// Salva o progresso no localStorage
+// Verifica se o usuário está logado e atualiza a interface
+async function checkUser() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (user) {
+        userSession = user;
+        authForm.style.display = 'none';
+        quizOptions.style.display = 'block';
+        enableStartButton();
+    } else {
+        authForm.style.display = 'block';
+        quizOptions.style.display = 'none';
+    }
+}
+
+// Salva o progresso no Supabase ou no localStorage
 function saveProgress() {
     try {
         const progress = {
@@ -52,9 +81,15 @@ function saveProgress() {
             currentQuestionIndex: currentQuestionIndex,
             timeRemaining: timeRemaining
         };
-        localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
+        
+        if (userSession) {
+            // Lógica para salvar no Supabase (será implementada na próxima etapa)
+            console.log('Salvando progresso no banco de dados...');
+        } else {
+            localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
+        }
     } catch (error) {
-        console.error('Erro ao salvar o progresso no localStorage:', error);
+        console.error('Erro ao salvar o progresso:', error);
     }
 }
 
@@ -368,6 +403,7 @@ restartButton.addEventListener('click', () => {
     startScreen.classList.add('active');
     startButton.innerText = 'Iniciar Simulado';
 });
+
 document.getElementById('review-next-button').addEventListener('click', () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
@@ -385,5 +421,4 @@ backToResultsButton.addEventListener('click', () => {
     resultsScreen.classList.add('active');
 });
 
-// Inicializa a aplicação
 loadQuestions();
