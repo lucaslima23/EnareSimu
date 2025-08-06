@@ -1,4 +1,8 @@
-// A inicialização do cliente Supabase será feita de forma assíncrona
+// ATENÇÃO: Essas variáveis serão lidas das variáveis de ambiente injetadas no HTML
+const SUPABASE_URL = "SUA_URL_SUPABASE";
+const SUPABASE_ANON_KEY = "SUA_CHAVE_ANON";
+
+// Inicializa o cliente Supabase
 let supabaseClient = null;
 
 // Variáveis do simulador
@@ -86,15 +90,14 @@ async function signOut() {
         console.error('Erro ao sair:', error.message);
     } else {
         userSession = null;
-        window.location.reload(); // Recarrega a página para resetar o estado
+        window.location.reload();
     }
 }
 
 // Carrega as chaves do Supabase e depois as questões
 async function init() {
     try {
-        // Inicializa o cliente Supabase com as chaves injetadas no HTML
-        if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+        if (typeof window.SUPABASE_URL === 'undefined' || typeof window.SUPABASE_ANON_KEY === 'undefined') {
             console.error('As chaves do Supabase não foram encontradas. Verifique a configuração.');
             return;
         }
