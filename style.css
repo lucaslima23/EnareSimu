@@ -59,19 +59,45 @@ main {
     box-shadow: 0 6px 20px var(--shadow-color);
 }
 
+/* NOVO: Estilos para o header e a logo */
 header {
     width: 90%;
     max-width: 800px;
-    padding-bottom: 20px;
-    text-align: left;
+    padding: 20px 0;
+    text-align: center;
     margin-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 header img {
-    height: 80px;
-    width: auto;
+    height: auto;
     max-width: 200px;
-    margin: 0;
+}
+
+/* NOVO: Estilos para o botão de ícone */
+.icon-button {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+    color: var(--primary-color);
+}
+
+.icon-button svg {
+    height: 24px;
+    width: 24px;
 }
 
 .screen {
@@ -102,6 +128,7 @@ header img {
     font-size: 1em;
 }
 
+/* CORRIGIDO: Estilos do botão para que ambos os botões fiquem iguais */
 .form-button {
     padding: 14px 28px;
     border: none;
@@ -112,6 +139,8 @@ header img {
     transition: all 0.3s ease;
     background-color: var(--primary-color);
     color: white;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .form-button:hover {
@@ -333,18 +362,28 @@ header img {
     }
     
     header {
-        position: static;
-        width: 100%;
-        text-align: center;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        position: relative;
+        width: 90%;
+        margin: 15px auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     header img {
         height: 60px;
-        margin: 0 auto;
+        max-width: 150px;
+        margin: 0;
     }
     
+    .icon-button {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
     main {
         width: 95%;
         margin: 15px auto;
@@ -365,4 +404,3 @@ header img {
         font-size: 1em;
     }
 }
-
