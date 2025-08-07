@@ -1,5 +1,4 @@
 // A inicialização do cliente Supabase é feita imediatamente
-// Certifique-se de que o script do Supabase está carregado no HTML antes deste script
 const { createClient } = supabase;
 const supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
@@ -16,6 +15,9 @@ const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
+// Elemento da nova tela de senha
+const createPasswordScreen = document.getElementById('create-password-screen');
+
 
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
@@ -39,6 +41,11 @@ const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
+
+// Elementos da nova tela de senha
+const createPasswordForm = document.getElementById('create-password-form');
+const newPasswordInput = document.getElementById('new-password-input');
+const newPasswordConfirmInput = document.getElementById('new-password-confirm-input');
 
 // FUNÇÕES DE LÓGICA E ESTADO
 
@@ -77,6 +84,15 @@ async function signOut() {
 // Funções de inicialização e autenticação
 async function init() {
     try {
+        // Lógica para lidar com o Magic Link
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        if (session) {
+            // Limpa o token da URL para evitar problemas futuros
+            window.history.replaceState({}, document.title, window.location.pathname);
+            console.log('Sessão encontrada. Token de acesso removido da URL.');
+        }
+
         await loadQuestions();
         await checkUser();
     } catch (error) {
@@ -106,24 +122,45 @@ async function checkUser() {
     
     if (user) {
         authContainer.style.display = 'none';
-        quizOptions.style.display = 'block';
-        userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        // Lógica de verificação de assinatura
-        const hasSubscription = false; // <<< AQUI VOCÊ FARÁ A VERIFICAÇÃO DO STATUS DE ASSINATURA
+        // Simulação de verificação de assinatura
+        // No futuro, esta lógica deve verificar o status da assinatura em uma tabela de perfis
+        const hasSubscription = true; 
 
         if (hasSubscription) {
-            await loadProgress(); // Carrega o progresso do usuário logado
+            quizOptions.style.display = 'block';
+            paymentOptions.style.display = 'none';
+            userWelcomeMessage.innerText = `Olá, ${user.email}!`;
+            await loadProgress(); 
             enableStartButton();
         } else {
-            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
-            startButton.style.display = 'none'; // Esconde o botão de iniciar simulador
+            quizOptions.style.display = 'none';
+            paymentOptions.style.display = 'block';
         }
     } else {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton(); // Habilita o botão para o login/cadastro
+        enableStartButton();
+    }
+}
+
+// Nova função para atualizar a senha do usuário
+async function updatePassword(newPassword) {
+    if (!supabaseClient || !userSession) {
+        alert('Nenhum usuário logado. Por favor, faça o login novamente.');
+        return;
+    }
+
+    const { data, error } = await supabaseClient.auth.updateUser({ password: newPassword });
+
+    if (error) {
+        console.error('Erro ao atualizar a senha:', error.message);
+        alert('Erro ao atualizar a senha: ' + error.message);
+    } else {
+        alert('Senha atualizada com sucesso! Você será redirecionado para o início.');
+        // Opcional: Redirecionar para a página inicial e carregar a interface
+        window.location.reload();
     }
 }
 
@@ -172,7 +209,7 @@ async function loadProgress() {
             }
         }
         
-        const savedProgress = localStorage.getItem('enareSimuProgress');
+        const savedProgress = localStorage.getItem('enareSimuProgress',);
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
             questions = progress.questions;
@@ -463,10 +500,7 @@ async function handlePayment() {
     paymentButton.innerText = 'Carregando...';
 
     try {
-        // Removemos a verificação de usuário e não passamos o userSession
-        const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
-            // Não há mais um 'body' com o objeto 'user'
-        });
+        const { data, error } = await supabaseClient.functions.invoke('create-checkout-session');
 
         if (error) {
             console.error('Erro ao criar sessão de checkout:', error);
@@ -521,16 +555,24 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
-// Adicionado o event listener para o botão de pagamento
+// Event listener do formulário de criação de senha
+createPasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newPassword = newPasswordInput.value;
+    const confirmPassword = newPasswordConfirmInput.value;
+
+    if (newPassword.length < 6) {
+        alert('A senha deve ter pelo menos 6 caracteres.');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        alert('As senhas não coincidem. Por favor, tente novamente.');
+        return;
+    }
+    await updatePassword(newPassword);
+});
+
 paymentButton.addEventListener('click', handlePayment);
-
-// Removido o event listener do registerButton, pois ele não existe no HTML
-// registerButton.addEventListener('click', async () => {
-//    await signUp(emailInput.value, passwordInput.value);
-// });
-
 
 // Inicializa a aplicação
 init();
-
-
