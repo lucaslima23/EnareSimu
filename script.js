@@ -154,8 +154,9 @@ async function checkUser() {
     userSession = user;
 
     if (user) {
-        authContainer.style.display = 'none';
-
+        // Mostra o botão de logout no header
+        logoutButton.style.display = 'inline-block';
+        
         const { data: profile, error } = await supabaseClient
             .from('profiles')
             .select('has_subscription, password_set')
@@ -193,6 +194,7 @@ async function checkUser() {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
+        logoutButton.style.display = 'none'; // Esconde o botão se não houver usuário
     }
 }
 
@@ -203,14 +205,12 @@ async function updatePassword(newPassword) {
         return;
     }
 
-    // Tenta atualizar a senha na tabela de autenticação
     const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
 
     if (error) {
         console.error('Erro ao atualizar a senha:', error.message);
         alert('Erro ao atualizar a senha: ' + error.message);
     } else {
-        // Se a senha for atualizada com sucesso, atualiza a tabela de perfis
         const { error: profileError } = await supabaseClient
             .from('profiles')
             .update({ password_set: true })
@@ -642,6 +642,3 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
-
-
-
