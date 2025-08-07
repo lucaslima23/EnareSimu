@@ -59,7 +59,7 @@ main {
     box-shadow: 0 6px 20px var(--shadow-color);
 }
 
-/* Estilos para o header e a logo */
+/* Estilos do header e logo */
 header {
     width: 90%;
     max-width: 800px;
@@ -72,12 +72,13 @@ header {
     align-items: center;
 }
 
-header img {
+/* CORRIGIDO: Maior especificidade para a imagem da logo */
+header > img {
     height: auto;
-    max-width: 600px;
+    max-width: 600px; /* Novo valor */
 }
 
-/* NOVO: Estilos do botão de saída com ícone e texto */
+/* Estilos do botão de saída com ícone e texto */
 .logout-button-style {
     position: absolute;
     left: 20px;
@@ -96,7 +97,6 @@ header img {
     transition: all 0.3s ease;
 }
 
-/* NOVO: Efeito de hover do botão de saída */
 .logout-button-style:hover {
     background-color: #275da9;
     box-shadow: 0 4px 8px rgba(51, 114, 227, 0.3);
@@ -131,7 +131,6 @@ header img {
     font-size: 1em;
 }
 
-/* Estilos do botão para que ambos os botões de ação fiquem iguais */
 .form-button {
     padding: 14px 28px;
     border: none;
@@ -375,10 +374,10 @@ header img {
         align-items: center;
     }
     
+    /* CORRIGIDO: Aumenta a especificidade para a imagem */
     header img {
-        height: 60px;
-        max-width: 150px;
-        margin: 0;
+        height: auto;
+        max-width: 600px;
     }
     
     .icon-button {
@@ -407,4 +406,3 @@ header img {
         font-size: 1em;
     }
 }
-
