@@ -6,10 +6,17 @@
     <title>Simulador ENARE</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <button id="logout-button" class="icon-button" style="display: none;" aria-label="Sair">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+        </button>
         <img src="logo.svg" alt="Logo EnareSimu">
     </header>
 
@@ -33,10 +40,9 @@
                 </div>
             </div>
             
-            <div id="quiz-options" style="display:none;">
+            <div id="quiz-options">
                 <p id="user-welcome-message">Olá!</p>
                 <button id="start-button" disabled>Iniciar Simulador</button>
-                <button id="logout-button" class="form-button">Sair</button>
             </div>
         </section>
 
@@ -58,7 +64,7 @@
             <div id="question-container">
                 <p id="question-text">Carregando...</p>
                 <div id="alternatives-container" class="alternatives">
-                    </div>
+                </div>
             </div>
             <div class="navigation-buttons">
                 <button id="previous-button" disabled>Anterior</button>
@@ -70,7 +76,7 @@
         <section id="results-screen" class="screen">
             <h2>Resultados do Simulado</h2>
             <div id="results-summary">
-                </div>
+            </div>
             <div class="actions">
                 <button id="review-button">Revisar Prova</button>
                 <button id="restart-button">Fazer Novamente</button>
@@ -84,7 +90,7 @@
             <div id="review-container">
                 <p id="review-question-text"></p>
                 <div id="review-alternatives-container" class="alternatives">
-                    </div>
+                </div>
                 <div id="review-explanation" class="explanation">
                     <h3>Explicação:</h3>
                     <p></p>
@@ -123,7 +129,3 @@
     </script>
 </body>
 </html>
-
-
-
-
