@@ -48,6 +48,20 @@ const newPasswordConfirmInput = document.getElementById('new-password-confirm-in
 
 // FUNÇÕES DE LÓGICA E ESTADO
 
+// --- Nova função para gerenciar a exibição de telas ---
+function showScreen(screenToShow) {
+    const screens = [startScreen, quizScreen, resultsScreen, reviewScreen, createPasswordScreen];
+    screens.forEach(screen => {
+        if (screen) {
+            screen.classList.remove('active');
+        }
+    });
+    if (screenToShow) {
+        screenToShow.classList.add('active');
+    }
+}
+// --------------------------------------------------------
+
 // Funções de Autenticação
 async function signIn(email, password) {
     if (!supabaseClient) {
@@ -120,9 +134,6 @@ async function checkUser() {
     userSession = user;
 
     if (user) {
-        authContainer.style.display = 'none';
-
-        // --- Nova lógica de verificação de perfil ---
         const { data: profile, error } = await supabaseClient
             .from('profiles')
             .select('has_subscription, password_set')
@@ -131,35 +142,35 @@ async function checkUser() {
 
         if (error || !profile) {
             console.error('Erro ao carregar perfil:', error);
-            window.location.reload();
+            showScreen(startScreen); // Volta para a tela inicial em caso de erro
             return;
         }
 
         if (!profile.password_set) {
-            startScreen.classList.remove('active');
-            quizScreen.classList.remove('active');
-            resultsScreen.classList.remove('active');
-            reviewScreen.classList.remove('active');
-            createPasswordScreen.classList.add('active');
+            showScreen(createPasswordScreen);
             return;
         }
         
         if (profile.has_subscription) {
-            quizOptions.style.display = 'block';
+            showScreen(startScreen);
+            authContainer.style.display = 'none';
             paymentOptions.style.display = 'none';
+            quizOptions.style.display = 'block';
             userWelcomeMessage.innerText = `Olá, ${user.email}!`;
             await loadProgress(); 
             enableStartButton();
         } else {
-            quizOptions.style.display = 'none';
+            showScreen(startScreen);
+            authContainer.style.display = 'block';
             paymentOptions.style.display = 'block';
+            quizOptions.style.display = 'none';
         }
 
     } else {
+        showScreen(startScreen);
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton();
     }
 }
 
