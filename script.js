@@ -1,5 +1,7 @@
-// A inicialização do cliente Supabase será feita de forma assíncrona
-let supabaseClient = null;
+// A inicialização do cliente Supabase é feita imediatamente
+// Certifique-se de que o script do Supabase está carregado no HTML antes deste script
+const { createClient } = supabase;
+const supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
 // Variáveis do simulador
 let questions = [];
@@ -75,14 +77,8 @@ async function signOut() {
 // Funções de inicialização e autenticação
 async function init() {
     try {
-        if (typeof window.SUPABASE_URL === 'undefined' || typeof window.SUPABASE_ANON_KEY === 'undefined') {
-            console.error('As chaves do Supabase não foram encontradas. Verifique a configuração.');
-            return;
-        }
-        const { createClient } = supabase;
-        supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-        
         await loadQuestions();
+        await checkUser();
     } catch (error) {
         console.error('Falha na inicialização:', error);
     }
@@ -94,8 +90,6 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
-        
-        await checkUser();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -123,7 +117,7 @@ async function checkUser() {
             enableStartButton();
         } else {
             paymentOptions.style.display = 'block'; // Mostra opções de pagamento
-            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
+            startButton.style.display = 'none'; // Esconde o botão de iniciar simulador
         }
     } else {
         authContainer.style.display = 'block';
@@ -131,37 +125,6 @@ async function checkUser() {
         quizOptions.style.display = 'none';
         enableStartButton(); // Habilita o botão para o login/cadastro
     }
-}
-
-// Lógica de pagamento com Stripe
-async function handlePayment() {
-  // O código que eu forneci vai aqui
-  if (!supabaseClient || !userSession) {
-    alert('Você precisa estar logado para assinar a plataforma.');
-    return;
-  }
-
-  paymentButton.disabled = true;
-  paymentButton.innerText = 'Carregando...';
-
-  try {
-    const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
-      body: { user: userSession },
-    });
-
-    if (error) {
-      console.error('Erro ao criar sessão de checkout:', error);
-      alert('Não foi possível iniciar o pagamento. Tente novamente.');
-    } else {
-      window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
-    }
-  } catch (err) {
-    console.error('Erro inesperado:', err);
-    alert('Ocorreu um erro. Tente novamente mais tarde.');
-  } finally {
-    paymentButton.disabled = false;
-    paymentButton.innerText = 'Assinar Plataforma (R$ 299,90/ano)';
-  }
 }
 
 // Salva o progresso no Supabase ou no localStorage
@@ -494,9 +457,39 @@ function renderReviewQuestion() {
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
 
+// Adicionada a função para lidar com o pagamento do Stripe
+async function handlePayment() {
+    if (!supabaseClient || !userSession) {
+        alert('Você precisa estar logado para assinar a plataforma.');
+        return;
+    }
+
+    paymentButton.disabled = true;
+    paymentButton.innerText = 'Carregando...';
+
+    try {
+        const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
+            body: { user: userSession },
+        });
+
+        if (error) {
+            console.error('Erro ao criar sessão de checkout:', error);
+            alert('Não foi possível iniciar o pagamento. Tente novamente.');
+        } else {
+            window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
+        }
+    } catch (err) {
+        console.error('Erro inesperado:', err);
+        alert('Ocorreu um erro. Tente novamente mais tarde.');
+    } finally {
+        paymentButton.disabled = false;
+        paymentButton.innerText = 'Assinar Plataforma (R$ 299,90/ano)';
+    }
+}
+
+
 // LISTA DE EVENT LISTENERS
 startButton.addEventListener('click', startQuiz);
-paymentButton.addEventListener('click', handlePayment);
 nextButton.addEventListener('click', nextQuestion);
 previousButton.addEventListener('click', previousQuestion);
 alternativesContainer.addEventListener('change', handleAnswer);
@@ -532,6 +525,14 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
+// Adicionado o event listener para o botão de pagamento
+paymentButton.addEventListener('click', handlePayment);
 
-loadQuestions();
+// Removido o event listener do registerButton, pois ele não existe no HTML
+// registerButton.addEventListener('click', async () => {
+//    await signUp(emailInput.value, passwordInput.value);
+// });
 
+
+// Inicializa a aplicação
+init();
