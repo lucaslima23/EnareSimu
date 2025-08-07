@@ -91,6 +91,28 @@ header img {
     transition: color 0.3s ease;
 }
 
+/* NOVO ESTILO para o botão de sair com ícone e texto */
+.logout-button-style {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+}
+
+/* NOVO: Ajuste para telas menores */
+@media (max-width: 600px) {
+    .logout-button-style {
+        left: 10px;
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
+
 .icon-button:hover {
     color: var(--primary-color);
 }
@@ -404,3 +426,4 @@ header img {
         font-size: 1em;
     }
 }
+
