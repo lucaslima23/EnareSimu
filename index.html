@@ -19,17 +19,15 @@
             
             <div id="auth-container">
                 <form id="auth-form">
-                    <p>Faça login para continuar ou crie uma conta.</p>
-                     <label for="email-input">E-mail</label>
-                         <input type="email" id="email-input" placeholder="Seu e-mail" required>
-                     <label for="password-input">Senha</label>
-                         <input type="password" id="password-input" placeholder="Sua senha" required>
-                     <button type="submit" id="login-button" class="form-button">Entrar</button>
+                    <p>Faça login para continuar.</p>
+                    <input type="email" id="email-input" placeholder="Seu e-mail" required>
+                    <input type="password" id="password-input" placeholder="Sua senha" required>
+                    <button type="submit" id="login-button" class="form-button">Entrar</button>
                 </form>
 
-                <div id="payment-options" style="display:none;">
-                    <p>Para acessar o simulado completo, assine agora:</p>
-                    <button id="payment-button" class="form-button">Acesso Anual (R$ 79,90)</button>
+                <div id="payment-options">
+                    <p>Para ter acesso, assine nossa plataforma.</p>
+                    <button id="payment-button" class="form-button">Assinar Plataforma (R$ 299,90/ano)</button>
                 </div>
             </div>
             
@@ -43,7 +41,7 @@
         <section id="quiz-screen" class="screen">
             <div class="header-quiz">
                 <span id="question-counter">Questão 1/100</span>
-                <span id="timer" aria-live="polite">Tempo: 05:00:00</span>
+                <span id="timer">Tempo: 05:00:00</span>
             </div>
             <div id="question-container">
                 <p id="question-text">Carregando...</p>
@@ -89,13 +87,13 @@
     </main>
 
     <footer class="page-footer">
-        <p>© 2025 Todos os direitos reservados. Página desenvolvida por Sousa Lima Consultorias.</p>
+        <p>© 2025 Todos os direitos reservados. Página desenvolvida por Lucas Matheus de Sousa Lima.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-        window.SUPABASE_URL = "https://mwjaqhqtjwrkcqnfsfnn.supabase.co";
-        window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13amFxaHF0andya2NxbmZzZm5uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ0OTMyOTEsImV4cCI6MjA3MDA2OTI5MX0.XkTTu1wWpaoczO6ZsUWAEa8fIJkKzgAtpHiQxArUWR8";
+        window.SUPABASE_URL = "SUA_URL_SUPABASE";
+        window.SUPABASE_ANON_KEY = "SUA_CHAVE_ANON";
     </script>
     <script type="module" src="script.js"></script>
     <script>
@@ -113,4 +111,3 @@
     </script>
 </body>
 </html>
-
