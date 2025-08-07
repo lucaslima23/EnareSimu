@@ -472,7 +472,7 @@ async function handlePayment() {
             console.error('Erro ao criar sessão de checkout:', error);
             alert('Não foi possível iniciar o pagamento. Tente novamente.');
         } else {
-            window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
+            window.location.href = data.url;
         }
     } catch (err) {
         console.error('Erro inesperado:', err);
@@ -532,4 +532,5 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
+
 
