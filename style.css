@@ -102,7 +102,7 @@ header img {
     font-size: 1em;
 }
 
-#auth-form .form-button {
+.form-button {
     padding: 14px 28px;
     border: none;
     border-radius: 8px;
@@ -114,7 +114,7 @@ header img {
     color: white;
 }
 
-#auth-form .form-button:hover {
+.form-button:hover {
     transform: translateY(-2px);
     background-color: #275da9;
     box-shadow: 0 4px 8px rgba(51, 114, 227, 0.3);
@@ -365,3 +365,4 @@ header img {
         font-size: 1em;
     }
 }
+
