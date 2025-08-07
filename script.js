@@ -134,6 +134,8 @@ async function checkUser() {
     userSession = user;
 
     if (user) {
+        authContainer.style.display = 'none';
+
         const { data: profile, error } = await supabaseClient
             .from('profiles')
             .select('has_subscription, password_set')
@@ -146,23 +148,20 @@ async function checkUser() {
             return;
         }
 
-        // Prioridade 1: Se a senha não foi criada, mostre a tela de criação
-        if (!profile.password_set) {
+        if (profile.password_set === false) {
             showScreen(createPasswordScreen);
             return;
         }
-        
-        // Prioridade 2: Se a senha foi criada e o usuário tem assinatura, mostre a tela inicial de simulado
+
         if (profile.has_subscription) {
             showScreen(startScreen);
             authContainer.style.display = 'none';
             paymentOptions.style.display = 'none';
             quizOptions.style.display = 'block';
             userWelcomeMessage.innerText = `Olá, ${user.email}!`;
-            await loadProgress(); 
+            await loadProgress();
             enableStartButton();
         } else {
-            // Prioridade 3: Se a senha foi criada, mas não tem assinatura, mostre a tela de pagamento
             showScreen(startScreen);
             authContainer.style.display = 'block';
             paymentOptions.style.display = 'block';
@@ -170,7 +169,6 @@ async function checkUser() {
         }
 
     } else {
-        // Se não houver usuário logado, mostre a tela de login
         showScreen(startScreen);
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
@@ -619,4 +617,5 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
+
 
