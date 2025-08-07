@@ -154,7 +154,6 @@ async function checkUser() {
     userSession = user;
 
     if (user) {
-        // Mostra o botão de logout no header
         logoutButton.style.display = 'inline-block';
         
         const { data: profile, error } = await supabaseClient
@@ -194,7 +193,7 @@ async function checkUser() {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        logoutButton.style.display = 'none'; // Esconde o botão se não houver usuário
+        logoutButton.style.display = 'none';
     }
 }
 
