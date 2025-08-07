@@ -14,7 +14,7 @@ const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
-
+const registerButton = document.getElementById('register-button');
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
 const alternativesContainer = document.getElementById('alternatives-container');
@@ -532,5 +532,6 @@ registerButton.addEventListener('click', async () => {
 
 // Inicia a aplicação após a definição de todas as funções
 init();
+
 
 
