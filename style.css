@@ -74,7 +74,7 @@ header {
 
 header img {
     height: auto;
-    max-width: 200px;
+    max-width: 600px;
 }
 
 /* NOVO: Estilos do botão de saída com ícone e texto */
@@ -407,3 +407,4 @@ header img {
         font-size: 1em;
     }
 }
+
