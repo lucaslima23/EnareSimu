@@ -72,10 +72,11 @@ header {
     align-items: center;
 }
 
-/* CORRIGIDO: Maior especificidade para a imagem da logo */
-header > img {
+/* CORRIGIDO: Aumenta a especificidade para a imagem e define a largura */
+header img {
     height: auto;
-    max-width: 600px; /* Novo valor */
+    width: 250px; /* Altere este valor para o tamanho desejado */
+    max-width: 100%; /* Garante que a imagem não ultrapasse o header em telas menores */
 }
 
 /* Estilos do botão de saída com ícone e texto */
@@ -131,6 +132,7 @@ header > img {
     font-size: 1em;
 }
 
+/* Estilos do botão para que ambos os botões de ação fiquem iguais */
 .form-button {
     padding: 14px 28px;
     border: none;
@@ -374,10 +376,10 @@ header > img {
         align-items: center;
     }
     
-    /* CORRIGIDO: Aumenta a especificidade para a imagem */
     header img {
         height: auto;
-        max-width: 600px;
+        max-width: 150px;
+        margin: 0;
     }
     
     .icon-button {
