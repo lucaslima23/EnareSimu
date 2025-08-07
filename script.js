@@ -81,6 +81,26 @@ async function signIn(email, password) {
     }
 }
 
+// Lógica de recuperação de senha
+async function handleForgotPassword() {
+    const email = emailInput.value;
+    if (!email) {
+        alert('Por favor, insira seu e-mail para redefinir a senha.');
+        return;
+    }
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://enare-simu.vercel.app/#create-password'
+    });
+
+    if (error) {
+        console.error('Erro ao enviar e-mail de recuperação:', error.message);
+        alert('Erro ao enviar e-mail de recuperação.');
+    } else {
+        alert('E-mail de redefinição de senha enviado. Verifique sua caixa de entrada.');
+    }
+}
+
 async function signOut() {
     if (!supabaseClient) {
         return;
@@ -573,6 +593,11 @@ restartButton.addEventListener('click', () => {
     startButton.innerText = 'Iniciar Simulador';
 });
 
+document.getElementById('forgot-password-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    handleForgotPassword();
+});
+
 document.getElementById('review-next-button').addEventListener('click', () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
@@ -617,5 +642,6 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
+
 
 
