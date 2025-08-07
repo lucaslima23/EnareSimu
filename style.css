@@ -59,7 +59,7 @@ main {
     box-shadow: 0 6px 20px var(--shadow-color);
 }
 
-/* NOVO: Estilos para o header e a logo */
+/* Estilos para o header e a logo */
 header {
     width: 90%;
     max-width: 800px;
@@ -77,21 +77,7 @@ header img {
     max-width: 200px;
 }
 
-/* NOVO: Estilos para o botão de ícone */
-.icon-button {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    color: var(--text-color);
-    transition: color 0.3s ease;
-}
-
-/* NOVO ESTILO para o botão de sair com ícone e texto */
+/* NOVO: Estilos do botão de saída com ícone e texto */
 .logout-button-style {
     position: absolute;
     left: 20px;
@@ -102,24 +88,19 @@ header img {
     background-color: var(--primary-color);
     color: white;
     padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
-/* NOVO: Ajuste para telas menores */
-@media (max-width: 600px) {
-    .logout-button-style {
-        left: 10px;
-        padding: 6px 12px;
-        font-size: 0.9em;
-    }
-}
-
-.icon-button:hover {
-    color: var(--primary-color);
-}
-
-.icon-button svg {
-    height: 24px;
-    width: 24px;
+/* NOVO: Efeito de hover do botão de saída */
+.logout-button-style:hover {
+    background-color: #275da9;
+    box-shadow: 0 4px 8px rgba(51, 114, 227, 0.3);
+    transform: translateY(-50%) scale(1.05); 
 }
 
 .screen {
@@ -150,7 +131,7 @@ header img {
     font-size: 1em;
 }
 
-/* CORRIGIDO: Estilos do botão para que ambos os botões fiquem iguais */
+/* Estilos do botão para que ambos os botões de ação fiquem iguais */
 .form-button {
     padding: 14px 28px;
     border: none;
@@ -426,4 +407,3 @@ header img {
         font-size: 1em;
     }
 }
-
