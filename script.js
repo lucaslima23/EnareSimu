@@ -637,3 +637,6 @@ paymentButton.addEventListener('click', handlePayment);
 // Inicializa a aplicação
 init();
 
+// Adicione esta linha no final do seu script.js
+window.endQuiz = endQuiz;
+
