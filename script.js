@@ -14,7 +14,7 @@ const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
-const registerButton = document.getElementById('register-button');
+
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
 const alternativesContainer = document.getElementById('alternatives-container');
@@ -72,7 +72,7 @@ async function signOut() {
     }
 }
 
-// Carrega as chaves do Supabase e depois as questões
+// Funções de inicialização e autenticação
 async function init() {
     try {
         if (typeof window.SUPABASE_URL === 'undefined' || typeof window.SUPABASE_ANON_KEY === 'undefined') {
@@ -81,7 +81,7 @@ async function init() {
         }
         const { createClient } = supabase;
         supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-
+        
         await loadQuestions();
     } catch (error) {
         console.error('Falha na inicialização:', error);
@@ -94,7 +94,7 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
-
+        
         await checkUser();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
@@ -109,12 +109,12 @@ async function checkUser() {
     }
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
-
+    
     if (user) {
         authContainer.style.display = 'none';
         quizOptions.style.display = 'block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
-
+        
         // Lógica de verificação de assinatura
         const hasSubscription = false; // <<< AQUI VOCÊ FARÁ A VERIFICAÇÃO DO STATUS DE ASSINATURA
 
@@ -142,12 +142,12 @@ async function saveProgress() {
             currentQuestionIndex: currentQuestionIndex,
             timeRemaining: timeRemaining
         };
-
+        
         if (userSession) {
             const { data, error } = await supabaseClient
                 .from('performance')
                 .upsert({ user_id: userSession.id, data: progress }, { onConflict: 'user_id' });
-
+            
             if (error) console.error('Erro ao salvar desempenho no Supabase:', error);
         } else {
             localStorage.setItem('enareSimuProgress', JSON.stringify(progress));
@@ -177,7 +177,7 @@ async function loadProgress() {
                 return;
             }
         }
-
+        
         const savedProgress = localStorage.getItem('enareSimuProgress');
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
@@ -224,7 +224,7 @@ function selectAndShuffleQuestions() {
         }
         finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
     }
-
+    
     for (let i = finalQuestions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
@@ -236,13 +236,13 @@ function selectAndShuffleQuestions() {
 function startQuiz() {
     startScreen.classList.remove('active');
     quizScreen.classList.add('active');
-
+    
     if (startButton.innerText === 'Iniciar Simulador') {
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         timeRemaining = 5 * 60 * 60;
     }
-
+    
     renderQuestion();
     startTimer();
 }
@@ -263,7 +263,7 @@ function renderQuestion() {
 
         const label = document.createElement('label');
         label.htmlFor = input.id;
-
+        
         label.appendChild(input);
         label.innerHTML += alt;
 
@@ -286,9 +286,9 @@ function handleAnswer(event) {
         document.querySelectorAll('.alternatives label').forEach(label => {
             label.classList.remove('selected');
         });
-
+        
         event.target.parentNode.classList.add('selected');
-
+        
         userAnswers[currentQuestionIndex] = event.target.value;
         saveProgress();
     }
@@ -445,7 +445,7 @@ function renderReviewQuestion() {
         const optionLetter = String.fromCharCode(65 + index);
         const label = document.createElement('label');
         label.innerText = alt;
-
+        
         if (optionLetter === question.resposta_correta) {
             label.classList.add('correct');
             label.innerHTML += ' **(Correta)**';
@@ -458,35 +458,9 @@ function renderReviewQuestion() {
     });
 
     reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
-
+    
     document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
     document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
-}
-
-async function signUp(email, password) {
-    if (!supabaseClient) {
-        console.error('Supabase client is not initialized.');
-        return;
-    }
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
-    if (error) {
-        console.error('Erro no registro:', error.message);
-        alert('Erro no registro: ' + error.message);
-    } else {
-        alert('Registro realizado! Por favor, verifique seu e-mail.');
-    }
-}
-
-// Função de depuração para pular para a tela de resultados
-function debugEndQuiz() {
-    clearInterval(timerInterval);
-    userAnswers = new Array(questions.length).fill('A');
-    quizScreen.classList.remove('active');
-    resultsScreen.classList.add('active');
-    renderResults();
 }
 
 // LISTA DE EVENT LISTENERS
@@ -496,9 +470,6 @@ previousButton.addEventListener('click', previousQuestion);
 alternativesContainer.addEventListener('change', handleAnswer);
 finishButton.addEventListener('click', endQuiz);
 reviewButton.addEventListener('click', startReview);
-paymentButton.addEventListener('click', function () {
-    window.location.href = 'URL_DA_PAGINA_DE_COMPRA'; // Substitua pela URL real
-});
 restartButton.addEventListener('click', () => {
     localStorage.removeItem('enareSimuProgress');
     resultsScreen.classList.remove('active');
@@ -529,10 +500,9 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
-// Inicia a aplicação após a definição de todas as funções
-init();
+registerButton.addEventListener('click', async () => {
+    await signUp(emailInput.value, passwordInput.value);
+});
 
 
-
-
-
+loadQuestions();
