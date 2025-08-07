@@ -133,6 +133,37 @@ async function checkUser() {
     }
 }
 
+// Lógica de pagamento com Stripe
+async function handlePayment() {
+  // O código que eu forneci vai aqui
+  if (!supabaseClient || !userSession) {
+    alert('Você precisa estar logado para assinar a plataforma.');
+    return;
+  }
+
+  paymentButton.disabled = true;
+  paymentButton.innerText = 'Carregando...';
+
+  try {
+    const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
+      body: { user: userSession },
+    });
+
+    if (error) {
+      console.error('Erro ao criar sessão de checkout:', error);
+      alert('Não foi possível iniciar o pagamento. Tente novamente.');
+    } else {
+      window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
+    }
+  } catch (err) {
+    console.error('Erro inesperado:', err);
+    alert('Ocorreu um erro. Tente novamente mais tarde.');
+  } finally {
+    paymentButton.disabled = false;
+    paymentButton.innerText = 'Assinar Plataforma (R$ 299,90/ano)';
+  }
+}
+
 // Salva o progresso no Supabase ou no localStorage
 async function saveProgress() {
     try {
@@ -465,6 +496,7 @@ function renderReviewQuestion() {
 
 // LISTA DE EVENT LISTENERS
 startButton.addEventListener('click', startQuiz);
+paymentButton.addEventListener('click', handlePayment);
 nextButton.addEventListener('click', nextQuestion);
 previousButton.addEventListener('click', previousQuestion);
 alternativesContainer.addEventListener('change', handleAnswer);
@@ -500,9 +532,6 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
-registerButton.addEventListener('click', async () => {
-    await signUp(emailInput.value, passwordInput.value);
-});
-
 
 loadQuestions();
+
