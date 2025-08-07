@@ -15,7 +15,6 @@ const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
-// Elemento da nova tela de senha
 const createPasswordScreen = document.getElementById('create-password-screen');
 
 
@@ -119,15 +118,33 @@ async function checkUser() {
     }
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
-    
+
     if (user) {
         authContainer.style.display = 'none';
-        
-        // Simulação de verificação de assinatura
-        // No futuro, esta lógica deve verificar o status da assinatura em uma tabela de perfis
-        const hasSubscription = true; 
 
-        if (hasSubscription) {
+        // --- Nova lógica de verificação de perfil ---
+        const { data: profile, error } = await supabaseClient
+            .from('profiles')
+            .select('has_subscription, password_set')
+            .eq('user_id', user.id)
+            .single();
+
+        if (error || !profile) {
+            console.error('Erro ao carregar perfil:', error);
+            window.location.reload();
+            return;
+        }
+
+        if (!profile.password_set) {
+            startScreen.classList.remove('active');
+            quizScreen.classList.remove('active');
+            resultsScreen.classList.remove('active');
+            reviewScreen.classList.remove('active');
+            createPasswordScreen.classList.add('active');
+            return;
+        }
+        
+        if (profile.has_subscription) {
             quizOptions.style.display = 'block';
             paymentOptions.style.display = 'none';
             userWelcomeMessage.innerText = `Olá, ${user.email}!`;
@@ -137,6 +154,7 @@ async function checkUser() {
             quizOptions.style.display = 'none';
             paymentOptions.style.display = 'block';
         }
+
     } else {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
@@ -152,14 +170,24 @@ async function updatePassword(newPassword) {
         return;
     }
 
-    const { data, error } = await supabaseClient.auth.updateUser({ password: newPassword });
+    // Tenta atualizar a senha na tabela de autenticação
+    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
 
     if (error) {
         console.error('Erro ao atualizar a senha:', error.message);
         alert('Erro ao atualizar a senha: ' + error.message);
     } else {
+        // Se a senha for atualizada com sucesso, atualiza a tabela de perfis
+        const { error: profileError } = await supabaseClient
+            .from('profiles')
+            .update({ password_set: true })
+            .eq('user_id', userSession.id);
+
+        if (profileError) {
+            console.error('Erro ao atualizar o perfil:', profileError.message);
+        }
+
         alert('Senha atualizada com sucesso! Você será redirecionado para o início.');
-        // Opcional: Redirecionar para a página inicial e carregar a interface
         window.location.reload();
     }
 }
@@ -209,7 +237,7 @@ async function loadProgress() {
             }
         }
         
-        const savedProgress = localStorage.getItem('enareSimuProgress',);
+        const savedProgress = localStorage.getItem('enareSimuProgress');
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
             questions = progress.questions;
