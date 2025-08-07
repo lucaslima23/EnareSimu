@@ -145,7 +145,6 @@ async function loadQuestions() {
 }
 
 // Verifica se o usuário está logado e atualiza a interface
-// Verifica se o usuário está logado e atualiza a interface
 async function checkUser() {
     if (!supabaseClient) {
         console.error('Supabase client is not initialized.');
@@ -636,7 +635,3 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
-
-// Adicione esta linha no final do seu script.js
-window.endQuiz = endQuiz;
-
