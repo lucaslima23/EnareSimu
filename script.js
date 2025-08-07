@@ -459,17 +459,13 @@ function renderReviewQuestion() {
 
 // Adicionada a função para lidar com o pagamento do Stripe
 async function handlePayment() {
-    if (!supabaseClient || !userSession) {
-        alert('Você precisa estar logado para assinar a plataforma.');
-        return;
-    }
-
     paymentButton.disabled = true;
     paymentButton.innerText = 'Carregando...';
 
     try {
+        // Removemos a verificação de usuário e não passamos o userSession
         const { data, error } = await supabaseClient.functions.invoke('create-checkout-session', {
-            body: { user: userSession },
+            // Não há mais um 'body' com o objeto 'user'
         });
 
         if (error) {
@@ -536,3 +532,4 @@ paymentButton.addEventListener('click', handlePayment);
 
 // Inicializa a aplicação
 init();
+
