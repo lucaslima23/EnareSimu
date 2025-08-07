@@ -496,6 +496,9 @@ previousButton.addEventListener('click', previousQuestion);
 alternativesContainer.addEventListener('change', handleAnswer);
 finishButton.addEventListener('click', endQuiz);
 reviewButton.addEventListener('click', startReview);
+paymentButton.addEventListener('click', function () {
+    window.location.href = 'URL_DA_PAGINA_DE_COMPRA'; // Substitua pela URL real
+});
 restartButton.addEventListener('click', () => {
     localStorage.removeItem('enareSimuProgress');
     resultsScreen.classList.remove('active');
@@ -528,6 +531,7 @@ authForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação após a definição de todas as funções
 init();
+
 
 
 
