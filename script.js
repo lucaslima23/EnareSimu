@@ -526,12 +526,9 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
-registerButton.addEventListener('click', async () => {
-    await signUp(emailInput.value, passwordInput.value);
-});
-
 // Inicia a aplicação após a definição de todas as funções
 init();
+
 
 
 
