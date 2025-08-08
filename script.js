@@ -909,3 +909,6 @@ function startTimer() {
         }
     }, 1000);
 }
+
+window.endQuiz = endQuiz;
+window.jumpToQuestion95 = jumpToQuestion95; // Adicione esta nova linha
