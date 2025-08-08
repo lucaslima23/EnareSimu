@@ -312,29 +312,33 @@ function calculatePerformanceData() {
     return areaResults;
 }
 
-async function saveQuizResults() {
+async function saveQuizResults(performanceData) {
     if (!supabaseClient || !userSession) {
         console.error('Usuário não autenticado ou Supabase não inicializado.');
         return;
     }
-    // Calcula o total de acertos
     const totalCorrect = questions.reduce((acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0), 0);
+
     const resultData = {
         user_id: userSession.id,
         score: totalCorrect,
         total_questions: questions.length,
         answers: userAnswers,
-        timestamp: new Date().toISOString()
+        area_results: performanceData, // <-- agora está sendo salvo!
     };
+
     const { data, error } = await supabaseClient
         .from('quiz_results')
         .insert([resultData]);
+
     if (error) {
         console.error('Erro ao salvar resultados:', error.message);
     } else {
         console.log('Resultados do simulado salvos com sucesso:', data);
     }
 }
+
+
 // Finaliza o simulado
 async function endQuiz() {
     clearInterval(timerInterval);
@@ -916,4 +920,5 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
