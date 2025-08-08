@@ -17,7 +17,6 @@ const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
 const createPasswordScreen = document.getElementById('create-password-screen');
 
-
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
 const alternativesContainer = document.getElementById('alternatives-container');
@@ -31,7 +30,7 @@ const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
 const authContainer = document.getElementById('auth-container');
-const authForm = document = document.getElementById('auth-form');
+const authForm = document.getElementById('auth-form'); // Corrigido aqui
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 const loginButton = document.getElementById('login-button');
@@ -40,6 +39,7 @@ const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
+
 // Vincula evento de clique ao botão "Finalizar"
 if (finishButton) {
     console.log("✅ Botão Finalizar encontrado. Evento adicionado.");
@@ -48,10 +48,10 @@ if (finishButton) {
     console.error("❌ Botão Finalizar não encontrado no DOM.");
 }
 
+// Funções de Lógica e Estado
 // Função para salvar resultados no Supabase com logs
 async function saveQuizResults(performanceData) {
     console.log("🔹 saveQuizResults() foi chamado.");
-
     if (!supabaseClient) {
         console.error("❌ Supabase client não inicializado.");
         return;
@@ -93,7 +93,6 @@ async function saveQuizResults(performanceData) {
 // Função para encerrar o quiz e salvar resultados
 async function endQuiz() {
     console.log("🔹 endQuiz() foi chamado.");
-
     clearInterval(timerInterval);
     localStorage.removeItem("enareSimuProgress");
     quizScreen.classList.remove("active");
@@ -111,8 +110,6 @@ async function endQuiz() {
 const createPasswordForm = document.getElementById('create-password-form');
 const newPasswordInput = document.getElementById('new-password-input');
 const newPasswordConfirmInput = document.getElementById('new-password-confirm-input');
-
-// FUNÇÕES DE LÓGICA E ESTADO
 
 // --- Nova função para gerenciar a exibição de telas ---
 function showScreen(screenToShow) {
@@ -191,8 +188,6 @@ async function init() {
             window.history.replaceState({}, document.title, window.location.pathname);
             console.log('Sessão encontrada. Token de acesso removido da URL.');
         }
-
-        // NOVO: A lógica de carregar as perguntas foi movida para esta função
         await loadQuestions();
         await checkUser();
     } catch (error) {
@@ -206,7 +201,6 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
-        // Depois de carregar as perguntas, podemos habilitar o botão de início
         enableStartButton();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
@@ -346,8 +340,7 @@ async function loadProgress() {
     selectAndShuffleQuestions();
 }
 
-
-// NOVO: Função para calcular os dados de desempenho por área
+// Função para calcular os dados de desempenho por área
 function calculatePerformanceData() {
     const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
     const performanceData = {};
@@ -455,7 +448,7 @@ async function renderResults() {
         resultsContainer.innerHTML += areaHtml;
     });
 
-    // NOVO: Carregar e exibir o gráfico de evolução
+    // Carregar e exibir o gráfico de evolução
     const { data: historicalResults, error } = await supabaseClient
         .from('quiz_results')
         .select('created_at, area_results')
@@ -616,7 +609,7 @@ function handleAnswer(event) {
 
 // Navega para a próxima questão
 function nextQuestion() {
-    if (currentQuestionIndex > questions.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) { // Lógica corrigida aqui
         currentQuestionIndex++;
         renderQuestion();
         saveProgress();
@@ -654,154 +647,3 @@ function startTimer() {
         }
     }, 1000);
 }
-
-// Habilita o botão de início
-function enableStartButton() {
-    startButton.disabled = false;
-}
-
-// Embaralha as questões de forma proporcional
-function selectAndShuffleQuestions() {
-    const originalQuestions = questions;
-    const groupedQuestions = {
-        'Clínica Médica': [],
-        'Cirurgia Geral': [],
-        'Pediatria': [],
-        'Ginecologia e Obstetrícia': [],
-        'Medicina Preventiva e Social': []
-    };
-
-    originalQuestions.forEach(q => {
-        if (groupedQuestions[q.area]) {
-            groupedQuestions[q.area].push(q);
-        }
-    });
-
-    let finalQuestions = [];
-    for (const area in groupedQuestions) {
-        for (let i = groupedQuestions[area].length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [groupedQuestions[area][i], groupedQuestions[area][j]] = [groupedQuestions[area][j], groupedQuestions[area][i]];
-        }
-        finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
-    }
-    
-    for (let i = finalQuestions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
-    }
-    questions = finalQuestions;
-}
-
-// Inicia o simulado
-function startQuiz() {
-    startScreen.classList.remove('active');
-    quizScreen.classList.add('active');
-    
-    if (startButton.innerText === 'Iniciar Simulador') {
-        currentQuestionIndex = 0;
-        userAnswers = new Array(questions.length).fill(null);
-        timeRemaining = 5 * 60 * 60;
-    }
-    
-    renderQuestion();
-    startTimer();
-}
-
-// Exibe a questão atual
-function renderQuestion() {
-    const question = questions[currentQuestionIndex];
-    questionTextElement.innerText = question.enunciado;
-    alternativesContainer.innerHTML = '';
-    questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
-
-    question.alternativas.forEach((alt, index) => {
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'alternative';
-        input.id = `q${currentQuestionIndex}-alt${index}`;
-        input.value = String.fromCharCode(65 + index);
-
-        const label = document.createElement('label');
-        label.htmlFor = input.id;
-        
-        label.appendChild(input);
-        label.innerHTML += alt;
-
-        if (userAnswers[currentQuestionIndex] === input.value) {
-            input.checked = true;
-            label.classList.add('selected');
-        }
-
-        alternativesContainer.appendChild(label);
-    });
-
-    previousButton.disabled = currentQuestionIndex === 0;
-    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
-    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
-}
-
-// Salva a resposta do usuário
-function handleAnswer(event) {
-    if (event.target.type === 'radio') {
-        document.querySelectorAll('.alternatives label').forEach(label => {
-            label.classList.remove('selected');
-        });
-        
-        event.target.parentNode.classList.add('selected');
-        
-        userAnswers[currentQuestionIndex] = event.target.value;
-        saveProgress();
-    }
-}
-
-// Navega para a próxima questão
-function nextQuestion() {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        renderQuestion();
-        saveProgress();
-    }
-}
-
-// Navega para a questão anterior
-function previousQuestion() {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderQuestion();
-        saveProgress();
-    }
-}
-
-// Atualiza a exibição do cronômetro
-function renderTimer() {
-    const hours = Math.floor(timeRemaining / 3600);
-    const minutes = Math.floor((timeRemaining % 3600) / 60);
-    const seconds = timeRemaining % 60;
-    timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-// Inicia o cronômetro
-function startTimer() {
-    renderTimer();
-    timerInterval = setInterval(() => {
-        timeRemaining--;
-        if (timeRemaining >= 0) {
-            renderTimer();
-            saveProgress();
-        }
-        if (timeRemaining <= 0) {
-            endQuiz();
-        }
-    }, 1000);
-}
-
-
-
-
-
-
-
-
-
-
