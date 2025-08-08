@@ -41,7 +41,6 @@ const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
 // Vincula evento de clique ao botão "Finalizar"
-const finishButton = document.getElementById("finish-button");
 if (finishButton) {
     console.log("✅ Botão Finalizar encontrado. Evento adicionado.");
     finishButton.addEventListener("click", endQuiz);
@@ -994,6 +993,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
