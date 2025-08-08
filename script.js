@@ -313,31 +313,32 @@ function calculatePerformanceData() {
 }
 
 async function saveQuizResults(performanceData) {
-    if (!supabaseClient || !userSession) {
-        console.error('Usuário não autenticado ou Supabase não inicializado.');
+    console.log("🔹 saveQuizResults() foi chamado.");
+
+    if (!supabaseClient) {
+        console.error("❌ Supabase client não inicializado.");
         return;
     }
-    const totalCorrect = questions.reduce((acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0), 0);
+    if (!userSession) {
+        console.error("❌ Usuário não autenticado. userSession está null.");
+        return;
+    }
+
+    console.log("✅ userSession:", userSession);
+
+    const totalCorrect = questions.reduce(
+        (acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0),
+        0
+    );
 
     const resultData = {
         user_id: userSession.id,
         score: totalCorrect,
         total_questions: questions.length,
         answers: userAnswers,
-        area_results: performanceData, // <-- agora está sendo salvo!
+        area_results: performanceData,
+        timestamp: new Date().toISOString()
     };
-
-    const { data, error } = await supabaseClient
-        .from('quiz_results')
-        .insert([resultData]);
-
-    if (error) {
-        console.error('Erro ao salvar resultados:', error.message);
-    } else {
-        console.log('Resultados do simulado salvos com sucesso:', data);
-    }
-}
-
 
 // Finaliza o simulado
 async function endQuiz() {
@@ -631,16 +632,22 @@ function startTimer() {
 }
 
 // Finaliza o simulado
+
 async function endQuiz() {
+    console.log("🔹 endQuiz() foi chamado.");
+
     clearInterval(timerInterval);
-    localStorage.removeItem('enareSimuProgress');
-    quizScreen.classList.remove('active');
-    
-    // Calcula e salva os resultados históricos
+    localStorage.removeItem("enareSimuProgress");
+    quizScreen.classList.remove("active");
+
+    // Calcula dados de desempenho por área
     const performanceData = calculatePerformanceData();
+    console.log("📊 performanceData calculado:", performanceData);
+
+    // Tenta salvar no Supabase
     await saveQuizResults(performanceData);
-    
-    resultsScreen.classList.add('active');
+
+    resultsScreen.classList.add("active");
     renderResults();
 }
 
@@ -920,5 +927,6 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
