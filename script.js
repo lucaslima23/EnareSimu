@@ -40,6 +40,73 @@ const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
+// Vincula evento de clique ao botão "Finalizar"
+const finishButton = document.getElementById("finish-button");
+if (finishButton) {
+    console.log("✅ Botão Finalizar encontrado. Evento adicionado.");
+    finishButton.addEventListener("click", endQuiz);
+} else {
+    console.error("❌ Botão Finalizar não encontrado no DOM.");
+}
+
+// Função para salvar resultados no Supabase com logs
+async function saveQuizResults(performanceData) {
+    console.log("🔹 saveQuizResults() foi chamado.");
+
+    if (!supabaseClient) {
+        console.error("❌ Supabase client não inicializado.");
+        return;
+    }
+    if (!userSession) {
+        console.error("❌ Usuário não autenticado. userSession está null.");
+        return;
+    }
+
+    console.log("✅ userSession:", userSession);
+
+    const totalCorrect = questions.reduce(
+        (acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0),
+        0
+    );
+
+    const resultData = {
+        user_id: userSession.id,
+        score: totalCorrect,
+        total_questions: questions.length,
+        answers: userAnswers,
+        area_results: performanceData,
+        timestamp: new Date().toISOString()
+    };
+
+    console.log("📦 Dados prontos para inserção:", resultData);
+
+    const { data, error } = await supabaseClient
+        .from("quiz_results")
+        .insert([resultData]);
+
+    if (error) {
+        console.error("❌ Erro ao salvar resultados no Supabase:", error);
+    } else {
+        console.log("✅ Resultados salvos com sucesso:", data);
+    }
+}
+
+// Função para encerrar o quiz e salvar resultados
+async function endQuiz() {
+    console.log("🔹 endQuiz() foi chamado.");
+
+    clearInterval(timerInterval);
+    localStorage.removeItem("enareSimuProgress");
+    quizScreen.classList.remove("active");
+
+    const performanceData = calculatePerformanceData();
+    console.log("📊 performanceData calculado:", performanceData);
+
+    await saveQuizResults(performanceData);
+
+    resultsScreen.classList.add("active");
+    renderResults();
+}
 
 // Elementos da nova tela de senha
 const createPasswordForm = document.getElementById('create-password-form');
@@ -927,6 +994,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
