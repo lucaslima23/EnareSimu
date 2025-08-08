@@ -378,34 +378,6 @@ function calculatePerformanceData() {
     return areaResults;
 }
 
-async function saveQuizResults(performanceData) {
-    console.log("🔹 saveQuizResults() foi chamado.");
-
-    if (!supabaseClient) {
-        console.error("❌ Supabase client não inicializado.");
-        return;
-    }
-    if (!userSession) {
-        console.error("❌ Usuário não autenticado. userSession está null.");
-        return;
-    }
-
-    console.log("✅ userSession:", userSession);
-
-    const totalCorrect = questions.reduce(
-        (acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0),
-        0
-    );
-
-    const resultData = {
-        user_id: userSession.id,
-        score: totalCorrect,
-        total_questions: questions.length,
-        answers: userAnswers,
-        area_results: performanceData,
-        timestamp: new Date().toISOString()
-    };
-
 // Finaliza o simulado
 async function endQuiz() {
     clearInterval(timerInterval);
@@ -993,6 +965,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
