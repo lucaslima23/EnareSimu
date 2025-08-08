@@ -30,7 +30,7 @@ const restartButton = document.getElementById('restart-button');
 const backToResultsButton = document.getElementById('back-to-results-button');
 
 const authContainer = document.getElementById('auth-container');
-const authForm = document.getElementById('auth-form'); // Corrigido aqui
+const authForm = document.getElementById('auth-form');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 const loginButton = document.getElementById('login-button');
@@ -180,11 +180,9 @@ async function signOut() {
 // Funções de inicialização e autenticação
 async function init() {
     try {
-        // Lógica para lidar com o Magic Link
         const { data: { session } } = await supabaseClient.auth.getSession();
         
         if (session) {
-            // Limpa o token da URL para evitar problemas futuros
             window.history.replaceState({}, document.title, window.location.pathname);
             console.log('Sessão encontrada. Token de acesso removido da URL.');
         }
@@ -249,7 +247,6 @@ async function checkUser() {
             paymentOptions.style.display = 'block';
             quizOptions.style.display = 'none';
         }
-
     } else {
         showScreen(startScreen);
         authContainer.style.display = 'block';
@@ -609,7 +606,7 @@ function handleAnswer(event) {
 
 // Navega para a próxima questão
 function nextQuestion() {
-    if (currentQuestionIndex < questions.length - 1) { // Lógica corrigida aqui
+    if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
         renderQuestion();
         saveProgress();
