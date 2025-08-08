@@ -93,6 +93,9 @@ async function saveQuizResults(performanceData) {
 // Função para encerrar o quiz e salvar resultados
 async function endQuiz() {
     console.log("🔹 endQuiz() foi chamado.");
+    // VERIFIQUE AQUI SE userSession ESTÁ NULO
+    console.log("➡️ userSession no momento do fim do quiz:", userSession); 
+
     clearInterval(timerInterval);
     localStorage.removeItem("enareSimuProgress");
     quizScreen.classList.remove("active");
@@ -644,3 +647,4 @@ function startTimer() {
         }
     }, 1000);
 }
+
