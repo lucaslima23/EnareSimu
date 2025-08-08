@@ -655,132 +655,6 @@ function startTimer() {
     }, 1000);
 }
 
-// Exibe a tela de resultados
-async function renderResults() {
-    let resultsContainer = document.getElementById('results-summary');
-    resultsContainer.innerHTML = '';
-    
-    const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
-
-    const performanceData = {};
-    questions.forEach((q, index) => {
-        const userAnswer = userAnswers[index];
-        const isCorrect = userAnswer === q.resposta_correta;
-        const area = q.area;
-        const assunto = q.assunto_especifico;
-
-        if (!performanceData[area]) {
-            performanceData[area] = { correct: 0, total: 0, subjects: {} };
-        }
-        performanceData[area].total++;
-        if (isCorrect) {
-            performanceData[area].correct++;
-        }
-
-        if (!performanceData[area].subjects[assunto]) {
-            performanceData[area].subjects[assunto] = { correct: 0, total: 0 };
-        }
-        performanceData[area].subjects[assunto].total++;
-        if (isCorrect) {
-            performanceData[area].subjects[assunto].correct++;
-        }
-    });
-
-    areas.forEach(area => {
-        const areaPerformance = performanceData[area] || { correct: 0, total: 0, subjects: {} };
-        const areaPercentage = areaPerformance.total > 0 ? (areaPerformance.correct / areaPerformance.total * 100).toFixed(2) : 0;
-
-        const subjectsList = Object.keys(areaPerformance.subjects).map(assunto => {
-            const subjectData = areaPerformance.subjects[assunto];
-            const percentage = (subjectData.correct / subjectData.total * 100).toFixed(2);
-            return { assunto, percentage };
-        }).sort((a, b) => b.percentage - a.percentage);
-
-        const subjectsToReview = subjectsList.filter(s => s.percentage < 50);
-
-        const areaHtml = `
-            <div class="report-area">
-                <h3>${area}</h3>
-                <div class="performance-charts">
-                    <div class="chart-container" style="background: conic-gradient(var(--primary-color) ${areaPercentage}%, var(--secondary-color) 0%);">
-                        <span class="chart-text">Seu Desempenho<br>${areaPercentage}%</span>
-                    </div>
-                    <div class="chart-container" style="background: conic-gradient(lightgrey 50%, #ccc 0%);">
-                        <span class="chart-text">Média Geral<br>Em breve</span>
-                    </div>
-                </div>
-
-                <h4>Desempenho por Assunto:</h4>
-                <ul class="subjects-list">
-                    ${subjectsList.map(s => `
-                        <li>
-                            <span class="subject-title">${s.assunto}</span>
-                            <span class="percentage ${s.percentage < 50 ? 'red' : ''}">${s.percentage}%</span>
-                        </li>
-                    `).join('')}
-                </ul>
-
-                <div class="review-suggestion">
-                    <p>
-                        **Análise e Sugestão:**
-                        ${subjectsToReview.length > 0 ? `Seu desempenho nesta área foi de **${areaPercentage}%**. Sugerimos revisar os seguintes assuntos, do mais fraco para o menos fraco: <strong>${subjectsToReview.map(s => s.assunto).join(', ')}</strong>.` : `Seu desempenho nesta área foi excelente! Não há assuntos com menos de 50% de acerto para revisar.`}
-                    </p>
-                </div>
-            </div>
-        `;
-
-        resultsContainer.innerHTML += areaHtml;
-    });
-
-    // NOVO: Carregar e exibir o gráfico de evolução
-    const { data: historicalResults, error } = await supabaseClient
-        .from('quiz_results')
-        .select('created_at, area_results')
-        .eq('user_id', userSession.id)
-        .order('created_at', { ascending: true });
-        
-    if (error) {
-        console.error('Erro ao carregar resultados históricos:', error);
-        return;
-    }
-
-    const chartData = {
-        labels: historicalResults.map(res => new Date(res.created_at).toLocaleDateString()),
-        datasets: areas.map(area => ({
-            label: area,
-            data: historicalResults.map(res => res.area_results[area]),
-            fill: false,
-            borderColor: getRandomColor(),
-            tension: 0.1
-        }))
-    };
-    
-    const chartConfig = {
-        type: 'line',
-        data: chartData,
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    };
-    
-    const chartContainer = document.createElement('div');
-    chartContainer.innerHTML = `
-        <div class="report-area">
-            <h3>Gráfico de Evolução</h3>
-            <canvas id="evolution-chart"></canvas>
-        </div>
-    `;
-    resultsContainer.appendChild(chartContainer);
-    
-    new Chart(document.getElementById('evolution-chart'), chartConfig);
-}
-
 // Função auxiliar para gerar cores aleatórias para o gráfico
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -931,6 +805,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
