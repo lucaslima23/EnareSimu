@@ -421,19 +421,24 @@ function startTimer() {
 }
 
 // Finaliza o simulado
-function endQuiz() {
+async function endQuiz() {
     clearInterval(timerInterval);
     localStorage.removeItem('enareSimuProgress');
     quizScreen.classList.remove('active');
+    
+    // Calcula e salva os resultados históricos
+    const performanceData = calculatePerformanceData();
+    await saveQuizResults(performanceData);
+    
     resultsScreen.classList.add('active');
     renderResults();
 }
 
 // Exibe a tela de resultados
-function renderResults() {
+async function renderResults() {
     let resultsContainer = document.getElementById('results-summary');
     resultsContainer.innerHTML = '';
-
+    
     const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
 
     const performanceData = {};
@@ -505,133 +510,62 @@ function renderResults() {
 
         resultsContainer.innerHTML += areaHtml;
     });
-}
 
-// Inicia o modo de revisão
-function startReview() {
-    resultsScreen.classList.remove('active');
-    reviewScreen.classList.add('active');
-    currentQuestionIndex = 0;
-    renderReviewQuestion();
-}
-
-// Exibe a questão na tela de revisão
-function renderReviewQuestion() {
-    const question = questions[currentQuestionIndex];
-    const reviewQuestionTextElement = document.getElementById('review-question-text');
-    const reviewAlternativesContainer = document.getElementById('review-alternatives-container');
-    const reviewExplanationElement = document.getElementById('review-explanation').querySelector('p');
-
-    reviewQuestionTextElement.innerText = question.enunciado;
-    reviewAlternativesContainer.innerHTML = '';
-    document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
-
-    question.alternativas.forEach((alt, index) => {
-        const optionLetter = String.fromCharCode(65 + index);
-        const label = document.createElement('label');
-        label.innerText = alt;
+    // NOVO: Carregar e exibir o gráfico de evolução
+    const { data: historicalResults, error } = await supabaseClient
+        .from('quiz_results')
+        .select('created_at, area_results')
+        .eq('user_id', userSession.id)
+        .order('created_at', { ascending: true });
         
-        if (optionLetter === question.resposta_correta) {
-            label.classList.add('correct');
-            label.innerHTML += ' **(Correta)**';
-        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
-            label.classList.add('incorrect');
-            label.innerHTML += ' **(Sua resposta)**';
-        }
+    if (error) {
+        console.error('Erro ao carregar resultados históricos:', error);
+        return;
+    }
 
-        reviewAlternativesContainer.appendChild(label);
-    });
-
-    reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
+    const chartData = {
+        labels: historicalResults.map(res => new Date(res.created_at).toLocaleDateString()),
+        datasets: areas.map(area => ({
+            label: area,
+            data: historicalResults.map(res => res.area_results[area]),
+            fill: false,
+            borderColor: getRandomColor(),
+            tension: 0.1
+        }))
+    };
     
-    document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
-    document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
-}
-
-// Adicionada a função para lidar com o pagamento do Stripe
-async function handlePayment() {
-    paymentButton.disabled = true;
-    paymentButton.innerText = 'Carregando...';
-
-    try {
-        const { data, error } = await supabaseClient.functions.invoke('create-checkout-session');
-
-        if (error) {
-            console.error('Erro ao criar sessão de checkout:', error);
-            alert('Não foi possível iniciar o pagamento. Tente novamente.');
-        } else {
-            window.location.href = data.url;
+    const chartConfig = {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
         }
-    } catch (err) {
-        console.error('Erro inesperado:', err);
-        alert('Ocorreu um erro. Tente novamente mais tarde.');
-    } finally {
-        paymentButton.disabled = false;
-        paymentButton.innerText = 'Assinar Plataforma (R$ 299,90/ano)';
-    }
+    };
+    
+    const chartContainer = document.createElement('div');
+    chartContainer.innerHTML = `
+        <div class="report-area">
+            <h3>Gráfico de Evolução</h3>
+            <canvas id="evolution-chart"></canvas>
+        </div>
+    `;
+    resultsContainer.appendChild(chartContainer);
+    
+    new Chart(document.getElementById('evolution-chart'), chartConfig);
 }
 
-
-// LISTA DE EVENT LISTENERS
-startButton.addEventListener('click', startQuiz);
-nextButton.addEventListener('click', nextQuestion);
-previousButton.addEventListener('click', previousQuestion);
-alternativesContainer.addEventListener('change', handleAnswer);
-finishButton.addEventListener('click', endQuiz);
-reviewButton.addEventListener('click', startReview);
-restartButton.addEventListener('click', () => {
-    localStorage.removeItem('enareSimuProgress');
-    resultsScreen.classList.remove('active');
-    startScreen.classList.add('active');
-    startButton.innerText = 'Iniciar Simulador';
-});
-
-document.getElementById('forgot-password-link').addEventListener('click', (e) => {
-    e.preventDefault();
-    handleForgotPassword();
-});
-
-document.getElementById('review-next-button').addEventListener('click', () => {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        renderReviewQuestion();
+// Função auxiliar para gerar cores aleatórias para o gráfico
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
-});
-document.getElementById('review-previous-button').addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderReviewQuestion();
-    }
-});
-backToResultsButton.addEventListener('click', () => {
-    reviewScreen.classList.remove('active');
-    resultsScreen.classList.add('active');
-});
-
-// Event listeners do formulário de autenticação
-authForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    await signIn(emailInput.value, passwordInput.value);
-});
-
-// Event listener do formulário de criação de senha
-createPasswordForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const newPassword = newPasswordInput.value;
-    const confirmPassword = newPasswordConfirmInput.value;
-
-    if (newPassword.length < 6) {
-        alert('A senha deve ter pelo menos 6 caracteres.');
-        return;
-    }
-    if (newPassword !== confirmPassword) {
-        alert('As senhas não coincidem. Por favor, tente novamente.');
-        return;
-    }
-    await updatePassword(newPassword);
-});
-
-paymentButton.addEventListener('click', handlePayment);
-
-// Inicializa a aplicação
-init();
+    return color;
+}
