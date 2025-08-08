@@ -568,22 +568,32 @@ function renderQuestion() {
     questionTextElement.innerHTML = '';
     alternativesContainer.innerHTML = '';
 
+    // Adiciona a fonte, se ela existir
+    if (question.fonte) {
+        const sourceElement = document.createElement('p');
+        sourceElement.innerText = question.fonte;
+        sourceElement.classList.add('question-source'); // Adicione uma classe para estilizar
+        questionTextElement.appendChild(sourceElement);
+    }
+
     // Adiciona o enunciado
-    questionTextElement.innerText = question.enunciado;
-    questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+    const enunciadoElement = document.createElement('p');
+    enunciadoElement.innerText = question.enunciado;
+    questionTextElement.appendChild(enunciadoElement);
 
     // Adiciona a imagem, se ela existir na questão
     if (question.imagem_url) {
         const imageElement = document.createElement('img');
         imageElement.src = question.imagem_url;
         imageElement.alt = "Imagem de referência para a questão";
-        imageElement.classList.add('question-image'); // Adicione uma classe para estilizar
+        imageElement.classList.add('question-image');
         questionTextElement.appendChild(imageElement);
     }
     
-    // Renderiza as alternativas
+    // O restante do seu código para as alternativas permanece o mesmo
+    questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+
     question.alternativas.forEach((alt, index) => {
-        // ... (o código para criar input e label permanece o mesmo) ...
         const input = document.createElement('input');
         input.type = 'radio';
         input.name = 'alternative';
@@ -594,7 +604,7 @@ function renderQuestion() {
         label.htmlFor = input.id;
         
         label.appendChild(input);
-        label.innerHTML += alt; // Use innerHTML para manter a formatação, se houver
+        label.innerHTML += alt;
 
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
@@ -603,8 +613,10 @@ function renderQuestion() {
 
         alternativesContainer.appendChild(label);
     });
-
-    // ... (o restante da função para os botões permanece o mesmo) ...
+    
+    previousButton.disabled = currentQuestionIndex === 0;
+    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
 }
 
 // Salva a resposta do usuário
@@ -661,5 +673,6 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
