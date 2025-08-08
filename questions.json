@@ -3,6 +3,7 @@
     "id": 1,
     "area": "Clínica Médica",
     "assunto_especifico": "Anemia/Hematologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 60 anos foi internada para investigação de anemia associada a déficit cognitivo. O médico percebeu lentidão de raciocínio e redução da capacidade executiva. A paciente estava atenta e cooperando com o examinador quando se queixou de parestesias (dormência e queimação) simétricas em ambos os membros inferiores. Em relação à anemia, havia macrocitose e reticulocitopenia. O nível de vitamina B12 sérica foi 125 pg/mL (normal: acima de 200 pg/mL). Diante desse quadro clínico, além da investigação da causa da anemia, deve-se proceder à reposição:",
     "alternativas": [
       "(A) oral de cianocobalamina (1000 microgramas por dia) e manutenção da mesma dose uma vez por mês;",
@@ -18,6 +19,7 @@
     "id": 2,
     "area": "Clínica Médica",
     "assunto_especifico": "HIV/Tuberculose",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Após o início de tratamento antirretroviral (TARV) há 1 mês, um paciente com síndrome consumptiva, candidíase e diarreia crônica foi internado por outras manifestações. O grupo de residentes da clínica médica percebeu, durante os primeiros três dias de internação, febre vespertina, linfadenomegalias cervicais e axilares com fistulização e constipação intestinal com cólicas abdominais. Os exames demonstraram anemia e VHS e PCR elevados, bem como imagens reticulonodulares difusas e bilaterais em ambos os hemitóraces. As tomografias reforçaram os infiltrados reticulonodulares com linfadenomegalias mediastinais com centro necrótico, além de linfadenomegalias mesentéricas com espessamento de íleo distal. O paciente piorou clinicamente, apresentando-se prostrado e com hipoxemia no 4º dia de internação. A contagem de linfocitos CD4 no início do tratamento era de 45 células/mm³ e a PPD (prova tuberculínica anérgica) era 0 mm. Diante do exposto, a conduta mais adequada é:",
     "alternativas": [
       "(A) suspender a TARV até finalizar a investigação para infecções intestinais relacionadas ao HIV;",
@@ -33,6 +35,7 @@
     "id": 3,
     "area": "Clínica Médica",
     "assunto_especifico": "Dor Lombar/Investigação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Durante o atendimento ambulatorial, José, de 68 anos, queixou-se de dor toracolombar de intensidade moderada, constante, iniciada há 3 semanas. Foi associada a dormência nas duas pernas, havendo piora da dor quando ele ficava muito tempo em pé e melhora quando se sentava ou se deitava. O paciente já estava em tratamento para diabetes mellitus há 10 anos, com elevação recente da dose de metformina para 2 g/dia. Segundo ele, a glicemia estava bem controlada, mas o tabagismo e o alcoolismo persistiam (75 maços x ano e 40 g de álcool por dia). Na anamnese dirigida, revelou-se constipação de início recente, sem mudança do volume ou consistência das fezes. Não houve qualquer outra queixa ou sintoma relatado. No exame físico, notam-se dor à palpação da musculatura paravertebral bilateralmente, bem como dor em queimação agravada em flexão de quadril e coxa. Sinais de Lasègue e Kernig positivos bilateralmente. O restante do exame físico não mostrou alterações. Considerando o quadro exposto, é correto afirmar que:",
     "alternativas": [
       "(A) uma conduta mais agressiva deve ser adotada, com investigação de tumores devido à idade e ao tabagismo, apesar de se tratar de uma dor lombar aguda;",
@@ -48,6 +51,7 @@
     "id": 4,
     "area": "Clínica Médica",
     "assunto_especifico": "Reumatologia/Lúpus",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um rapaz de 18 anos foi atendido no ambulatório de clínica médica para acompanhamento de lúpus eritematoso sistêmico com nefrite e cardite. Estava em bom estado geral após 3 pulsoterapias com corticoide e ciclofosfamida, mas deveria fazer nova dose de corticoide sistêmico naquele mês. No entanto, apresentava lesões hiperemiadas com vesículas e algumas pústulas em dermátomos oftálmico e maxilar da hemiface direita. A impressão do médico foi de herpes-zóster. A conduta adequada para esse caso é:",
     "alternativas": [
       "(A) prescrição de aciclovir oral 800 mg, 5 vezes ao dia, por 14 dias, e encaminhar o paciente para casa;",
@@ -63,6 +67,7 @@
     "id": 5,
     "area": "Clínica Médica",
     "assunto_especifico": "Síndrome Paraneoplásica/Doenças Raras",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 49 anos foi internada na enfermaria de clínica médica por quadro de síndrome consumptiva, ascite e fraqueza em membros inferiores. A paciente conta que tudo começou 1 ano antes com dormência nas pernas ascendendo até o meio da perna e posterior redução de força em membros inferiores. Naquela época, houve turvação visual e cefaleia. Com aproximadamente 4 meses de sintomas, sem limitação para trabalhar e realizar as tarefas da vida diária, a cefaleia e a turvação visual ficaram mais proeminentes. Segundo a paciente, foram realizados diversos exames (ressonância de crânio, coluna cervical e lombar), sem evidência de alterações. A pressão do liquor estava alta, motivando o uso de acetazolamida por 8 meses (até a internação). No dia da internação, pôde-se observar hepatoesplenomegalia, ascite de grande volume, déficit sensitivo-motor distal em membros inferiores com hiporreflexia, fenômeno de Raynaud, cistos em tireoide (ultrassom confirmando e uso prévio de levotiroxina) e lesões cutâneas hipercrômicas. Outros exames demonstraram lesões osteoescleróticas em esterno, derrame pleural e pericárdico e padrão de polirradiculoneuropatia desmielinizante crônica. A conduta adequada para o quadro é:",
     "alternativas": [
       "(A) dosagem de fator reumatoide, fator antinuclear, anti-Scl-70, anticentrômero e pulsoterapia por provável doença do tecido conjuntivo indiferenciada ou sobreposição de lúpus com esclerodermia em evolução grave;",
@@ -78,6 +83,7 @@
     "id": 6,
     "area": "Clínica Médica",
     "assunto_especifico": "Reumatologia/Lúpus",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 20 anos se queixa de edema generalizado iniciado há 3 semanas, que evoluiu com piora progressiva. Relata hiporexia e astenia nesse período. Desconhece ser portadora de doenças atuais ou prévias e não faz uso de quaisquer medicamentos ou drogas. Ao exame físico, PA: 160x90 mmHg, FC: 97 bpm, FR: 22 ipm, SpO2 98% (em ar ambiente). As mucosas estão hipocoradas, ictéricas e hidratadas. Há edema na face, pálpebras, parede abdominal e membros inferiores. Há também ascite e síndrome de derrame pleural. Exames de laboratório: sangue: Hb: 7,0 g/dL; Hct: 24%; VCM: 98 FL; HCM: 31 pg; CHCM: 32 g/dL; RDW: 18,3%; leucócitos: 3.400/mm³; neutrófilos segmentados: 1.500/mm³; linfocitos: 700/mm³; Plq.: 201.000/mm³; PCR: 28 mg/dL; FAN reagente: 1:320 padrão nuclear homogêneo; anti-DNA reagente; anti-SSA reagente; anti-SSB reagente; anti-Sm reagente; ANCA não reagente; C3: 43 mg/dL (90-170 mg/dL) C4: 10 mg/dL (VR: 12-36 mg/dL); exame de urina: densidade 1.020; pH 6,0; nitrito negativo; proteínas ++++; hemoglobina ++; 4 piócitos/campo, 145 hemácias/campo; presença de cilindros hemáticos. Para investigação da anemia apresentada pela paciente, são solicitados os seguintes exames: LDL: 1150 UI/L (VR: 120-246 UI/L); BT: 4,2 mg/dL; BD: 0,4 mg/dL; reticulócitos: 18%, Coombs direto positivo; ferro sérico: 52 mcg/dL (VR: 65-175 mcg/dL); ferritina 650 ng/mL (VR: 10-291 ng/mL); capacidade total de ligação do ferro: 200 mcg/dL (250-425 mcg/dL). A conduta imediata mais adequada para o tratamento da anemia é:",
     "alternativas": [
       "(A) administração de eritropoetina;",
@@ -93,6 +99,7 @@
     "id": 7,
     "area": "Clínica Médica",
     "assunto_especifico": "Pneumologia/Doenças Intersticiais",
+    "fonte": "(Enare, 2024)",
     "enunciado": "A pneumonia em organização criptogênica (POC) tem sua forma idiopática de pneumonia em organização, anteriormente chamada de bronquiolite obliterante com pneumonia em organização (BOOP). É uma doença pulmonar intersticial difusa decorrente de lesão na parede alveolar tipicamente caracterizada por infiltrados pulmonares periféricos e difusos com áreas de preenchimento alveolar e responsividade a terapia sistêmica com glicocorticoides. A manifestação clínica é de uma pneumonia subaguda ou de difícil resolução, com tosse pouco produtiva, dispneia, febre baixa e fraqueza ou cansaço. No entanto, há diversas condições autoimunes, pneumonias de hipersensibilidade e efeitos colaterais que devem ser excluídos para que a POC seja dada como idiopática. Em uma análise mais profunda sobre a POC, o quadro descrito acima pode indicar pneumonia em organização caso se verifique(m):",
     "alternativas": [
       "(A) paciente com tosse, febre e dispneia há 3 semanas e imagem apical fibrótica e cavitação adjacente;",
@@ -108,6 +115,7 @@
     "id": 8,
     "area": "Clínica Médica",
     "assunto_especifico": "Gastroenterologia/Esofagite",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 31 anos, previamente saudável, apresenta-se com uma história de 2 anos de disfagia intermitente, principalmente para alimentos sólidos. Relatou 2 episódios de impactação alimentar, com necessidade de endoscopia digestiva alta de urgência. Estava em uso de esomeprazol (40 mg ao dia) há 6 meses, sem melhora significativa dos sintomas de disfagia. Realizou recentemente nova endoscopia, em que a biópsia foi compatível com esofagite eosinofílica, sem estenose esofágica. Foi orientado a restringir alimentos que pudessem estar associados com essa forma de esofagite. Contudo, não houve resposta satisfatória. Nesse caso, a estratégia de intervenção mais adequada é:",
     "alternativas": [
       "(A) associar sucralfato antes das refeições e à noite, antes de deitar;",
@@ -123,6 +131,7 @@
     "id": 9,
     "area": "Clínica Médica",
     "assunto_especifico": "Cardiologia/Valvulopatias",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 42 anos, com história de 'reumatismo' na infância, procura ambulatório com um quadro de cansaço aos esforços. Tem história de 'isquemia cerebral' há 2 anos, sem sequelas motoras. Ao exame físico, a pressão arterial é de 110x68 mmHg e a frequência cardíaca é de 60 batimentos por minuto. Apresenta ritmo cardíaco regular, bulhas normofonéticas e B1 acentuada. Na ausculta cardíaca, há um sopro diastólico em foco mitral. Nos exames laboratoriais, há um clearance de creatinina estimado em 46 mL/min/1,73m². No ecocardiograma, foram observados estenose mitral moderada e episódios de fibrilação atrial no Holter de 24 horas. Em relação à prevenção de embolização sistêmica, está mais indicado o uso de:",
     "alternativas": [
       "(A) rivaroxabana de 15 mg, uma vez ao dia;",
@@ -138,6 +147,7 @@
     "id": 10,
     "area": "Clínica Médica",
     "assunto_especifico": "Neurologia/Psiquiatria",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 47 anos, que vinha em uso de medicações para controle de transtorno bipolar, é levada para atendimento com alteração do nível de consciência, confusão mental, sudorese e desorientação. Ao exame, foi observada rigidez muscular generalizada, especialmente em membros superiores e inferiores. Apresentou pressão arterial de 172 por 104 mmHg, frequência cardíaca de 109 batimentos por minuto, frequência respiratória de 24 incursões respiratórias por minuto e temperatura axilar de 39,2°C. O exame laboratorial revelou aumento significativo de creatinofosfoquinase sérica, sem alterações nas transaminases. Como a equipe médica suspeitou de síndrome neuroléptica maligna, suspendeu as medicações em uso e iniciou terapia de suporte clínico. Fazem parte do arsenal terapêutico da síndrome neuroléptica maligna as seguintes medicações:",
     "alternativas": [
       "(A) haloperidol e fenitoína;",
@@ -153,6 +163,7 @@
     "id": 11,
     "area": "Clínica Médica",
     "assunto_especifico": "Dermatologia/Reações a Medicamentos",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 48 anos foi admitido no hospital com erupção cutânea generalizada, mal-estar geral e febre. Ele relatou ter iniciado recentemente alopurinol para controle de hiperuricemia. Nos últimos dias, ele notou surgimento de uma erupção cutânea que começou no tronco e se espalhou para membros, região cervical e face. Além disso, queixava-se de náuseas e dor abdominal. No exame físico, foram observados erupção cutânea maculopapular generalizada, adenomegalia generalizada e edema em face, mãos e pés bilateralmente. Nos exames laboratoriais, foram encontradas leucocitose, eosinofilia e elevação das transaminases. A principal hipótese diagnóstica nesse caso é:",
     "alternativas": [
       "(A) eritema multiforme;",
@@ -168,6 +179,7 @@
     "id": 12,
     "area": "Clínica Médica",
     "assunto_especifico": "Hepatologia/Doença de Wilson",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um jovem de 20 anos foi admitido com um quadro de hepatite, esplenomegalia com hiperesplenismo, anemia hemolítica com Coombs negativo, hipertensão portal e confusão mental. O exame neurológico mostrou síndrome rígida-acinética semelhante ao parkinsonismo, tremores e ataxia. Foram também observadas disartria, disfagia e incoordenação motora. Tais achados neurológicos se associam a disfunção dos gânglios da base. O tratamento instituído foi D-penicilamina oral (0,75-2 g/dia em doses divididas, tomadas 1 hora antes ou 2 horas após a refeição) associada a piridoxina oral, 50 mg por semana. Foi também prescrito zinco elementar na dose de 50 mg três vezes ao dia. Houve melhora clínica e indicação para que o tratamento fosse continuado indefinidamente, além de uma dieta específica. A doença em questão é:",
     "alternativas": [
       "(A) hemocromatose;",
@@ -183,6 +195,7 @@
     "id": 13,
     "area": "Clínica Médica",
     "assunto_especifico": "Reumatologia/Espondiloartrite",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um jovem de 24 anos refere lombalgia e dor sacroilíaca crônicas há aproximadamente 6 meses. Apresenta também dor progressiva em membro inferior esquerdo. No último mês, vem apresentando rigidez matinal que melhora com exercícios físicos. A dor lombossacra chega a acordá-lo no meio da noite. Afirma também ter certa dificuldade em expandir a parede torácica. O diagnóstico mais provável é:",
     "alternativas": [
       "(A) artrite reumatoide;",
@@ -198,6 +211,7 @@
     "id": 14,
     "area": "Clínica Médica",
     "assunto_especifico": "Nefrologia/Hipertensão Renovascular",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 45 anos, tabagista, apresentava diabetes mellitus e dislipidemia, porém não era hipertenso. Foi atendido no pronto-socorro com quadro de edema agudo do pulmão hipertensivo. Apresentou melhora clínica e foi liberado com prescrição de losartana e hidroclorotiazida. A hipertensão ficou refratária ao tratamento e o paciente desenvolveu insuficiência renal aguda, que foi associada ao uso da losartana. No exame físico, foi detectado um sopro em linha mamilar esquerda na altura da cicatriz umbilical. O doppler de carótidas mostrou obstrução de 50% à direita e 40% à esquerda. A doença em questão é:",
     "alternativas": [
       "(A) doença de Kawasaki;",
@@ -213,6 +227,7 @@
     "id": 15,
     "area": "Clínica Médica",
     "assunto_especifico": "Hepatologia/Porfirias",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 44 anos e com diagnóstico de hepatite C, não tratada, desenvolveu quadro de porfiria. O tratamento instituído consistiu em antivirais de ação direta contra o HCV, hidroxicloroquina e flebotomias regulares. O tipo de porfiria em questão é:",
     "alternativas": [
       "(A) porfiria aguda intermitente;",
@@ -228,6 +243,7 @@
     "id": 16,
     "area": "Clínica Médica",
     "assunto_especifico": "Infectologia/Leptospirose",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Durante a tragédia das enchentes no estado do Rio Grande do Sul em 2024, ocorreram vários casos de leptospirose que acometeram principalmente voluntários que atuaram no resgate da população atingida. A insuficiência renal causada pela doença tem como lesão histopatológica:",
     "alternativas": [
       "(A) nefrite tubulointersticial;",
@@ -243,6 +259,7 @@
     "id": 17,
     "area": "Clínica Médica",
     "assunto_especifico": "Infectologia/Neurologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 45 anos, sem doenças prévias, desenvolveu enfermidade de instalação súbita e progressiva com quadro de náuseas, vômitos, diarreia e dor abdominal. Logo após, queixou-se de cefaleia, vertigem e tontura. Foi internado na emergência, onde foi iniciada hidratação venosa e administração de sintomáticos. Entretanto, 3 horas depois começou a apresentar visão turva, ptose palpebral, diplopia, disfagia, disartria, boca seca e fraqueza muscular simétrica, acometendo com maior intensidade os membros superiores, sem perda da sensibilidade. Notaram-se hipotensão sem taquicardia e retenção urinária. Cerca de 6 horas após a internação, evoluiu para paralisia flácida motora descendente, associada a comprometimento autonômico disseminado. Durante todo esse período, o paciente se manteve consciente. A fraqueza muscular descendente afetou os músculos do tronco e dos membros, levando a dispneia, insuficiência respiratória e tetraplegia flácida. Foi necessária a transferência do paciente para o CTI, com instalação de tubo orotraqueal e ventilação mecânica, além de rotinas terapêuticas para pacientes graves. O diagnóstico mais provável é:",
     "alternativas": [
       "(A) meningite por Haemophilus influenzae;",
@@ -258,6 +275,7 @@
     "id": 18,
     "area": "Clínica Médica",
     "assunto_especifico": "Infectologia/Leptospirose",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 22 anos apresentou quadro clínico com início abrupto de febre, cefaleia, mialgia, anorexia, náuseas e vômitos. Foi avaliado na UPA e liberado com prescrição de sintomáticos. Vinte e quatro horas depois, apresentou diarreia, artralgia, dor ocular, fotofobia e hemorragia conjuntival, além de tosse. Foi internado, recebendo hidratação venosa e sintomáticos venosos. Foram solicitados exames complementares, com os seguintes resultados: leucocitose, neutrofilia e desvio à esquerda, plaquetopenia, aumento de ureia e creatinina, CPK elevada, baixa densidade urinária, proteinúria, hematúria microscópica e leucocitúria. Foi então iniciada antibioticoterapia com sulfametoxazol + trimetoprima. Logo a seguir, o paciente apresentou exantema, eritema macular, papular purpúrico, distribuídos no tronco ou na região pré-tibial. USG exibiu hepatomegalia, esplenomegalia e linfadenopatia. Na ocasião, reclamou de intensa mialgia, principalmente em região lombar e nas panturrilhas. Apesar do uso de antibiótico, não apresentou melhora, com evolução para tríade insuficiência renal, icterícia rubínica e hemorragia pulmonar discreta (síndrome de Weil). Foi intubado e no CTI iniciou penicilina G cristalina em dose plena e cuidados intensivos. Após 10 dias, apresentou melhora clínica, sendo transferido para enfermaria até concluir seu tratamento. A doença descrita acima é:",
     "alternativas": [
       "(A) febre maculosa;",
@@ -273,6 +291,7 @@
     "id": 19,
     "area": "Clínica Médica",
     "assunto_especifico": "Hepatologia/Hepatite C",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 50 anos em tratamento para hepatite C, com cirrose hepática compensada CHILD PUGH A, tem histórico de falha terapêutica com uso prévio de antivirais de ação direta. O médico assistente do serviço de atenção especializada prescreveu um novo esquema terapêutico, recomendado pelo Ministério da Saúde. O esquema prescrito foi:",
     "alternativas": [
       "(A) sofosbuvir/velpastavir/ribavirina por 24 semanas;",
@@ -288,6 +307,7 @@
     "id": 20,
     "area": "Clínica Médica",
     "assunto_especifico": "Gastroenterologia/Colangite Biliar Primária",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Mulher de 65 anos procura o gastroenterologista com queixas de astenia, prurido palmar e plantar e elevação de fosfatase alcalina (1005 Ul/ml) e Gama GT (1200 Ul/ml). As enzimas hepáticas TGO e TGP estão elevadas (300 e 250 Ul/ml, respectivamente) e a bilirrubina total é de 6,0 mg/dl às custas da bilirrubina direta. Apresenta plaquetopenia de 85.000/mm³ e a ultrassonografia de abdômen aponta alterações compatíveis com doença parenquimatosa crônica do fígado, sem dilatação das vias biliares intra e extra-hepáticas e vesícula biliar anecoica. A principal hipótese diagnóstica para o caso e o exame complementar a ser solicitado são, respectivamente:",
     "alternativas": [
       "(A) hepatite colestática autoimune; FAN e antimúsculo liso;",
@@ -303,6 +323,7 @@
     "id": 21,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Oncologia Cutânea",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 64 anos de idade, saudável, agricultor, apresenta-se no consultório com uma lesão cutânea que ele notou há cerca de 6 meses. A lesão está localizada no dorso da mão direita e tem crescido lentamente. O paciente relata que a área está um pouco dolorosa e pruriginosa. Ao exame físico, observa-se uma lesão de 1,2 cm de diâmetro, de cor acastanhada, bordas irregulares, e com algumas áreas de ulceração, e há linfadenomegalia palpável na axila. Com base na descrição clínica e no exame físico, as melhores propostas diagnóstica e terapêutica para esse paciente são, respectivamente:",
     "alternativas": [
       "(A) carcinoma basocelular; tratamento com crioterapia;",
@@ -318,6 +339,7 @@
     "id": 22,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Cirurgia de Cabeça e Pescoço",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 47 anos de idade, fumante há 30 anos e com histórico de consumo de bebidas alcoólicas destiladas, apresenta uma úlcera dolorosa na língua há 3 meses. Relata que a lesão não cicatriza e está aumentando de tamanho. Além disso, nota dificuldade para engolir e dor referida no ouvido. Ao exame físico, observa-se uma úlcera irregular na borda lateral da lingua, com margens endurecidas e base infiltrada. Não há linfonodos cervicais palpáveis. O diagnóstico provável e o tratamento inicial mais adequado para esse paciente são, respectivamente:",
     "alternativas": [
       "(A) adenoma; ressecção com anestesia local;",
@@ -333,6 +355,7 @@
     "id": 23,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Trauma Abdominal",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um adolescente de 16 anos foi admitido no pronto-socorro após queda de motocicleta. Ele estava lúcido e com sinais vitais estáveis. Realizou-se uma tomografia computadorizada do abdômen, que mostrou uma laceração esplênica grau II. Optou-se por um tratamento conservador inicial com monitoramento em unidade de terapia intensiva. Após 24 horas de internação, o paciente apresentou uma queda súbita na pressão arterial, aumento da frequência cardíaca e sinais de irritação peritoneal. Uma nova TC de abdômen mostrou aumento significativo do hemoperitônio e sinais de ruptura esplênica adicional. Diante desse quadro, a conduta mais apropriada para esse paciente é:",
     "alternativas": [
       "(A) indicar a cirurgia de Warren;",
@@ -348,6 +371,7 @@
     "id": 24,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Trauma/Queimaduras",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Pedro Paulo, um homem de 41 anos, foi admitido no pronto-socorro após sofrer queimaduras extensas em um incêndio no seu local de trabalho. Ele apresentava queimaduras de segundo grau que cobriam aproximadamente 45% de sua superfície corporal total (SCT). O paciente pesava 70 kg e estava consciente e lúcido, mas sentia dor intensa e desconforto. Os sinais vitais eram: frequência cardíaca: 120 bpm; pressão arterial de 100/60 mmHg; frequência respiratória de 24 ipm e saturação de oxigênio de 94% em ar ambiente. Seu médico decidiu iniciar a reanimação hídrica imediatamente. A melhor abordagem inicial para a reanimação hídrica de Pedro Paulo é:",
     "alternativas": [
       "(A) administrar 2ml/kg/%SCT de solução de Ringer Lactato nas primeiras 24 horas, dividindo o volume total igualmente ao longo do período;",
@@ -363,6 +387,7 @@
     "id": 25,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Obstrutivo",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 48 anos apresenta-se no pronto-socorro com dor abdominal intensa e intermitente há 18 horas, com náuseas e vômitos. Ele relata não ter evacuado ou eliminado gases nas últimas 48 horas. Sua história patológica pregressa inclui uma apendicectomia realizada há 20 anos e uma cirurgia para correção de hérnia inguinoescrotal há 5 anos. O exame físico mostrou o paciente lúcido e apirético; sinais vitais: PA 125/80 mmHg, FC 90 bpm, FR 20 ipm, T 36,8°C. O abdômen está distendido. Peristalse de luta apresenta ruídos metálicos e hipercinéticos. Sente dor à palpação difusa, porém sem sinais de defesa e com ausência de hérnias palpáveis. Os exames laboratoriais registram hemograma com leucócitos de 8.000/mm³ e eletrólitos dentro dos limites normais. Os exames de imagem revelam rotina de abdômen agudo, mostrando distensão de alças intestinais com níveis hidroaéreos, e sem evidências de tumorações. Diante desse quadro clínico, a etapa inicial mais apropriada para o manejo do caso é:",
     "alternativas": [
       "(A) colonoscopia urgente;",
@@ -378,6 +403,7 @@
     "id": 26,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Ortopedia/Traumatologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 55 anos sofreu queda de uma altura de aproximadamente dois metros enquanto trabalhava em uma obra. Ele caiu diretamente sobre o braço direito estendido. No pronto-socorro, apresentava dor intensa, incapacidade de mover o braço direito e deformidade visível no meio do braço. As radiografias mostraram uma fratura diafisária do úmero com desvio. O exame neurovascular estava normal. O tratamento mais apropriado para esse paciente é:",
     "alternativas": [
       "(A) fixação externa;",
@@ -393,6 +419,7 @@
     "id": 27,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Trauma Torácico",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Após um traumatismo torácico contuso, um paciente apresenta sinais de tamponamento cardíaco, incluindo hipotensão, taquicardia, aumento da turgência jugular e pulso fino. A conduta clínico-cirúrgica mais apropriada para esse paciente é:",
     "alternativas": [
       "(A) realização de pericardiocentese emergencial;",
@@ -408,6 +435,7 @@
     "id": 28,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Complicações Pós-operatórias",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 58 anos foi submetido a uma gastrectomia subtotal devido a um adenocarcinoma gástrico. Após a cirurgia, ele desenvolveu episódios frequentes de sudorese, palpitações, tonturas e diarreia após as refeições. Essa complicação pós-operatória está relacionada:",
     "alternativas": [
       "(A) ao desenvolvimento de diabetes mellitus tipo 2;",
@@ -423,6 +451,7 @@
     "id": 29,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Proctologia/Doença Inflamatória Intestinal",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente jovem, sem histórico familiar de câncer colorretal, apresenta sintomas como alterações no hábito intestinal, pequeno sangramento retal, dor abdominal, perda de peso inexplicada e palpação abdominal dolorosa no quadrante inferior direito. A hipótese diagnóstica mais provável é:",
     "alternativas": [
       "(A) síndrome do intestino irritável;",
@@ -438,6 +467,7 @@
     "id": 30,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Inflamatório",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 26 anos, atlético, em boas condições físicas, se apresenta ao pronto-socorro com dor abdominal intensa no quadrante inferior direito, que começou há 3 dias e piorou progressivamente. Ele relata náuseas, vômitos e febre. Ao exame físico, está taquicárdico, febril (38,5 °C), com defesa muscular e dor à descompressão brusca no quadrante inferior direito. A palpação abdominal revela sinais de irritação peritoneal. Os exames laboratoriais mostram leucocitose com desvio à esquerda. Uma tomografia computadorizada de abdômen revela apêndice distendido com parede espessada, líquido livre na cavidade abdominal e sinais de abscesso periapendicular. O diagnóstico mais provável e a abordagem mais adequada para esse paciente são, respectivamente:",
     "alternativas": [
       "(A) apendicite não complicada; apendicectomia laparoscópica com recomposição hidroeletrolítica e antibioticoterapia;",
@@ -453,6 +483,7 @@
     "id": 31,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Ginecológico",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 22 anos apresentou quadro de dor pélvica súbita há cerca de 2 horas. Ao exame, constata-se que está hipocorada ++/4, com PA=90x40 mmHg e FC=118 bpm. Seu abdômen está atípico com dor à palpação difusa, mais acentuada em fossa ilíaca direita, com descompressão dolorosa. O diagnóstico mais provável é:",
     "alternativas": [
       "(A) apendicite aguda;",
@@ -468,6 +499,7 @@
     "id": 32,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Hepatologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 23 anos realizou ultrassonografia abdominal de rotina, na qual foi observado nódulo sólido de 4 cm de diâmetro no fígado. Foi realizada tomografia abdominal com contraste venoso trifásico, que mostrou lesão hipercaptante, bem circunscrita, com cicatriz central localizada em segmento VII do fígado. Dentre os diagnósticos abaixo, o mais provável é:",
     "alternativas": [
       "(A) adenoma hepático;",
@@ -483,6 +515,7 @@
     "id": 33,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Proctologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 24 anos chega ao consultório relatando dor anal intensa há 4 dias. Ao exame, constata-se nódulo violáceo perianal de 1 cm, localizado posterior à direita, distal à linha denteada e muito doloroso ao toque. Dentre as condutas abaixo, a mais apropriada é:",
     "alternativas": [
       "(A) analgésicos tópico e oral, e banho de assento;",
@@ -498,6 +531,7 @@
     "id": 34,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Pancreático",
+    "fonte": "(Enare, 2024)",
     "enunciado": "O escore BISAP tem sido amplamente utilizado na avaliação prognóstica da pancreatite aguda. Dentre os critérios abaixo, o único que NÃO faz parte desse escore é:",
     "alternativas": [
       "(A) presença de derrame pleural;",
@@ -513,6 +547,7 @@
     "id": 35,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Inflamatório",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 58 anos buscou atendimento médico queixando-se de febre e dor em fossa ilíaca esquerda. Realizou tomografia, que mostrou sigmoide espessado com vários divertículos e presença de abscesso pericólico de 6 cm, restrito ao mesentério. A melhor conduta inicial para esse paciente é:",
     "alternativas": [
       "(A) antibioticoterapia oral ambulatorial;",
@@ -528,6 +563,7 @@
     "id": 36,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo Biliar",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 45 anos, com diagnóstico de colelitíase há 1 ano, apresenta dor em hipocôndrio direito, icterícia ++/4, temperatura axilar de 38°C. PA: 110x70 mmHg e bilirrubina total de 4,6 mg/dL com bilirrubina direta de 3,2 mg/dL Realizou ultrassonografia de abdômen, que mostrou vesícula de paredes finas, contendo múltiplos cálculos e discreta dilatação das vias biliares extra-hepáticas. Além da antibioticoterapia venosa, a conduta mais apropriada neste momento é:",
     "alternativas": [
       "(A) hidratação e medidas de suporte, somente;",
@@ -543,6 +579,7 @@
     "id": 37,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Choque Hemorrágico/Trauma",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um homem de 28 anos, admitido no pronto-socorro após um acidente automobilístico, apresenta ectoscopicamente sinais evidentes de trauma abdominal. Na avaliação neurológica inicial, está consciente, mas confuso. Seus sinais vitais são: pressão arterial de 85/60 mmHg, frequência cardíaca de 130 bpm, frequência respiratória de 28 ipm, saturação de oxigênio de 94% em ar ambiente. Sua pele está fria e pegajosa, com enchimento capilar prolongado. Refere dor intensa no abdômen. O abdômen está tenso e distendido, com dor à palpação e sem peristaltismo audível. Os exames complementares mostram hemoglobina 8 g/dL com hematócrito de 24%. Foi realizado um FAST (Focused Assessment with Sonography for Trauma), que mostrou líquido livre na cavidade peritoneal. Radiografia de tórax e pelve não mostrou fraturas. Nesse momento, seu diagnóstico é de choque hipovolêmico grau III por hemorragia intra-abdominal. A conduta adotada deverá ser:",
     "alternativas": [
       "(A) administração de solução salina isotônica e monitoramento em observação;",
@@ -558,6 +595,7 @@
     "id": 38,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Abdome Agudo/Obstrução Intestinal",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 81 anos, com diagnóstico de doença pulmonar obstrutiva crônica e insuficiência cardíaca congestiva, é internado para tratamento de pneumonia. Após alguns dias de tratamento com antibióticos e repouso no leito, ele começa a apresentar distensão abdominal significativa, dor leve e náuseas, mas sem vômitos. Não apresenta sinais clínicos de peritonite aos exames físico e laboratorial. Radiografias do abdômen mostram dilatação importante dos cólons, principalmente no ceco e cólon ascendente, porém sem evidência de obstrução mecânica. Diante desse quadro clínico, o diagnóstico mais provável e a melhor abordagem inicial para o manejo desse paciente são, respectivamente:",
     "alternativas": [
       "(A) síndrome de Ogilvie e tratamento com neostigmina;",
@@ -573,6 +611,7 @@
     "id": 39,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Hérnias da Parede Abdominal",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um paciente de 55 anos apresenta-se no consultório com queixa de uma protuberância na região inguinal direita que se estende até o escroto. Ele relata que a protuberância aparece principalmente quando faz esforço físico, como levantar pesos, e desaparece quando está deitado. Não há sinais de dor intensa, febre ou outros sintomas sistêmicos. Ao exame físico, observa-se uma massa inguinoescrotal redutível ao repouso e com manobras de redução manual. Não há sinais de estrangulamento ou obstrução. A melhor técnica cirúrgica para tratar a hérnia inguinoescrotal redutível desse paciente será:",
     "alternativas": [
       "(A) herniorrafia convencional pela técnica de Shouldice;",
@@ -588,6 +627,7 @@
     "id": 40,
     "area": "Cirurgia Geral",
     "assunto_especifico": "Cirurgia Laparoscópica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Durante o pneumoperitônio para realização de cirurgias por acesso videolaparoscópico, algumas alterações hemodinâmicas podem ocorrer no paciente. Em relação a essas alterações, é correto afirmar que:",
     "alternativas": [
       "(A) há diminuição do débito cardíaco, com aumento do retorno venoso;",
@@ -603,6 +643,7 @@
     "id": 41,
     "area": "Pediatria",
     "assunto_especifico": "Desenvolvimento e Crescimento",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma adolescente de 12 anos apresenta pelos espessos e esparsos em genitália e mamas/mamilos aumentados, sem contorno definido. É correto afirmar que:",
     "alternativas": [
       "(A) a adolescente tem o desenvolvimento puberal adequado para a sua idade;",
@@ -618,6 +659,7 @@
     "id": 42,
     "area": "Pediatria",
     "assunto_especifico": "Gastroenterologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Segundo os critérios de ROMA IV para lactentes, escolares e adolescentes, na síndrome do intestino irritável:",
     "alternativas": [
       "(A) a criança tem diarreia associada a perda ponderal nos últimos 2 meses;",
@@ -633,6 +675,7 @@
     "id": 43,
     "area": "Pediatria",
     "assunto_especifico": "Exantemas Infantis",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um lactente de 10 meses apresentou febre alta (39°C) e coriza hialina por 3 dias. No quarto dia de doença, 12 horas após o último pico febril, surge exantema maculopapular em tronco que se dissemina para os membros. Ao exame, apresenta discreta hiperemia de orofaringe, linfonodos cervicais sem características inflamatórias e exantema maculopapular eritematoso difuso. Diante desse quadro, o diagnóstico correto é:",
     "alternativas": [
       "(A) escarlatina;",
@@ -648,6 +691,7 @@
     "id": 44,
     "area": "Pediatria",
     "assunto_especifico": "Vacinação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Os pais de um escolar em tratamento de rinite alérgica com corticoide nasal procuraram o posto de saúde para aplicação da vacina HPV (papilomavírus humano). Em vista do quadro apresentado, o agente do posto de saúde deverá:",
     "alternativas": [
       "(A) orientar os pais a vacinarem a criança após o término do tratamento;",
@@ -663,6 +707,7 @@
     "id": 45,
     "area": "Pediatria",
     "assunto_especifico": "Neonatologia/Icterícia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Dentre as situações a seguir, aquela em que o recém-nascido tem dois critérios para icterícia patológica é:",
     "alternativas": [
       "(A) RN a termo, icterícia desde 37 horas de vida, bilirrubina total=4 mg/dl, bilirrubina indireta =3,1 mg/dl;",
@@ -678,6 +723,7 @@
     "id": 46,
     "area": "Pediatria",
     "assunto_especifico": "Neonatologia/Vacinação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um recém-nascido de 21 dias, com idade gestacional de 32 semanas, peso de nascimento de 1.600 g, está internado na UTI neonatal com sépsis, em suporte ventilatório e hemodinâmico. A vacinação do paciente deve:",
     "alternativas": [
       "(A) ocorrer de acordo com sua idade corrigida;",
@@ -693,6 +739,7 @@
     "id": 47,
     "area": "Pediatria",
     "assunto_especifico": "Transtornos do Neurodesenvolvimento",
+    "fonte": "(Enare, 2024)",
     "enunciado": "M-CHAT-R é um teste utilizado no transtorno do espectro autista para:",
     "alternativas": [
       "(A) diagnóstico da síndrome de Asperger;",
@@ -708,6 +755,7 @@
     "id": 48,
     "area": "Pediatria",
     "assunto_especifico": "Aleitamento Materno",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma primípara comparece à consulta de puericultura com seu filho de 2 meses. Durante a consulta, o pediatra percebe que ela está prestes a abandonar o aleitamento materno exclusivo e conduz a conversa de forma a mantê-lo. Nessa conversa é importante ser empático, evitando:",
     "alternativas": [
       "(A) fazer perguntas abertas que permitam à mãe expressar argumentos contra a manutenção da amamentação;",
@@ -723,6 +771,7 @@
     "id": 49,
     "area": "Pediatria",
     "assunto_especifico": "Violência contra a Criança e Adolescente",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma adolescente com 11 anos é levada à emergência em pediatria por apresentar võmitos. Reside com a avó, que informalmente assumiu a guarda e que frequentemente desvaloriza os genitores, pois a adolescente fora abandonada pela mãe por ser fruto de gestação não desejada e nunca teve contato com o pai. A avó está em tratamento de depressão, imputando seu sofrimento à adolescente. Nesse caso, a notificação:",
     "alternativas": [
       "(A) deverá ser feita, pois existem fatos justificando a suspeita de violência;",
@@ -738,6 +787,7 @@
     "id": 50,
     "area": "Pediatria",
     "assunto_especifico": "Vacinação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um adolescente saudável de 16 anos comparece à clínica da família para atualizar sua situação vacinal. Alega que só recebeu vacinas no primeiro ano de vida, mas, 2 meses antes, fez uma dose de vacina para difteria e tétano (dT), para se matricular em um curso. Em sua caderneta da criança, há registro das seguintes vacinas: duas doses da vacina contra hepatite B (HB); duas doses da vacina contra difteria, tétano e pertússis (DTP); uma dose da vacina contra febre amarela (VFA); uma dose da vacina contra sarampo, caxumba e rubéola (tríplice viral). A atualização deverá ser feita com:",
     "alternativas": [
       "(A) duas doses da VFA, duas doses da dT, duas doses da tríplice viral, duas doses de vacina contra HPV e uma dose da vacina meningocócica ACWY;",
@@ -753,6 +803,7 @@
     "id": 51,
     "area": "Pediatria",
     "assunto_especifico": "Hidratação na Diarreia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um escolar com 5 anos é atendido em uma unidade básica de saúde com história de diarreia iniciada 2 dias antes. Houve aumento da frequência das evacuações há 24 horas, e o paciente apresentou um episódio de vômitos há 12 horas. Ao exame físico, mostrou-se intranquilo, chorando sem lágrimas, com a língua levemente seca. A conduta imediata é:",
     "alternativas": [
       "(A) fazer hidratação oral com 75 mL/kg (sais de reidratação) em 4 horas; não medicar; observação no local;",
@@ -768,6 +819,7 @@
     "id": 52,
     "area": "Pediatria",
     "assunto_especifico": "Gastroenterologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um menino de 3 anos apresenta história de dificuldade para evacuar desde o primeiro ano de vida. Fica alguns dias sem evacuar e só evacua com o uso de doses altas de laxante ou com enemas. A mãe refere que ele demorou 4 dias para evacuar após nascer e o fez porque usou supositório. Tem pouco apetite e não ganha peso adequadamente. O exame clínico revelou distensão abdominal e saída de fezes explosivas ao toque retal. Realizou exames laboratoriais e clister opaco. Com base na principal hipótese diagnóstica, é esperado encontrar no exame radiológico uma área de intestino:",
     "alternativas": [
       "(A) dilatada, apresentando extensão limitada, iniciando em qualquer local no colo, correspondendo à região agangliônica;",
@@ -783,6 +835,7 @@
     "id": 53,
     "area": "Pediatria",
     "assunto_especifico": "Ortopedia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um escolar masculino de 9 anos está em acompanhamento na unidade básica por dor no joelho direito iniciada 2 meses antes. Há inchaço no local e a dor o impede de praticar basquete no time do clube. Não há história de trauma. No exame físico há edema e dor sobre a porção distal do tendão patelar direito, além de uma proeminência firme e fixa do tubérculo tibial. A radiografia do joelho está normal. O médico orientou repouso, afastamento temporário do basquete e fisioterapia. A principal hipótese diagnóstica é:",
     "alternativas": [
       "(A) síndrome de Sinding-Larsen-Johansson;",
@@ -798,6 +851,7 @@
     "id": 54,
     "area": "Pediatria",
     "assunto_especifico": "Doenças Parasitárias",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Schistosoma, um helminto pertencente à classe Trematoda, à família Schistossomatidae e ao gênero Schistosoma, são vermes digenéticos, delgados, de coloração branca e sexos separados. A fêmea adulta, mais alongada, encontra-se alojada em uma fenda do corpo do macho, denominada canal ginecóforo. O ser humano é o principal hospedeiro definitivo do S. mansoni. É nele que o parasita desenvolve a forma adulta e se reproduz sexuadamente, gerando ovos que são disseminados no meio ambiente por meio das fezes, ocasionando a contaminação das coleções hídricas. O ciclo biológico do S. mansoni depende da presença do hospedeiro intermediário no ambiente. Os caramujos gastrópodes aquáticos, pertencentes à família Planorbidae e ao gênero Biomphalaria, são os organismos que possibilitam a reprodução assexuada do helminto. Com relação ao período de transmissibilidade dessa doença, é correto afirmar que:",
     "alternativas": [
       "(A) a pessoa infectada pode eliminar ovos viáveis de S. mansoni a partir de 5 semanas após a infecção e por um período de 6 a 10 anos, podendo chegar a até mais de 20 anos;",
@@ -813,6 +867,7 @@
     "id": 55,
     "area": "Pediatria",
     "assunto_especifico": "Doenças Sexualmente Transmissíveis",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um jovem de 18 anos foi atendido em uma unidade básica de saúde com um quadro de segundo episódio de uretrite gonocócica em 3 meses. Após aconselhamento pela equipe, o tratamento instituído foi:",
     "alternativas": [
       "(A) doxiciclina 100 mg, 1 comprimido via oral, 12/12h por 30 dias;",
@@ -828,6 +883,7 @@
     "id": 56,
     "area": "Pediatria",
     "assunto_especifico": "Doenças Infecciosas",
+    "fonte": "(Enare, 2024)",
     "enunciado": "A cólera é causada pela bactéria Vibrio cholerae toxigênica dos sorogrupos 01 ou 0139. O Vibrio cholerae 01 pode ser classificado em dois biotipos: Clássico e El Tor, que apresentam diferenças em relação às propriedades fenotípicas e genotípicas, patogenicidade e padrões de infecção e sobrevivência nos hospedeiros humanos. O uso de antibióticos é complementar ao tratamento e não substitui a administração de líquidos e solução de sais de reidratação oral ou de fluidos endovenosos (a reidratação é a base da terapia). Dessa maneira, o antibiótico de primeira escolha, indicado pelo Ministério da Saúde, para tratamento da cólera é:",
     "alternativas": [
       "(A) doxiciclina 2 mg/kg a 4 mg/kg, em dose única, por via oral;",
@@ -843,6 +899,7 @@
     "id": 57,
     "area": "Pediatria",
     "assunto_especifico": "Infectologia/Síndrome Urêmica Hemolítica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "A síndrome urêmica hemolítica típica (SHU) é uma doença do grupo das microangiopatias trombóticas. São distúrbios caracterizados por anemia hemolítica microangiopática não imune, trombocitopenia e insuficiência multissistêmica. A SHU está associada a infecções intestinais por bactérias produtoras da toxina Shiga, em especial a Escherichia coli enterohemorrágica invasiva (STEC Shiga-toxin-producing strains of E coli). Carne mal-cozida, especialmente hambúrguer, leite e suco não pasteurizados, além de frutas e vegetais crus, podem estar contaminados por essas bactérias. A doença geralmente tem início abrupto com quadro de diarreia, muitas vezes com sangue e dor abdominal. Em adultos, geralmente é autolimitada a 5-10 dias. Porém, em crianças, observa-se maior associação à SHU. Com relação a essa doença em crianças, é correto afirmar que:",
     "alternativas": [
       "(A) o antibiótico de escolha é o ciprofloxacino;",
@@ -858,6 +915,7 @@
     "id": 58,
     "area": "Pediatria",
     "assunto_especifico": "Doenças Infecciosas/Coqueluche",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Coqueluche é uma infecção aguda do trato respiratório causada pela bactéria Bordetella pertussis. A palavra coqueluche significa 'tosse violenta', expressão que descreve apropriadamente a característica mais consistente e proeminente da doença. O nome chinês para coqueluche é 'tosse de 100 dias', termo que descreve o curso clínico da doença com precisão. A identificação de B. pertussis foi relatada pela primeira vez por Bordet e Gengou em 1906. A classe de antibióticos mais adequada para tratamento dessa doença é:",
     "alternativas": [
       "(A) fosfomicina;",
@@ -873,6 +931,7 @@
     "id": 59,
     "area": "Pediatria",
     "assunto_especifico": "Cardiologia Pediátrica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um lactente de 9 meses, com fácies sindrômica, assintomático, apresenta ausculta cardíaca com ritmo regular, bulhas normofonéticas com desdobramento variável da segunda bulha, sopro sistólico 2+/6+ mais audível em borda esternal esquerda baixa, sem irradiação, que diminui com a posição sentada. Os pulsos femorais são palpáveis. Nesse caso, o médico deve:",
     "alternativas": [
       "(A) internar a criança para realização de exames;",
@@ -888,6 +947,7 @@
     "id": 60,
     "area": "Pediatria",
     "assunto_especifico": "Oncologia Pediátrica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um escolar de 10 anos apresenta queixa de cansaço, dores nas pernas que o acordam durante a noite e emagrecimento de 2 kg no último mês. Apresenta as seguintes alterações ao exame físico: palidez cutâneo-mucosa 3+/4+, sopro sistólico 2+/6+ em bordo esternal esquerdo, taquicardia (FC=120 bpm), fígado a 2,5 cm do RCD, ponta de baço palpável, dor à palpação do terço proximal da tíbia bilateralmente e petéquias esparsas em membros. O quadro clínico é sugestivo de:",
     "alternativas": [
       "(A) anemia falciforme;",
@@ -903,6 +963,7 @@
     "id": 61,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Emergências Ginecológicas",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 24 anos, saudável, é usuária de dispositivo intrauterino de cobre. Refere vida sexual ativa com uso de preservativos e última menstruação há 10 dias. Há 2 horas, iniciou-se uma dor de instalação aguda, de padrão constante, em fossa ilíaca direita, sem irradiação, associada a náuseas e vômitos. Nega sangramento vaginal, febre, dor lombar, mudança de hábito intestinal ou urinário. A ultrassonografia transvaginal evidenciou aumento do ovário direito, comprometimento do fluxo sanguíneo em região anexial do mesmo lado e líquido livre em fundo de saco. A hipótese mais provável é:",
     "alternativas": [
       "(A) gestação ectópica à direita;",
@@ -918,6 +979,7 @@
     "id": 62,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Violência Sexual",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 18 anos chega à emergência do hospital referindo ter sido vítima de violência sexual há 2 horas em uma festa. Relata que, no ato, houve penetração. Ela desconhece o agressor, o qual não usou preservativo. A abordagem inicial deve incluir:",
     "alternativas": [
       "(A) atendimento inicial exclusivo por médico;",
@@ -933,6 +995,7 @@
     "id": 63,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Endocrinologia Ginecológica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 23 anos tem queixa de irregularidade menstrual de longa data. Relata que, desde a primeira menstruação, tem intervalo de 50 a 60 dias entre os ciclos e períodos de amenorreia. No último ano, estava em final de faculdade e ganhou muito peso em função de estresse e sedentarismo. Ao exame, apresenta bom estado geral, IMC 31 kg/m², presença de acne em face e dorso e escurecimento de região de dobras. Frente a esse cenário, a principal hipótese é:",
     "alternativas": [
       "(A) síndrome dos ovários policísticos;",
@@ -948,6 +1011,7 @@
     "id": 64,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Menopausa/Sintomas Climatéricos",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma paciente de 38 anos teve diagnóstico de câncer de mama há 18 meses, com realização de quimioterapia neoadjuvante e mastectomia à direita. Não menstrua há 12 meses. Há 6 meses queixa-se de calores e suores todas as noites, com prejuízo importante de sua qualidade de vida. Recentemente notou piora da lubrificação vaginal. Analisando o caso acima, o diagnóstico e a conduta apropriada são, respectivamente:",
     "alternativas": [
       "(A) menopausa precoce; início de terapia hormonal com estrogênio e progesterona via oral e uso de lubrificantes vaginais;",
@@ -963,6 +1027,7 @@
     "id": 65,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Tumores Ginecológicos Pediátricos",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma criança do sexo feminino, de 2 anos de idade, chega encaminhada pelo seu pediatra. A mãe relata corrimento vaginal ora sanguinolento, ora aquoso e uma estrutura semelhante a 'cachos de uva' de aspecto gelatinoso na entrada da vagina. A principal hipótese é:",
     "alternativas": [
       "(A) má higiene;",
@@ -978,6 +1043,7 @@
     "id": 66,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Patologias do Trato Genital Inferior/Rastreamento",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Paciente de 32 anos foi à consulta ginecológica de rotina para realização de colpocitologia oncótica. O exame evidenciou agrupamento de células escamosas com núcleos aumentados, hipercrômicos e irregulares, com alta relação núcleo-citoplasmática sugestiva de lesão intraepitelial de alto grau. Como a amostra foi coletada em meio líquido, foi solicitado teste de HPV, que veio positivo para o subtipo 16. Frente a essas informações, é correto afirmar que:",
     "alternativas": [
       "(A) se trata de exame normal, com seguimento em 3 anos;",
@@ -993,6 +1059,7 @@
     "id": 67,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Mastologia/Câncer de Mama",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 63 anos, portadora de carcinoma lobular invasivo de mama direita de 2,0 cm, com axila clinicamente livre, é submetida a quadrantectomia com biópsia de linfonodo sentinela. Durante o exame de congelação intraoperatória, o patologista encontra a presença de células carcinomatosas nos linfonodos sentinelas biopsiados. É indicado o esvaziamento axilar. Para tanto, é importante definir quais são os 3 níveis dos linfonodos axilares. A estrutura anatômica que define esses níveis é:",
     "alternativas": [
       "(A) a artéria axilar;",
@@ -1008,6 +1075,7 @@
     "id": 68,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Ginecologia Pediátrica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma menina de 6 anos é levada pela mãe ao ginecologista por ter iniciado desenvolvimento mamário há 4 meses. Ao exame físico, apresenta mamas em estágio M2 de Tanner e genitália em estágio P1 de Tanner. De acordo com o gráfico de velocidade de crescimento, a paciente manteve um padrão de 4 cm/ano no último ano. Realizada uma radiografia de mão e de punhos pelo método de Greulich-Pyle, identifica-se que a idade óssea da criança é estimada em 6 anos e 2 meses. A dosagem hormonal de LH é 1,2 UI/L. Considerando as informações acima, o diagnóstico mais provável é:",
     "alternativas": [
       "(A) telarca precoce isolada;",
@@ -1023,6 +1091,7 @@
     "id": 69,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Doenças Sexualmente Transmissíveis",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 23 anos, sexualmente ativa, utilizando contracepção com pílula hormonal combinada, refere surgimento de lesões ulceradas, dolorosas em face interna de grande lábio esquerdo, há 3 dias. Precedendo o surgimento das lesões, refere que a região acometida apresentou um aumento de sensibilidade. Além disso, relata ter apresentado quadro de faringite há 1 semana. Ao exame, identifica-se a vulva trófica, sem distopias aparentes, apresentando 5 lesões ulceradas, com menos de 0,5 cm cada, coalescendo, dolorosas ao toque. Há presença de micropolilinfadenopatia inguinal bilateral, indolor. Considerando a principal hipótese diagnóstica, a opção adequada de tratamento para a paciente é:",
     "alternativas": [
       "(A) aciclovir 400 mg, três vezes ao dia, por 7 a 14 dias;",
@@ -1038,6 +1107,7 @@
     "id": 70,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Sangramento Uterino Anormal Pós-Menopausa",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 63 anos, portadora de diabetes mellitus e hipertensão arterial sistêmica controlada, encontra-se em menopausa há 10 anos. Comparece ao ginecologista com queixas de sangramento vaginal há 3 meses. O exame físico não apresenta alterações aparentes ou sinais de sangramento ativo no momento. É realizada uma ultrassonografia transvaginal, que evidencia endométrio com 3 mm de espessura, com imagem ecogênica focal que ocupa a interface entre os folhetos endometriais e mede 5 mm no maior eixo. A causa mais provável do sangramento nesse caso é:",
     "alternativas": [
       "(A) adenomiose;",
@@ -1053,6 +1123,7 @@
     "id": 71,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Tumores Ovarianos",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 25 anos, sexualmente ativa, sem atraso menstrual, comparece ao ginecologista com uma ultrassonografia transvaginal de rotina que apresentou nódulo de aspecto misto, com áreas hiperecogênicas difusas e sombra acústica posterior no ovário direito medindo 7,0 cm. O ovário esquerdo e o útero não apresentaram alterações à ultrassonografia. Ao toque vaginal, identificou-se a presença de massa móvel, indolor, medindo em torno de 7,0 cm, palpável em região anexial direita. Considerando a principal hipótese diagnóstica do caso, é correto afirmar que:",
     "alternativas": [
       "(A) esse tipo de tumor ovariano é bilateral em 10% dos casos;",
@@ -1068,6 +1139,7 @@
     "id": 72,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Vaginites",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 33 anos comparece ao médico com queixa de leucorreia há 2 semanas, com odor desagradável, que piora após a relação sexual. Ao exame especular, verifica-se conteúdo vaginal aumentado, com coloração branco-acinzentada e algo bolhoso. O colo uterino apresenta mácula rubra de 2,0 cm de diâmetro ao redor do orifício externo, e o muco cervical está com aspecto transparente. A fita de pH vaginal registra resultado de 5,2. O teste do KOH10% exacerbou o odor da leucorreia. Ao toque vaginal, o colo móvel apresenta-se indolor. Realizada a bacterioscopia, visualizaram-se células epiteliais recobertas por cocobacilos Gram variáveis. Considerando a principal hipótese diagnóstica, o melhor tratamento para a paciente é:",
     "alternativas": [
       "(A) fluconazol, 1 comprimido de 150 mg em dose única;",
@@ -1083,6 +1155,7 @@
     "id": 73,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Complicações Puerperais",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Paciente, após gestação e parto complicados, está em acompanhamento com endocrinologista com diagnóstico de síndrome de Sheehan. A complicação obstétrica que mais provavelmente ocorreu nesse caso foi:",
     "alternativas": [
       "(A) diabetes gestacional em uso de insulina;",
@@ -1098,6 +1171,7 @@
     "id": 74,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Síndrome HELLP",
+    "fonte": "(Enare, 2024)",
     "enunciado": "A pré-eclâmpsia complicada com síndrome HELLP é caracterizada por:",
     "alternativas": [
       "(A) trombocitopenia e convulsões maternas;",
@@ -1113,6 +1187,7 @@
     "id": 75,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Infecções na Gestação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma gestante com 28 semanas tem o diagnóstico de infecção por parvovirus B19. A melhor maneira de avaliar a principal complicação fetal nesse caso é:",
     "alternativas": [
       "(A) realização do doppler da artéria cerebral média;",
@@ -1128,6 +1203,7 @@
     "id": 76,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Gestação Gemelar",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma gestante realiza ultrassonografia com 24 semanas, que identifica gestação gemelar monocoriônica, diamniótica, com um feto com peso estimado no percentil 3 e o outro com peso estimado no percentil 43. Eles têm uma diferença de 28% entre os pesos. Ambos os fetos estão com volume do líquido amniótico normal e ambos com o doppler da artéria umbilical, da artéria cerebral média e do ducto venoso dentro da normalidade. O diagnóstico compatível com esse quadro é:",
     "alternativas": [
       "(A) gemelidade imperfeita;",
@@ -1143,6 +1219,7 @@
     "id": 77,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Líquido Amniótico",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Gestante realiza ultrassonografia obstétrica, que evidencia uma medida do maior bolsão vertical do líquido amniótico de 12 cm. A condição que pode estar associada a esse quadro é:",
     "alternativas": [
       "(A) insuficiência uteroplacentária;",
@@ -1158,6 +1235,7 @@
     "id": 78,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Diagnóstico de Gestação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma mulher de 25 anos chega ao ambulatório com um exame de farmácia demonstrando gravidez. Ainda não realizou ultrassonografia e, pela data da última menstruação, estaria com aproximadamente 8 semanas de gestação. Ao toque, nota-se um amolecimento acentuado no istmo, que configuraria o sinal de:",
     "alternativas": [
       "(A) Hegar;",
@@ -1173,6 +1251,7 @@
     "id": 79,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Abortamento",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma gestante de 38 anos, secundigesta e cardiopata, chega à emergência referindo cólicas intensas, sangramento vaginal em grande quantidade e sangue vivo. A idade gestacional, estabelecida pela ultrassonografia transvaginal realizada com 6 semanas, é de 9 semanas e 3 dias. Ao exame, o útero encontra-se aumentado de volume, amolecido, com colo entreaberto e saída de material ovular identificada no exame especular. A ultrassonografia mostra a presença de restos ovulares em grande quantidade. Diante desse quadro, a conduta deve ser:",
     "alternativas": [
       "(A) esvaziamento uterino por aspiração a vácuo ou curetagem;",
@@ -1188,6 +1267,7 @@
     "id": 80,
     "area": "Ginecologia e Obstetrícia",
     "assunto_especifico": "Infecções na Gestação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Uma gestante de 20 semanas, moradora de área endêmica, chegou à admissão da maternidade com sinais e sintomas sugestivos de dengue. Após o exame clínico-obstétrico e laboratorial, a equipe de plantão resolveu internar e tratar a paciente, pois identificou corretamente o seguinte sinal de alarme:",
     "alternativas": [
       "(A) vômitos esporádicos;",
@@ -1203,6 +1283,7 @@
     "id": 81,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Pneumologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Alice, 30 anos, chega à unidade básica de saúde com tosse seca, chiado no peito e dispneia aos grandes esforços, com piora à noite. Não tem história de febre, não apresenta perda de peso e a mucosa nasal está sem alterações. Piora com a fumaça de cigarro do marido. Ao exame pulmonar, apresenta tosse, murmúrio vesicular e sibilos difusos, especialmente na expiração forçada. Não apresenta outras alterações. Pesa 60 kg, tem 1,60 m de altura, seu IMC é 21,5 kg/m², a FC está em 77 bpm e a FR, em 15 irpm. O exame cardiovascular indica ritmo regular em 2 tempos, sem sopro e sem alteração de ictus. O abdômen está normotenso, depressível, sem organomegalias ou ruídos hidroaéreos presentes. O diagnóstico provável é:",
     "alternativas": [
       "(A) asma;",
@@ -1218,6 +1299,7 @@
     "id": 82,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Vigilância Epidemiológica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Carlos, 27 anos, vai à consulta médica com febre, exantema, gânglios retroauriculares aumentados, conjuntivite, artralgia e tosse. Em seu prontuário, não há registro de vacinação contra a rubéola. Ele declara não ter viajado recentemente, nem ter tido contato com pessoas confirmadas para rubéola. Contudo, sua região encontra-se no estado que registrou um surto da doença há 4 meses. Trata-se de um caso suspeito de rubéola. O melhor método para fazer a confirmação desse caso é:",
     "alternativas": [
       "(A) examinar se há vínculo epidemiológico com outros casos confirmados;",
@@ -1233,6 +1315,7 @@
     "id": 83,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Vacinação na Gestação",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Letícia está na 10ª semana de gestação. Diante do aumento de casos de gripe entre familiares e conhecidos, ela foi à unidade básica de saúde para saber se precisava tomar a vacina contra influenza. Na análise em seu prontuário, verificou-se que sua última vacina havia sido no ano anterior. Em relação a esse caso, é correto afirmar que:",
     "alternativas": [
       "(A) não se recomenda a vacina nesse estágio da gestação;",
@@ -1248,6 +1331,7 @@
     "id": 84,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Atenção Primária à Saúde (APS)",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Em uma atenção primária de qualidade, é papel da APS integrar verticalmente os serviços. A APS, como parte integrante da rede de atenção à saúde, estrutura-se segundo atributos e funções. Além da resolubilidade, são funções da APS:",
     "alternativas": [
       "(A) organização e responsabilização;",
@@ -1263,6 +1347,7 @@
     "id": 85,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Doenças Infecciosas/Monkeypox",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Milton teve o diagnóstico de monkeypox confirmado por meio de PCR positivo. Ele se enquadra no grupo de indivíduos com alto risco de desenvolver formas graves. Seu monitoramento deve acontecer:",
     "alternativas": [
       "(A) a cada 2 dias;",
@@ -1278,6 +1363,7 @@
     "id": 86,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Saúde Mental/APS",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Geraldo, 37 anos, adscrito à unidade básica de saúde, chega para consulta apresentando sintomas psicóticos. Como parte de seu delírio persecutório, recusa-se a ser medicado e não aceita ser encaminhado para o CAPS. Nesse caso, a conduta correta é:",
     "alternativas": [
       "(A) encaminhar para o CAPS mesmo assim, pois a unidade não tem recurso para esse atendimento;",
@@ -1293,6 +1379,7 @@
     "id": 87,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Cuidados Paliativos",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Apolinário, 86 anos, perfil 3 de funcionalidade, com Alzheimer em estágio avançado, hipertenso, diabético e com imobilidade grau IV, em uso de medicação para as doenças de base, é levado à consulta médica. Sobre seu quadro clínico, é correto afirmar que:",
     "alternativas": [
       "(A) deve ser feito controle rigoroso da hipertensão e diabetes, com vistas à reabilitação;",
@@ -1308,6 +1395,7 @@
     "id": 88,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Tabagismo",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Mylena, 42 anos, fuma 50 cigarros/dia desde os 16 anos. Seu Fagerström é igual a 10. Na escala de razões para fumar, declara que fuma para controlar o peso, para mediar situações de estresse e ansiedade e porque o cigarro é uma companhia. Diz que não consegue nem imaginar tentar parar de fumar e que, por isso, nunca tentou fazê-lo. Declara não se ver sem o cigarro. Recentemente, Mylena foi diagnosticada com neoplasia de pulmão. Nesse caso, a abordagem a essa fumante deve considerar:",
     "alternativas": [
       "(A) uso de vapers para iniciar o processo de mudança;",
@@ -1323,6 +1411,7 @@
     "id": 89,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Hipertensão Arterial Sistêmica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Rodrigo, 48 anos, casado, autônomo, vem à unidade básica de saúde se queixando de dores de cabeça de repetição e apresentando PA=165x90 mmHg. Em seu prontuário, identifica-se que, nas últimas 5 consultas, no último ano, por motivos diversos, sua pressão arterial foi, respectivamente, de 147x99 mmHg; 180x100 mmHg; 152x90 mmHg; 160x95 mmHg e 170x92 mmHg. Rodrigo tem história familiar de hipertensão e é sedentário. O fato que permite o diagnóstico de hipertensão arterial sistêmica é:",
     "alternativas": [
       "(A) ter sido admitido em unidade de pronto atendimento com pressão arterial 150x95 mmHg;",
@@ -1338,6 +1427,7 @@
     "id": 90,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Diabetes Mellitus",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Foram atendidas 5 irmãs na unidade básica de saúde. A única que tem características que permitem o diagnóstico de diabetes mellitus é:",
     "alternativas": [
       "(A) Maria Hilma, de 49 anos, que realizou teste de glicemia capilar com resultado 179 mg/dl;",
@@ -1353,6 +1443,7 @@
     "id": 91,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Hipertensão Arterial Sistêmica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "José, 55 anos, hipertenso há 3 anos, em uso regular de medicação, vem para consulta de rotina apresentando PA = 130x80 mmHg. Após exame clínico, conclui-se que tem baixo risco cardiovascular. Nesse caso, a conduta é:",
     "alternativas": [
       "(A) manter a medicação e reforçar a importância de manter a mudança de estilo de vida, pois a PA está dentro da meta;",
@@ -1368,6 +1459,7 @@
     "id": 92,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Diabetes Mellitus/Pé Diabético",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Leonora, 60 anos, com diabetes mellitus diagnosticada há 5 anos, em acompanhamento contínuo na unidade básica de saúde, vem para a consulta de rotina. Após avaliação dos pés, identificamos: sensibilidade presente, deformidade ausente e úlceras ou cicatrizes de úlceras ausentes. Segundo o exame clínico do pé diabético, conclui-se que a categoria de risco e o melhor manejo para Leonora são, respectivamente:",
     "alternativas": [
       "(A) grau 0-reavaliação anual;",
@@ -1383,6 +1475,7 @@
     "id": 93,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Cuidados Paliativos/Cuidador",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Vanda, 92 anos, hipertensa, com diagnóstico de Alzheimer há 16 anos, acamada, estável, sem lesões por pressão, sem histórico recente de internação, tem uma filha, Joana, de 68 anos, que faz o manejo diário: banho no leito, administração de medicação, dieta enteral, mudança de decúbito. A filha está bem orientada e procura se informar sobre o quadro e as melhores condutas. Nesse caso, o plano terapêutico singular deve:",
     "alternativas": [
       "(A) dar suporte à cuidadora, acompanhá-la regularmente para avaliação de sobrecarga no cuidado e manter acompanhamento de Vanda pela equipe da APS;",
@@ -1398,6 +1491,7 @@
     "id": 94,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Ciclo de Vida Familiar",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Com queixa de dor de cabeça, Jéssica, 37 anos, diarista, vai pela primeira vez à unidade básica de saúde. Ela reporta: 'Doutor, sinto essa dor há mais de 2 meses, desde que precisamos sair da nossa casa porque não dava mais para pagar o aluguel depois que meu marido foi demitido do emprego. Na minha casa somos eu, meu marido e três filhas de 4, 6 e 14 anos'. É exemplo de crise acidental do ciclo de vida familiar da família de Jéssica:",
     "alternativas": [
       "(A) família com filho pequeno;",
@@ -1413,7 +1507,9 @@
     "id": 95,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Genograma",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Mônica, 29 anos, professora, vem para a consulta na unidade básica de saúde preocupada com seu sobrepeso. Diz que anda muito estressada, que os cuidados com o filho mais novo têm tomado muito seu tempo e que o marido não ajuda e anda bebendo demais. Sua sogra Maria foi morar com eles e dá muito trabalho em virtude do quadro depressivo, que não melhora. O sogro, Mário, faleceu aos 53 anos, e isso a preocupa em relação a Mário Luís, seu marido, que também fuma e bebe demais. Eles têm ainda um filho de 12 anos, que não dá trabalho nenhum. Considere o genograma a seguir. O genograma de Mônica mostra que:",
+    "imagem_url": "assets/images/questao95_enare_2024.png", 
     "alternativas": [
       "(A) existe um padrão repetitivo de comportamento e saúde entre Mário e Mário Luís;",
       "(B) existe uma relação conflituosa entre Mônica e Maria;",
@@ -1428,6 +1524,7 @@
     "id": 96,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Registro Clínico",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Tatiana vem à consulta médica com queixa de dor lombar. Em sua consulta anterior, apresentou pressão arterial de 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal. Ela declara ter alergia a dipirona. De acordo com seu prontuário, seu último Papanicolau foi há 3 anos. Tatiana relata se sentir sem energia e ter medo de essas dores serem alguma doença ruim. Diz que não tem conseguido mais dormir de preocupação. Em relação ao registro das informações fornecidas por Tatiana no Registro Clínico Orientado por Problemas (RCOP), é correto afirmar que:",
     "alternativas": [
       "(A) devem ser registradas no campo Subjetivo as informações 'apresentou pressão arterial 120x65 mmHg, FC normal, peso 59 kg, altura 1,60 m e FR normal';",
@@ -1443,6 +1540,7 @@
     "id": 97,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Reumatologia",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Um senhor de 82 anos comparece à consulta queixando-se de uma cefaleia de início recente. HAS controlada com IECA. Exame físico sem particularidades, exceto por espessamento da artéria temporal à palpação. Nesse contexto:",
     "alternativas": [
       "(A) PCR elevada aumenta a chance de arterite de células gigantes;",
@@ -1458,6 +1556,7 @@
     "id": 98,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Tuberculose",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Segundo o Manual de Recomendações e Controle da Tuberculose no Brasil 2ª ed., atualizado em 29/05/2024, a transmissão e adoecimento por TB são influenciados por fatores demográficos, sociais e econômicos. Dentre os fatores que contribuem para a manutenção e propagação da doença, destacam-se: urbanização crescente e desordenada, desigualdade na distribuição de renda, moradias precárias e superlotação, insegurança alimentar e baixa escolaridade, bem como dificuldade de acesso aos serviços e bens públicos. Dessa maneira, no Brasil, assim como em outros países que têm condições de vida semelhantes, alguns grupos populacionais apresentam maior vulnerabilidade para a TB. Pelo exposto acima, em comparação com a população em geral, o risco de adoecimento por tuberculose é maior no seguinte grupo:",
     "alternativas": [
       "(A) indígenas;",
@@ -1473,6 +1572,7 @@
     "id": 99,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Vigilância Epidemiológica",
+    "fonte": "(Enare, 2024)",
     "enunciado": "De acordo com parâmetros do Ministério da Saúde, a definição utilizada na vigilância da influenza e da covid-19 para determinar casos de síndrome respiratória aguda grave (SRAG) é:",
     "alternativas": [
       "(A) indivíduo com febre, mesmo que referida, acompanhada de tosse ou dor de garganta e com início dos sintomas nos últimos sete dias;",
@@ -1488,6 +1588,7 @@
     "id": 100,
     "area": "Medicina Preventiva e Social",
     "assunto_especifico": "Imunização/Difteria",
+    "fonte": "(Enare, 2024)",
     "enunciado": "Os movimentos antivacina, causados por um sistema de desinformação, trazem muitos danos para as pessoas não vacinadas, pois já está mais que provado pela ciência que vacinas são muito efetivas e salvam vidas. Uma dessas doenças preveníveis por vacinas tem como manifestação clínica típica a presença de placas pseudomembranosas branco-acinzentadas, aderentes, que se instalam nas amigdalas e invadem estruturas vizinhas. Essas placas podem se localizar na faringe, na laringe e nas fossas nasais; e, com menos frequência, também são observadas na conjuntiva, na pele, no conduto auditivo, na vulva, no pênis (pós-circuncisão) e no cordão umbilical. A doença manifesta-se clinicamente por comprometimento do estado geral do paciente, que pode se apresentar prostrado e pálido. A dor de garganta é discreta, independentemente da localização ou da quantidade de placas existentes, e a febre normalmente não é muito elevada, variando de 37,5°C a 38,5°C embora temperaturas mais altas não afastem o diagnóstico. Nos casos mais graves, há intenso edema do pescoço, com grande aumento dos gânglios linfáticos dessa área (pescoço taurino) e edema periganglionar nas cadeias cervicais e submandibulares. Dependendo do tamanho e da localização da placa pseudomembranosa, pode ocorrer asfixia mecânica aguda no paciente, o que muitas vezes exige imediata traqueostomia para evitar a morte. A descrição acima é característica de:",
     "alternativas": [
       "(A) vírus sincicial respiratório;",
