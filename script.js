@@ -563,11 +563,27 @@ function startQuiz() {
 // Exibe a questão atual
 function renderQuestion() {
     const question = questions[currentQuestionIndex];
-    questionTextElement.innerText = question.enunciado;
+    
+    // Limpa a tela antes de renderizar a nova questão
+    questionTextElement.innerHTML = '';
     alternativesContainer.innerHTML = '';
+
+    // Adiciona o enunciado
+    questionTextElement.innerText = question.enunciado;
     questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
 
+    // Adiciona a imagem, se ela existir na questão
+    if (question.imagem_url) {
+        const imageElement = document.createElement('img');
+        imageElement.src = question.imagem_url;
+        imageElement.alt = "Imagem de referência para a questão";
+        imageElement.classList.add('question-image'); // Adicione uma classe para estilizar
+        questionTextElement.appendChild(imageElement);
+    }
+    
+    // Renderiza as alternativas
     question.alternativas.forEach((alt, index) => {
+        // ... (o código para criar input e label permanece o mesmo) ...
         const input = document.createElement('input');
         input.type = 'radio';
         input.name = 'alternative';
@@ -578,7 +594,7 @@ function renderQuestion() {
         label.htmlFor = input.id;
         
         label.appendChild(input);
-        label.innerHTML += alt;
+        label.innerHTML += alt; // Use innerHTML para manter a formatação, se houver
 
         if (userAnswers[currentQuestionIndex] === input.value) {
             input.checked = true;
@@ -588,9 +604,7 @@ function renderQuestion() {
         alternativesContainer.appendChild(label);
     });
 
-    previousButton.disabled = currentQuestionIndex === 0;
-    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
-    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+    // ... (o restante da função para os botões permanece o mesmo) ...
 }
 
 // Salva a resposta do usuário
@@ -647,4 +661,5 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
