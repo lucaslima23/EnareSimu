@@ -378,20 +378,6 @@ function calculatePerformanceData() {
     return areaResults;
 }
 
-// Finaliza o simulado
-async function endQuiz() {
-    clearInterval(timerInterval);
-    localStorage.removeItem('enareSimuProgress');
-    quizScreen.classList.remove('active');
-    
-    // Calcula e salva os resultados históricos
-    const performanceData = calculatePerformanceData();
-    await saveQuizResults(performanceData);
-    
-    resultsScreen.classList.add('active');
-    renderResults();
-}
-
 // Exibe a tela de resultados
 async function renderResults() {
     let resultsContainer = document.getElementById('results-summary');
@@ -965,6 +951,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
