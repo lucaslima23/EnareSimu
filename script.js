@@ -312,28 +312,29 @@ function calculatePerformanceData() {
     return areaResults;
 }
 
-// NOVO: Função para salvar os resultados no banco de dados
-async function saveQuizResults(areaResults) {
-    if (!userSession) return;
-    
-    // Adicionamos logs para depuração
-    console.log("Tentando salvar resultados com user_id:", userSession.id);
-    console.log("Resultados a serem salvos:", areaResults);
-    
-    const { error } = await supabaseClient
+async function saveQuizResults() {
+    if (!supabaseClient || !userSession) {
+        console.error('Usuário não autenticado ou Supabase não inicializado.');
+        return;
+    }
+    // Calcula o total de acertos
+    const totalCorrect = questions.reduce((acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0), 0);
+    const resultData = {
+        user_id: userSession.id,
+        score: totalCorrect,
+        total_questions: questions.length,
+        answers: userAnswers,
+        timestamp: new Date().toISOString()
+    };
+    const { data, error } = await supabaseClient
         .from('quiz_results')
-        .insert({
-            user_id: userSession.id,
-            area_results: areaResults
-        });
-        
+        .insert([resultData]);
     if (error) {
-        console.error('Erro ao salvar resultados históricos:', error);
+        console.error('Erro ao salvar resultados:', error.message);
     } else {
-        console.log('Resultados do simulado salvos com sucesso!');
+        console.log('Resultados do simulado salvos com sucesso:', data);
     }
 }
-
 // Finaliza o simulado
 async function endQuiz() {
     clearInterval(timerInterval);
@@ -915,3 +916,4 @@ function startTimer() {
         }
     }, 1000);
 }
+
