@@ -655,26 +655,6 @@ function startTimer() {
     }, 1000);
 }
 
-// Finaliza o simulado
-
-async function endQuiz() {
-    console.log("🔹 endQuiz() foi chamado.");
-
-    clearInterval(timerInterval);
-    localStorage.removeItem("enareSimuProgress");
-    quizScreen.classList.remove("active");
-
-    // Calcula dados de desempenho por área
-    const performanceData = calculatePerformanceData();
-    console.log("📊 performanceData calculado:", performanceData);
-
-    // Tenta salvar no Supabase
-    await saveQuizResults(performanceData);
-
-    resultsScreen.classList.add("active");
-    renderResults();
-}
-
 // Exibe a tela de resultados
 async function renderResults() {
     let resultsContainer = document.getElementById('results-summary');
@@ -951,6 +931,7 @@ function startTimer() {
         }
     }, 1000);
 }
+
 
 
 
