@@ -10,7 +10,7 @@
       "(B) de cianocobalamina parenteral (1000 microgramas por dia) e manutenção da mesma dose por via oral a cada mês;",
       "(C) de cianocobalamina intramuscular (1000 microgramas por dia) e posterior injeção intramuscular uma vez por semana até reavaliação dos sintomas e investigação da causa;",
       "(D) de hidroxicobalamina parenteral ou oral três vezes por semana seguida da dose de 1000 microgramas, uma vez por semana, para o resto da vida;",
-      "(E) de hidroxicobalamina parenteral (1000 microgramas por dia) até a mitigação dos sintomas."
+      "(E) de hidroxicobalamina parenteral (1000 microgramas por dia) até a mitigação dos sintomas"
     ],
     "resposta_correta": "C",
     "explicacao": ""
@@ -1601,3 +1601,4 @@
     "explicacao": ""
   }
 ]
+
