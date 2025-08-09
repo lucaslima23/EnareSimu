@@ -108,21 +108,32 @@ async function updatePassword(newPassword) {
         console.error('Supabase client is not initialized.');
         return;
     }
-    const { error } = await supabaseClient.auth.updateUser({
+    const { error: updateAuthError } = await supabaseClient.auth.updateUser({
         password: newPassword
     });
-    if (error) {
-        console.error('Erro ao atualizar a senha:', error.message);
-        alert('Erro ao atualizar a senha: ' + error.message);
-    } else {
-        // Atualiza a coluna password_set no perfil do usuário
-        await supabaseClient
-            .from('profiles')
-            .update({ password_set: true })
-            .eq('id', userSession.id);
-        alert('Senha atualizada com sucesso!');
-        window.location.reload();
+
+    if (updateAuthError) {
+        console.error('Erro ao atualizar a senha:', updateAuthError.message);
+        alert('Erro ao atualizar a senha: ' + updateAuthError.message);
+        return;
     }
+
+    // Agora, atualize a coluna password_set no perfil do usuário
+    // Usando a coluna correta 'user_id' em vez de 'id'
+    const { data: profileUpdateData, error: profileUpdateError } = await supabaseClient
+        .from('profiles')
+        .update({ password_set: true })
+        .eq('user_id', userSession.id); // <-- Correção feita aqui
+
+    if (profileUpdateError) {
+        console.error('Erro ao atualizar o perfil do usuário:', profileUpdateError.message);
+        alert('Erro ao atualizar o perfil do usuário. Por favor, tente novamente.');
+    } else {
+        alert('Senha atualizada com sucesso!');
+    }
+
+    // Redireciona o usuário para a página correta após a atualização bem-sucedida
+    checkUser();
 }
 
 // Função para gravação dos resultados na tabela quiz_results do Supabase
@@ -744,6 +755,7 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
 
 
 
