@@ -1,1 +1,12 @@
-
+{
+  "name": "enare-simu-app",
+  "version": "1.0.0",
+  "description": "Uma aplicação para o ENARE",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "stripe": "14.23.0"
+  }
+}
