@@ -1,6 +1,5 @@
-// A inicialização do cliente Supabase é feita imediatamente
-const { createClient } = supabase;
-const supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+// A inicialização do cliente Supabase será feita de forma assíncrona
+let supabaseClient = null;
 
 // Variáveis do simulador
 let questions = [];
@@ -15,7 +14,6 @@ const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
-const createPasswordScreen = document.getElementById('create-password-screen');
 
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
@@ -40,93 +38,7 @@ const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
 
-// Vincula evento de clique ao botão "Finalizar"
-if (finishButton) {
-    console.log("✅ Botão Finalizar encontrado. Evento adicionado.");
-    finishButton.addEventListener("click", endQuiz);
-} else {
-    console.error("❌ Botão Finalizar não encontrado no DOM.");
-}
-
-// Funções de Lógica e Estado
-// Função para salvar resultados no Supabase com logs
-async function saveQuizResults(performanceData) {
-    console.log("🔹 saveQuizResults() foi chamado.");
-    if (!supabaseClient) {
-        console.error("❌ Supabase client não inicializado.");
-        return;
-    }
-    if (!userSession) {
-        console.error("❌ Usuário não autenticado. userSession está null.");
-        return;
-    }
-
-    console.log("✅ userSession:", userSession);
-
-    const totalCorrect = questions.reduce(
-        (acc, q, idx) => acc + (userAnswers[idx] === q.resposta_correta ? 1 : 0),
-        0
-    );
-
-    const resultData = {
-        user_id: userSession.id,
-        score: totalCorrect,
-        total_questions: questions.length,
-        answers: userAnswers,
-        area_results: performanceData,
-        timestamp: new Date().toISOString()
-    };
-
-    console.log("📦 Dados prontos para inserção:", resultData);
-
-    const { data, error } = await supabaseClient
-        .from("quiz_results")
-        .insert([resultData]);
-
-    if (error) {
-        console.error("❌ Erro ao salvar resultados no Supabase:", error);
-    } else {
-        console.log("✅ Resultados salvos com sucesso:", data);
-    }
-}
-
-// Função para encerrar o quiz e salvar resultados
-async function endQuiz() {
-    console.log("🔹 endQuiz() foi chamado.");
-    // VERIFIQUE AQUI SE userSession ESTÁ NULO
-    console.log("➡️ userSession no momento do fim do quiz:", userSession); 
-
-    clearInterval(timerInterval);
-    localStorage.removeItem("enareSimuProgress");
-    quizScreen.classList.remove("active");
-
-    const performanceData = calculatePerformanceData();
-    console.log("📊 performanceData calculado:", performanceData);
-
-    await saveQuizResults(performanceData);
-
-    resultsScreen.classList.add("active");
-    renderResults();
-}
-
-// Elementos da nova tela de senha
-const createPasswordForm = document.getElementById('create-password-form');
-const newPasswordInput = document.getElementById('new-password-input');
-const newPasswordConfirmInput = document.getElementById('new-password-confirm-input');
-
-// --- Nova função para gerenciar a exibição de telas ---
-function showScreen(screenToShow) {
-    const screens = [startScreen, quizScreen, resultsScreen, reviewScreen, createPasswordScreen];
-    screens.forEach(screen => {
-        if (screen) {
-            screen.classList.remove('active');
-        }
-    });
-    if (screenToShow) {
-        screenToShow.classList.add('active');
-    }
-}
-// --------------------------------------------------------
+// FUNÇÕES DE LÓGICA E ESTADO
 
 // Funções de Autenticação
 async function signIn(email, password) {
@@ -147,26 +59,6 @@ async function signIn(email, password) {
     }
 }
 
-// Lógica de recuperação de senha
-async function handleForgotPassword() {
-    const email = emailInput.value;
-    if (!email) {
-        alert('Por favor, insira seu e-mail para redefinir a senha.');
-        return;
-    }
-
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://enare-simu.vercel.app/#create-password'
-    });
-
-    if (error) {
-        console.error('Erro ao enviar e-mail de recuperação:', error.message);
-        alert('Erro ao enviar e-mail de recuperação.');
-    } else {
-        alert('E-mail de redefinição de senha enviado. Verifique sua caixa de entrada.');
-    }
-}
-
 async function signOut() {
     if (!supabaseClient) {
         return;
@@ -180,17 +72,17 @@ async function signOut() {
     }
 }
 
-// Funções de inicialização e autenticação
+// Carrega as chaves do Supabase e depois as questões
 async function init() {
     try {
-        const { data: { session } } = await supabaseClient.auth.getSession();
-        
-        if (session) {
-            window.history.replaceState({}, document.title, window.location.pathname);
-            console.log('Sessão encontrada. Token de acesso removido da URL.');
+        if (typeof window.SUPABASE_URL === 'undefined' || typeof window.SUPABASE_ANON_KEY === 'undefined') {
+            console.error('As chaves do Supabase não foram encontradas. Verifique a configuração.');
+            return;
         }
+        const { createClient } = supabase;
+        supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        
         await loadQuestions();
-        await checkUser();
     } catch (error) {
         console.error('Falha na inicialização:', error);
     }
@@ -202,7 +94,8 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
         questions = data;
-        enableStartButton();
+        
+        await checkUser();
     } catch (error) {
         console.error('Erro ao carregar as questões:', error);
     }
@@ -216,73 +109,26 @@ async function checkUser() {
     }
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
-
+    
     if (user) {
-        logoutButton.style.display = 'inline-block';
+        authContainer.style.display = 'none';
+        quizOptions.style.display = 'block';
+        userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        const { data: profile, error } = await supabaseClient
-            .from('profiles')
-            .select('has_subscription, password_set')
-            .eq('user_id', user.id)
-            .single();
+        const hasSubscription = false;
 
-        if (error || !profile) {
-            console.error('Erro ao carregar perfil:', error);
-            showScreen(startScreen);
-            return;
-        }
-
-        if (profile.password_set === false) {
-            showScreen(createPasswordScreen);
-            return;
-        }
-
-        if (profile.has_subscription) {
-            showScreen(startScreen);
-            authContainer.style.display = 'none';
-            paymentOptions.style.display = 'none';
-            quizOptions.style.display = 'block';
-            userWelcomeMessage.innerText = `Olá, ${user.email}!`;
+        if (hasSubscription) {
             await loadProgress();
+            enableStartButton();
         } else {
-            showScreen(startScreen);
-            authContainer.style.display = 'block';
             paymentOptions.style.display = 'block';
-            quizOptions.style.display = 'none';
+            startButton.style.display = 'none';
         }
     } else {
-        showScreen(startScreen);
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        logoutButton.style.display = 'none';
-    }
-}
-
-// Nova função para atualizar a senha do usuário
-async function updatePassword(newPassword) {
-    if (!supabaseClient || !userSession) {
-        alert('Nenhum usuário logado. Por favor, faça o login novamente.');
-        return;
-    }
-
-    const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
-
-    if (error) {
-        console.error('Erro ao atualizar a senha:', error.message);
-        alert('Erro ao atualizar a senha: ' + error.message);
-    } else {
-        const { error: profileError } = await supabaseClient
-            .from('profiles')
-            .update({ password_set: true })
-            .eq('user_id', userSession.id);
-
-        if (profileError) {
-            console.error('Erro ao atualizar o perfil:', profileError.message);
-        }
-
-        alert('Senha atualizada com sucesso! Você será redirecionado para o início.');
-        window.location.reload();
+        enableStartButton();
     }
 }
 
@@ -290,13 +136,14 @@ async function updatePassword(newPassword) {
 async function saveProgress() {
     try {
         const progress = {
+            questions: questions,
             userAnswers: userAnswers,
             currentQuestionIndex: currentQuestionIndex,
             timeRemaining: timeRemaining
         };
         
         if (userSession) {
-            const { error } = await supabaseClient
+            const { data, error } = await supabaseClient
                 .from('performance')
                 .upsert({ user_id: userSession.id, data: progress }, { onConflict: 'user_id' });
             
@@ -312,22 +159,28 @@ async function saveProgress() {
 // Carrega o progresso do Supabase ou do localStorage
 async function loadProgress() {
     try {
-        if (!userSession) return;
-        
-        const { data: progressData, error } = await supabaseClient
-            .from('performance')
-            .select('data')
-            .eq('user_id', userSession.id)
-            .single();
+        if (userSession) {
+            const { data: progressData, error } = await supabaseClient
+                .from('performance')
+                .select('data')
+                .eq('user_id', userSession.id)
+                .single();
 
-        if (error && error.code === '406') {
-             console.log('Nenhum progresso salvo encontrado para o usuário. Iniciando um novo simulado.');
-             selectAndShuffleQuestions();
-             return;
+            if (progressData && progressData.data) {
+                const progress = progressData.data;
+                questions = progress.questions;
+                userAnswers = progress.userAnswers;
+                currentQuestionIndex = progress.currentQuestionIndex;
+                timeRemaining = progress.timeRemaining;
+                startButton.innerText = 'Continuar Simulador';
+                return;
+            }
         }
-
-        if (progressData && progressData.data) {
-            const progress = progressData.data;
+        
+        const savedProgress = localStorage.getItem('enareSimuProgress');
+        if (savedProgress) {
+            const progress = JSON.parse(savedProgress);
+            questions = progress.questions;
             userAnswers = progress.userAnswers;
             currentQuestionIndex = progress.currentQuestionIndex;
             timeRemaining = progress.timeRemaining;
@@ -340,42 +193,161 @@ async function loadProgress() {
     selectAndShuffleQuestions();
 }
 
-// Função para calcular os dados de desempenho por área
-function calculatePerformanceData() {
-    const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
-    const performanceData = {};
-    
-    areas.forEach(area => {
-        performanceData[area] = { correct: 0, total: 0 };
-    });
-    
-    questions.forEach((q, index) => {
-        const userAnswer = userAnswers[index];
-        const isCorrect = userAnswer === q.resposta_correta;
-        const area = q.area;
-        if (performanceData[area]) {
-            performanceData[area].total++;
-            if (isCorrect) {
-                performanceData[area].correct++;
-            }
+// Habilita o botão de início
+function enableStartButton() {
+    startButton.disabled = false;
+}
+
+// Embaralha as questões de forma proporcional
+function selectAndShuffleQuestions() {
+    const originalQuestions = questions;
+    const groupedQuestions = {
+        'Clínica Médica': [],
+        'Cirurgia Geral': [],
+        'Pediatria': [],
+        'Ginecologia e Obstetrícia': [],
+        'Medicina Preventiva e Social': []
+    };
+
+    originalQuestions.forEach(q => {
+        if (groupedQuestions[q.area]) {
+            groupedQuestions[q.area].push(q);
         }
     });
+
+    let finalQuestions = [];
+    for (const area in groupedQuestions) {
+        for (let i = groupedQuestions[area].length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [groupedQuestions[area][i], groupedQuestions[area][j]] = [groupedQuestions[area][j], groupedQuestions[area][i]];
+        }
+        finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
+    }
     
-    const areaResults = {};
-    areas.forEach(area => {
-        const data = performanceData[area];
-        const percentage = data.total > 0 ? (data.correct / data.total * 100).toFixed(2) : 0;
-        areaResults[area] = parseFloat(percentage);
+    for (let i = finalQuestions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
+    }
+    questions = finalQuestions;
+}
+
+// Inicia o simulado
+function startQuiz() {
+    startScreen.classList.remove('active');
+    quizScreen.classList.add('active');
+    
+    if (startButton.innerText === 'Iniciar Simulador') {
+        currentQuestionIndex = 0;
+        userAnswers = new Array(questions.length).fill(null);
+        timeRemaining = 5 * 60 * 60;
+    }
+    
+    renderQuestion();
+    startTimer();
+}
+
+// Exibe a questão atual
+function renderQuestion() {
+    const question = questions[currentQuestionIndex];
+    questionTextElement.innerText = question.enunciado;
+    alternativesContainer.innerHTML = '';
+    questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+
+    question.alternativas.forEach((alt, index) => {
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'alternative';
+        input.id = `q${currentQuestionIndex}-alt${index}`;
+        input.value = String.fromCharCode(65 + index);
+
+        const label = document.createElement('label');
+        label.htmlFor = input.id;
+        
+        label.appendChild(input);
+        label.innerHTML += alt;
+
+        if (userAnswers[currentQuestionIndex] === input.value) {
+            input.checked = true;
+            label.classList.add('selected');
+        }
+
+        alternativesContainer.appendChild(label);
     });
-    
-    return areaResults;
+
+    previousButton.disabled = currentQuestionIndex === 0;
+    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+}
+
+// Salva a resposta do usuário
+function handleAnswer(event) {
+    if (event.target.type === 'radio') {
+        document.querySelectorAll('.alternatives label').forEach(label => {
+            label.classList.remove('selected');
+        });
+        
+        event.target.parentNode.classList.add('selected');
+        
+        userAnswers[currentQuestionIndex] = event.target.value;
+        saveProgress();
+    }
+}
+
+// Navega para a próxima questão
+function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+        saveProgress();
+    }
+}
+
+// Navega para a questão anterior
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+        saveProgress();
+    }
+}
+
+// Atualiza a exibição do cronômetro
+function renderTimer() {
+    const hours = Math.floor(timeRemaining / 3600);
+    const minutes = Math.floor((timeRemaining % 3600) / 60);
+    const seconds = timeRemaining % 60;
+    timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// Inicia o cronômetro
+function startTimer() {
+    renderTimer();
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        if (timeRemaining >= 0) {
+            renderTimer();
+            saveProgress();
+        }
+        if (timeRemaining <= 0) {
+            endQuiz();
+        }
+    }, 1000);
+}
+
+// Finaliza o simulado
+function endQuiz() {
+    clearInterval(timerInterval);
+    localStorage.removeItem('enareSimuProgress');
+    quizScreen.classList.remove('active');
+    resultsScreen.classList.add('active');
+    renderResults();
 }
 
 // Exibe a tela de resultados
-async function renderResults() {
+function renderResults() {
     let resultsContainer = document.getElementById('results-summary');
     resultsContainer.innerHTML = '';
-    
+
     const areas = ['Clínica Médica', 'Cirurgia Geral', 'Pediatria', 'Ginecologia e Obstetrícia', 'Medicina Preventiva e Social'];
 
     const performanceData = {};
@@ -447,232 +419,85 @@ async function renderResults() {
 
         resultsContainer.innerHTML += areaHtml;
     });
-
-    // Carregar e exibir o gráfico de evolução
-    const { data: historicalResults, error } = await supabaseClient
-        .from('quiz_results')
-        .select('created_at, area_results')
-        .eq('user_id', userSession.id)
-        .order('created_at', { ascending: true });
-        
-    if (error) {
-        console.error('Erro ao carregar resultados históricos:', error);
-        return;
-    }
-
-    const chartData = {
-        labels: historicalResults.map(res => new Date(res.created_at).toLocaleDateString()),
-        datasets: areas.map(area => ({
-            label: area,
-            data: historicalResults.map(res => res.area_results[area]),
-            fill: false,
-            borderColor: getRandomColor(),
-            tension: 0.1
-        }))
-    };
-    
-    const chartConfig = {
-        type: 'line',
-        data: chartData,
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    };
-    
-    const chartContainer = document.createElement('div');
-    chartContainer.innerHTML = `
-        <div class="report-area">
-            <h3>Gráfico de Evolução</h3>
-            <canvas id="evolution-chart"></canvas>
-        </div>
-    `;
-    resultsContainer.appendChild(chartContainer);
-    
-    new Chart(document.getElementById('evolution-chart'), chartConfig);
 }
 
-// Função auxiliar para gerar cores aleatórias para o gráfico
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+// Inicia o modo de revisão
+function startReview() {
+    resultsScreen.classList.remove('active');
+    reviewScreen.classList.add('active');
+    currentQuestionIndex = 0;
+    renderReviewQuestion();
 }
 
-// Habilita o botão de início
-function enableStartButton() {
-    startButton.disabled = false;
-}
-
-// Embaralha as questões de forma proporcional
-function selectAndShuffleQuestions() {
-    const originalQuestions = questions;
-    const groupedQuestions = {
-        'Clínica Médica': [],
-        'Cirurgia Geral': [],
-        'Pediatria': [],
-        'Ginecologia e Obstetrícia': [],
-        'Medicina Preventiva e Social': []
-    };
-
-    originalQuestions.forEach(q => {
-        if (groupedQuestions[q.area]) {
-            groupedQuestions[q.area].push(q);
-        }
-    });
-
-    let finalQuestions = [];
-    for (const area in groupedQuestions) {
-        for (let i = groupedQuestions[area].length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [groupedQuestions[area][i], groupedQuestions[area][j]] = [groupedQuestions[area][j], groupedQuestions[area][i]];
-        }
-        finalQuestions = finalQuestions.concat(groupedQuestions[area].slice(0, 20));
-    }
-    
-    for (let i = finalQuestions.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [finalQuestions[i], finalQuestions[j]] = [finalQuestions[j], finalQuestions[i]];
-    }
-    questions = finalQuestions;
-}
-
-// Inicia o simulado
-function startQuiz() {
-    startScreen.classList.remove('active');
-    quizScreen.classList.add('active');
-    
-    if (startButton.innerText === 'Iniciar Simulador') {
-        currentQuestionIndex = 0;
-        userAnswers = new Array(questions.length).fill(null);
-        timeRemaining = 5 * 60 * 60;
-    }
-    
-    renderQuestion();
-    startTimer();
-}
-
-// Exibe a questão atual
-function renderQuestion() {
+// Exibe a questão na tela de revisão
+function renderReviewQuestion() {
     const question = questions[currentQuestionIndex];
-    
-    // Limpa a tela antes de renderizar a nova questão
-    questionTextElement.innerHTML = '';
-    alternativesContainer.innerHTML = '';
+    const reviewQuestionTextElement = document.getElementById('review-question-text');
+    const reviewAlternativesContainer = document.getElementById('review-alternatives-container');
+    const reviewExplanationElement = document.getElementById('review-explanation').querySelector('p');
 
-    // Adiciona a fonte, se ela existir
-    if (question.fonte) {
-        const sourceElement = document.createElement('p');
-        sourceElement.innerText = question.fonte;
-        sourceElement.classList.add('question-source'); // Adicione uma classe para estilizar
-        questionTextElement.appendChild(sourceElement);
-    }
-
-    // Adiciona o enunciado
-    const enunciadoElement = document.createElement('p');
-    enunciadoElement.innerText = question.enunciado;
-    questionTextElement.appendChild(enunciadoElement);
-
-    // Adiciona a imagem, se ela existir na questão
-    if (question.imagem_url) {
-        const imageElement = document.createElement('img');
-        imageElement.src = question.imagem_url;
-        imageElement.alt = "Imagem de referência para a questão";
-        imageElement.classList.add('question-image');
-        questionTextElement.appendChild(imageElement);
-    }
-    
-    // O restante do seu código para as alternativas permanece o mesmo
-    questionCounterElement.innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
+    reviewQuestionTextElement.innerText = question.enunciado;
+    reviewAlternativesContainer.innerHTML = '';
+    document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
 
     question.alternativas.forEach((alt, index) => {
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'alternative';
-        input.id = `q${currentQuestionIndex}-alt${index}`;
-        input.value = String.fromCharCode(65 + index);
-
+        const optionLetter = String.fromCharCode(65 + index);
         const label = document.createElement('label');
-        label.htmlFor = input.id;
+        label.innerText = alt;
         
-        label.appendChild(input);
-        label.innerHTML += alt;
-
-        if (userAnswers[currentQuestionIndex] === input.value) {
-            input.checked = true;
-            label.classList.add('selected');
+        if (optionLetter === question.resposta_correta) {
+            label.classList.add('correct');
+            label.innerHTML += ' **(Correta)**';
+        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
+            label.classList.add('incorrect');
+            label.innerHTML += ' **(Sua resposta)**';
         }
 
-        alternativesContainer.appendChild(label);
+        reviewAlternativesContainer.appendChild(label);
     });
+
+    reviewExplanationElement.innerText = question.explicacao || 'Nenhuma explicação disponível para esta questão.';
     
-    previousButton.disabled = currentQuestionIndex === 0;
-    nextButton.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
-    finishButton.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+    document.getElementById('review-previous-button').disabled = currentQuestionIndex === 0;
+    document.getElementById('review-next-button').disabled = currentQuestionIndex === questions.length - 1;
 }
 
-// Salva a resposta do usuário
-function handleAnswer(event) {
-    if (event.target.type === 'radio') {
-        document.querySelectorAll('.alternatives label').forEach(label => {
-            label.classList.remove('selected');
-        });
-        
-        event.target.parentNode.classList.add('selected');
-        
-        userAnswers[currentQuestionIndex] = event.target.value;
-        saveProgress();
-    }
-}
+// LISTA DE EVENT LISTENERS
+startButton.addEventListener('click', startQuiz);
+nextButton.addEventListener('click', nextQuestion);
+previousButton.addEventListener('click', previousQuestion);
+alternativesContainer.addEventListener('change', handleAnswer);
+finishButton.addEventListener('click', endQuiz);
+reviewButton.addEventListener('click', startReview);
+restartButton.addEventListener('click', () => {
+    localStorage.removeItem('enareSimuProgress');
+    resultsScreen.classList.remove('active');
+    startScreen.classList.add('active');
+    startButton.innerText = 'Iniciar Simulador';
+});
 
-// Navega para a próxima questão
-function nextQuestion() {
+document.getElementById('review-next-button').addEventListener('click', () => {
     if (currentQuestionIndex < questions.length - 1) {
         currentQuestionIndex++;
-        renderQuestion();
-        saveProgress();
+        renderReviewQuestion();
     }
-}
-
-// Navega para a questão anterior
-function previousQuestion() {
+});
+document.getElementById('review-previous-button').addEventListener('click', () => {
     if (currentQuestionIndex > 0) {
         currentQuestionIndex--;
-        renderQuestion();
-        saveProgress();
+        renderReviewQuestion();
     }
-}
+});
+backToResultsButton.addEventListener('click', () => {
+    reviewScreen.classList.remove('active');
+    resultsScreen.classList.add('active');
+});
 
-// Atualiza a exibição do cronômetro
-function renderTimer() {
-    const hours = Math.floor(timeRemaining / 3600);
-    const minutes = Math.floor((timeRemaining % 3600) / 60);
-    const seconds = timeRemaining % 60;
-    timerElement.innerText = `Tempo: ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-// Inicia o cronômetro
-function startTimer() {
-    renderTimer();
-    timerInterval = setInterval(() => {
-        timeRemaining--;
-        if (timeRemaining >= 0) {
-            renderTimer();
-            saveProgress();
-        }
-        if (timeRemaining <= 0) {
-            endQuiz();
-        }
-    }, 1000);
-}
+// Event listeners do formulário de autenticação
+authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await signIn(emailInput.value, passwordInput.value);
+});
 
 
-
+init();
