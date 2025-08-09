@@ -37,7 +37,6 @@ const authContainer = document.getElementById('auth-container');
 const authForm = document.getElementById('auth-form');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
-const signupButton = document.getElementById('signup-button');
 const paymentOptions = document.getElementById('payment-options');
 const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
@@ -70,25 +69,6 @@ async function signIn(email, password) {
     }
 }
 
-async function signUp(email, password) {
-    if (!supabaseClient) {
-        console.error('Supabase client is not initialized.');
-        return;
-    }
-    const { data, error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-    });
-    if (error) {
-        console.error('Erro no registro:', error.message);
-        alert('Erro no registro: ' + error.message);
-    } else {
-        alert('Registro realizado com sucesso! Verifique seu e-mail para confirmar a conta.');
-        userSession = data.user;
-        checkUser();
-    }
-}
-
 async function signOut() {
     if (!supabaseClient) {
         return;
@@ -113,7 +93,7 @@ async function handleForgotPassword(email) {
         return;
     }
     const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin // Redireciona para a página de criação de senha
+        redirectTo: window.location.origin // O Supabase se encarregará do token e redirecionamento
     });
     if (error) {
         console.error('Erro ao solicitar redefinição de senha:', error.message);
@@ -141,7 +121,6 @@ async function updatePassword(newPassword) {
             .update({ password_set: true })
             .eq('id', userSession.id);
         alert('Senha atualizada com sucesso!');
-        // Redireciona para a tela inicial
         window.location.reload();
     }
 }
@@ -177,8 +156,6 @@ async function checkUser() {
         console.error('Supabase client is not initialized.');
         return;
     }
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    userSession = user;
     
     // Esconde todas as telas e botões de navegação
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
@@ -186,9 +163,12 @@ async function checkUser() {
     quizOptions.style.display = 'none';
     authContainer.style.display = 'none';
     paymentOptions.style.display = 'none';
+
+    // O Supabase lida com o token do magic link
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    userSession = user;
     
     if (user) {
-        // Carrega o perfil do usuário
         const { data: profile, error } = await supabaseClient
             .from('profiles')
             .select('*')
@@ -197,7 +177,7 @@ async function checkUser() {
 
         if (error) {
             console.error('Erro ao carregar o perfil do usuário:', error.message);
-            // Considera um erro como se o usuário não tivesse assinatura ou perfil
+            // Se o perfil não existir, assume que o usuário não tem assinatura e senha
             userProfile = { has_subscription: false, password_set: false };
         } else {
             userProfile = profile;
@@ -206,16 +186,15 @@ async function checkUser() {
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         logoutButton.style.display = 'inline-block';
         
-        // Verifica se a senha foi definida
-        if (!userProfile.password_set) {
+        if (userProfile && !userProfile.password_set) {
             createPasswordScreen.classList.add('active');
             return;
         }
         
-        // Se a senha estiver definida, verifica a assinatura
-        if (userProfile.has_subscription) {
+        if (userProfile && userProfile.has_subscription) {
             quizOptions.style.display = 'block';
             paymentOptions.style.display = 'none';
+            startScreen.classList.add('active');
             await loadProgress();
             enableStartButton();
         } else {
@@ -226,6 +205,7 @@ async function checkUser() {
     } else {
         startScreen.classList.add('active');
         authContainer.style.display = 'block';
+        paymentOptions.style.display = 'block';
         startButton.disabled = true;
     }
 }
@@ -607,10 +587,6 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
-signupButton.addEventListener('click', async () => {
-    await signUp(emailInput.value, passwordInput.value);
-});
-
 logoutButton.addEventListener('click', async () => {
     await signOut();
 });
@@ -620,6 +596,16 @@ forgotPasswordLink.addEventListener('click', (e) => {
     const email = prompt('Por favor, digite seu e-mail para recuperar a senha:');
     if (email) {
         handleForgotPassword(email);
+    }
+});
+
+paymentButton.addEventListener('click', async () => {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (user) {
+        // Redireciona o usuário para a função serverless que criará a sessão de checkout
+        window.location.href = '/api/create-checkout-session';
+    } else {
+        alert('Por favor, faça login para continuar com o pagamento.');
     }
 });
 
