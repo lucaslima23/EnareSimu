@@ -599,9 +599,32 @@ forgotPasswordLink.addEventListener('click', (e) => {
     }
 });
 
-paymentButton.addEventListener('click', () => {
-    // Redireciona o usuário para a função serverless que criará a sessão de checkout
-    window.location.href = '/api/create-checkout-session';
+paymentButton.addEventListener('click', async () => {
+  try {
+    // Faz a requisição POST para sua função serverless
+    const response = await fetch('/api/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Se a requisição foi bem sucedida (status 200), obtém a URL do Stripe
+    if (response.ok) {
+      const { url } = await response.json();
+      // Redireciona o usuário para a página de checkout do Stripe
+      window.location.href = url;
+    } else {
+      // Se houve um erro na função, exibe uma mensagem no console e um alerta para o usuário
+      console.error('Falha ao criar a sessão de checkout:', response.statusText);
+      alert('Ocorreu um erro. Por favor, tente novamente.');
+    }
+
+  } catch (error) {
+    // Trata erros de rede que impedem a requisição de ser enviada
+    console.error('Erro de rede:', error);
+    alert('Ocorreu um erro de rede. Por favor, verifique sua conexão.');
+  }
 });
 
 // Event listener da tela de criação de senha
@@ -619,4 +642,5 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
 
