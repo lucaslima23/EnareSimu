@@ -59,6 +59,23 @@ async function signIn(email, password) {
     }
 }
 
+async function signUp(email, password) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+    if (error) {
+        console.error('Erro no registro:', error.message);
+        alert('Erro no registro: ' + error.message);
+    } else {
+        alert('Registro realizado! Por favor, verifique seu e-mail.');
+    }
+}
+
 async function signOut() {
     if (!supabaseClient) {
         return;
@@ -115,20 +132,20 @@ async function checkUser() {
         quizOptions.style.display = 'block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        const hasSubscription = false;
+        const hasSubscription = true; // <<< ALTERADO AQUI PARA PERMITIR TESTE
 
         if (hasSubscription) {
-            await loadProgress();
+            await loadProgress(); // Carrega o progresso do usuário logado
             enableStartButton();
         } else {
-            paymentOptions.style.display = 'block';
-            startButton.style.display = 'none';
+            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
+            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
         }
     } else {
         authContainer.style.display = 'block';
         paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton();
+        enableStartButton(); // Habilita o botão para o login/cadastro
     }
 }
 
@@ -441,16 +458,21 @@ function renderReviewQuestion() {
     document.getElementById('review-counter').innerText = `Questão ${currentQuestionIndex + 1}/${questions.length}`;
 
     question.alternativas.forEach((alt, index) => {
-        const optionLetter = String.fromCharCode(65 + index);
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'alternative';
+        input.id = `q${currentQuestionIndex}-alt${index}`;
+        input.value = String.fromCharCode(65 + index);
+
         const label = document.createElement('label');
-        label.innerText = alt;
+        label.htmlFor = input.id;
         
-        if (optionLetter === question.resposta_correta) {
-            label.classList.add('correct');
-            label.innerHTML += ' **(Correta)**';
-        } else if (userAnswers[currentQuestionIndex] === optionLetter && optionLetter !== question.resposta_correta) {
-            label.classList.add('incorrect');
-            label.innerHTML += ' **(Sua resposta)**';
+        label.appendChild(input);
+        label.innerHTML += alt;
+
+        if (userAnswers[currentQuestionIndex] === input.value) {
+            input.checked = true;
+            label.classList.add('selected');
         }
 
         reviewAlternativesContainer.appendChild(label);
