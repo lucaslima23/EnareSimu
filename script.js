@@ -201,16 +201,27 @@ async function init() {
     }
 }
 
-// Carrega as questões do arquivo JSON
+// Carregando as questões do Supabase
 async function loadQuestions() {
     try {
-        const response = await fetch('questions.json');
-        const data = await response.json();
+        // Busca todas as questões da tabela 'questions' no Supabase
+        const { data, error } = await supabaseClient
+            .from('questions')
+            .select('*');
+            
+        if (error) {
+            throw error;
+        }
+        
+        // Atribui os dados buscados à variável global 'questions'
         questions = data;
         
+        // Chama a função existente para selecionar e embaralhar as questões
+        selectAndShuffleQuestions(); 
+
         await checkUser();
     } catch (error) {
-        console.error('Erro ao carregar as questões:', error);
+        console.error('Erro ao carregar as questões do Supabase:', error.message);
     }
 }
 
@@ -755,6 +766,7 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
 
 
 
