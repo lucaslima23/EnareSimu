@@ -599,14 +599,9 @@ forgotPasswordLink.addEventListener('click', (e) => {
     }
 });
 
-paymentButton.addEventListener('click', async () => {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    if (user) {
-        // Redireciona o usuário para a função serverless que criará a sessão de checkout
-        window.location.href = '/api/create-checkout-session';
-    } else {
-        alert('Por favor, faça login para continuar com o pagamento.');
-    }
+paymentButton.addEventListener('click', () => {
+    // Redireciona o usuário para a função serverless que criará a sessão de checkout
+    window.location.href = '/api/create-checkout-session';
 });
 
 // Event listener da tela de criação de senha
@@ -624,3 +619,4 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
