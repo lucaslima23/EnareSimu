@@ -1,3 +1,7 @@
+// Constantes de configuração do Supabase
+const SUPABASE_URL = "https://mwjaqhqtjwrkcqnfsfnn.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13amFxaHF0andya2NxbmZzZm5uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ0OTMyOTEsImV4cCI6MjA3MDA2OTI5MX0.XkTTu1wWpaoczO6ZsUWAEa8fIJkKzgAtpHiQxArUWR8";
+
 // A inicialização do cliente Supabase será feita de forma assíncrona
 let supabaseClient = null;
 
@@ -31,7 +35,7 @@ const authContainer = document.getElementById('auth-container');
 const authForm = document.getElementById('auth-form');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
-const loginButton = document.getElementById('login-button');
+const signupButton = document.getElementById('signup-button');
 const paymentOptions = document.getElementById('payment-options');
 const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
@@ -72,7 +76,9 @@ async function signUp(email, password) {
         console.error('Erro no registro:', error.message);
         alert('Erro no registro: ' + error.message);
     } else {
-        alert('Registro realizado! Por favor, verifique seu e-mail.');
+        alert('Registro realizado com sucesso! Verifique seu e-mail para confirmar a conta.');
+        userSession = data.user;
+        checkUser();
     }
 }
 
@@ -80,11 +86,16 @@ async function signOut() {
     if (!supabaseClient) {
         return;
     }
+    // Salva o progresso antes de sair, se houver
+    if (userSession) {
+        await saveProgress();
+    }
     const { error } = await supabaseClient.auth.signOut();
     if (error) {
         console.error('Erro ao sair:', error.message);
     } else {
         userSession = null;
+        localStorage.removeItem('enareSimuProgress'); // Limpa o progresso local
         window.location.reload();
     }
 }
@@ -92,12 +103,8 @@ async function signOut() {
 // Carrega as chaves do Supabase e depois as questões
 async function init() {
     try {
-        if (typeof window.SUPABASE_URL === 'undefined' || typeof window.SUPABASE_ANON_KEY === 'undefined') {
-            console.error('As chaves do Supabase não foram encontradas. Verifique a configuração.');
-            return;
-        }
         const { createClient } = supabase;
-        supabaseClient = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         await loadQuestions();
     } catch (error) {
@@ -130,11 +137,13 @@ async function checkUser() {
     if (user) {
         authContainer.style.display = 'none';
         quizOptions.style.display = 'block';
+        logoutButton.style.display = 'inline-block';
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
         
-        const hasSubscription = true; // <<< ALTERADO AQUI PARA PERMITIR TESTE
-
+        const hasSubscription = true; // <<< VERIFICAÇÃO REAL DE ASSINATURA DEVE SER FEITA AQUI
+        
         if (hasSubscription) {
+            paymentOptions.style.display = 'none';
             await loadProgress(); // Carrega o progresso do usuário logado
             enableStartButton();
         } else {
@@ -143,9 +152,10 @@ async function checkUser() {
         }
     } else {
         authContainer.style.display = 'block';
-        paymentOptions.style.display = 'block';
         quizOptions.style.display = 'none';
-        enableStartButton(); // Habilita o botão para o login/cadastro
+        logoutButton.style.display = 'none';
+        paymentOptions.style.display = 'none';
+        startButton.disabled = true;
     }
 }
 
@@ -207,6 +217,8 @@ async function loadProgress() {
     } catch (error) {
         console.error('Erro ao carregar o progresso:', error);
     }
+    
+    // Se não houver progresso, seleciona e embaralha as questões
     selectAndShuffleQuestions();
 }
 
@@ -401,40 +413,40 @@ function renderResults() {
             return { assunto, percentage };
         }).sort((a, b) => b.percentage - a.percentage);
 
-        const subjectsToReview = subjectsList.filter(s => s.percentage < 50);
+        const subjectsToReview = subjectsList.filter(s => parseFloat(s.percentage) < 50);
 
-        const areaHtml = `
-            <div class="report-area">
-                <h3>${area}</h3>
-                <div class="performance-charts">
-                    <div class="chart-container" style="background: conic-gradient(var(--primary-color) ${areaPercentage}%, var(--secondary-color) 0%);">
-                        <span class="chart-text">Seu Desempenho<br>${areaPercentage}%</span>
-                    </div>
-                    <div class="chart-container" style="background: conic-gradient(lightgrey 50%, #ccc 0%);">
-                        <span class="chart-text">Média Geral<br>Em breve</span>
-                    </div>
+        const areaDiv = document.createElement('div');
+        areaDiv.className = 'report-area';
+
+        areaDiv.innerHTML = `
+            <h3>${area}</h3>
+            <div class="performance-charts">
+                <div class="chart-container" style="background: conic-gradient(var(--primary-color) ${areaPercentage}%, var(--secondary-color) 0%);">
+                    <span class="chart-text">Seu Desempenho<br>${areaPercentage}%</span>
                 </div>
-
-                <h4>Desempenho por Assunto:</h4>
-                <ul class="subjects-list">
-                    ${subjectsList.map(s => `
-                        <li>
-                            <span class="subject-title">${s.assunto}</span>
-                            <span class="percentage ${s.percentage < 50 ? 'red' : ''}">${s.percentage}%</span>
-                        </li>
-                    `).join('')}
-                </ul>
-
-                <div class="review-suggestion">
-                    <p>
-                        **Análise e Sugestão:**
-                        ${subjectsToReview.length > 0 ? `Seu desempenho nesta área foi de **${areaPercentage}%**. Sugerimos revisar os seguintes assuntos, do mais fraco para o menos fraco: <strong>${subjectsToReview.map(s => s.assunto).join(', ')}</strong>.` : `Seu desempenho nesta área foi excelente! Não há assuntos com menos de 50% de acerto para revisar.`}
-                    </p>
+                <div class="chart-container" style="background: conic-gradient(lightgrey 50%, #ccc 0%);">
+                    <span class="chart-text">Média Geral<br>Em breve</span>
                 </div>
             </div>
-        `;
 
-        resultsContainer.innerHTML += areaHtml;
+            <h4>Desempenho por Assunto:</h4>
+            <ul class="subjects-list">
+                ${subjectsList.map(s => `
+                    <li>
+                        <span class="subject-title">${s.assunto}</span>
+                        <span class="percentage ${parseFloat(s.percentage) < 50 ? 'red' : ''}">${s.percentage}%</span>
+                    </li>
+                `).join('')}
+            </ul>
+
+            <div class="review-suggestion">
+                <p>
+                    <strong>Análise e Sugestão:</strong>
+                    ${subjectsToReview.length > 0 ? `Seu desempenho nesta área foi de <strong>${areaPercentage}%</strong>. Sugerimos revisar os seguintes assuntos, do mais fraco para o menos fraco: <strong>${subjectsToReview.map(s => s.assunto).join(', ')}</strong>.` : `Seu desempenho nesta área foi excelente! Não há assuntos com menos de 50% de acerto para revisar.`}
+                </p>
+            </div>
+        `;
+        resultsContainer.appendChild(areaDiv);
     });
 }
 
@@ -496,6 +508,11 @@ restartButton.addEventListener('click', () => {
     resultsScreen.classList.remove('active');
     startScreen.classList.add('active');
     startButton.innerText = 'Iniciar Simulador';
+    // Reinicia o estado do simulador
+    currentQuestionIndex = 0;
+    userAnswers = new Array(questions.length).fill(null);
+    timeRemaining = 5 * 60 * 60;
+    selectAndShuffleQuestions();
 });
 
 document.getElementById('review-next-button').addEventListener('click', () => {
@@ -521,5 +538,13 @@ authForm.addEventListener('submit', async (e) => {
     await signIn(emailInput.value, passwordInput.value);
 });
 
+signupButton.addEventListener('click', async () => {
+    await signUp(emailInput.value, passwordInput.value);
+});
 
+logoutButton.addEventListener('click', async () => {
+    await signOut();
+});
+
+// Inicia a aplicação
 init();
