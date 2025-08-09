@@ -116,11 +116,14 @@ header img {
     text-align: center;
 }
 
-#auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 30px;
+#auth-form input,
+#create-password-form input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    font-size: 1em;
 }
 
 #auth-form input {
@@ -408,3 +411,4 @@ header img {
         font-size: 1em;
     }
 }
+
