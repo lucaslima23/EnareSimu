@@ -12,12 +12,14 @@ let currentQuestionIndex = 0;
 let timerInterval;
 let timeRemaining = 5 * 60 * 60; // 5 horas em segundos
 let userSession = null;
+let userProfile = null;
 
 // Elementos da interface
 const startScreen = document.getElementById('start-screen');
 const quizScreen = document.getElementById('quiz-screen');
 const resultsScreen = document.getElementById('results-screen');
 const reviewScreen = document.getElementById('review-screen');
+const createPasswordScreen = document.getElementById('create-password-screen');
 
 const startButton = document.getElementById('start-button');
 const questionTextElement = document.getElementById('question-text');
@@ -41,6 +43,11 @@ const paymentButton = document.getElementById('payment-button');
 const quizOptions = document.getElementById('quiz-options');
 const userWelcomeMessage = document.getElementById('user-welcome-message');
 const logoutButton = document.getElementById('logout-button');
+const forgotPasswordLink = document.getElementById('forgot-password-link');
+
+const createPasswordForm = document.getElementById('create-password-form');
+const newPasswordInput = document.getElementById('new-password-input');
+const newPasswordConfirmInput = document.getElementById('new-password-confirm-input');
 
 // FUNÇÕES DE LÓGICA E ESTADO
 
@@ -86,7 +93,6 @@ async function signOut() {
     if (!supabaseClient) {
         return;
     }
-    // Salva o progresso antes de sair, se houver
     if (userSession) {
         await saveProgress();
     }
@@ -95,7 +101,47 @@ async function signOut() {
         console.error('Erro ao sair:', error.message);
     } else {
         userSession = null;
-        localStorage.removeItem('enareSimuProgress'); // Limpa o progresso local
+        userProfile = null;
+        localStorage.removeItem('enareSimuProgress');
+        window.location.reload();
+    }
+}
+
+async function handleForgotPassword(email) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin // Redireciona para a página de criação de senha
+    });
+    if (error) {
+        console.error('Erro ao solicitar redefinição de senha:', error.message);
+        alert('Erro ao solicitar redefinição de senha: ' + error.message);
+    } else {
+        alert('E-mail de redefinição de senha enviado! Verifique sua caixa de entrada.');
+    }
+}
+
+async function updatePassword(newPassword) {
+    if (!supabaseClient) {
+        console.error('Supabase client is not initialized.');
+        return;
+    }
+    const { error } = await supabaseClient.auth.updateUser({
+        password: newPassword
+    });
+    if (error) {
+        console.error('Erro ao atualizar a senha:', error.message);
+        alert('Erro ao atualizar a senha: ' + error.message);
+    } else {
+        // Atualiza a coluna password_set no perfil do usuário
+        await supabaseClient
+            .from('profiles')
+            .update({ password_set: true })
+            .eq('id', userSession.id);
+        alert('Senha atualizada com sucesso!');
+        // Redireciona para a tela inicial
         window.location.reload();
     }
 }
@@ -134,27 +180,52 @@ async function checkUser() {
     const { data: { user } } = await supabaseClient.auth.getUser();
     userSession = user;
     
+    // Esconde todas as telas e botões de navegação
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    logoutButton.style.display = 'none';
+    quizOptions.style.display = 'none';
+    authContainer.style.display = 'none';
+    paymentOptions.style.display = 'none';
+    
     if (user) {
-        authContainer.style.display = 'none';
-        quizOptions.style.display = 'block';
-        logoutButton.style.display = 'inline-block';
+        // Carrega o perfil do usuário
+        const { data: profile, error } = await supabaseClient
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single();
+
+        if (error) {
+            console.error('Erro ao carregar o perfil do usuário:', error.message);
+            // Considera um erro como se o usuário não tivesse assinatura ou perfil
+            userProfile = { has_subscription: false, password_set: false };
+        } else {
+            userProfile = profile;
+        }
+
         userWelcomeMessage.innerText = `Olá, ${user.email}!`;
+        logoutButton.style.display = 'inline-block';
         
-        const hasSubscription = true; // <<< VERIFICAÇÃO REAL DE ASSINATURA DEVE SER FEITA AQUI
+        // Verifica se a senha foi definida
+        if (!userProfile.password_set) {
+            createPasswordScreen.classList.add('active');
+            return;
+        }
         
-        if (hasSubscription) {
+        // Se a senha estiver definida, verifica a assinatura
+        if (userProfile.has_subscription) {
+            quizOptions.style.display = 'block';
             paymentOptions.style.display = 'none';
-            await loadProgress(); // Carrega o progresso do usuário logado
+            await loadProgress();
             enableStartButton();
         } else {
-            paymentOptions.style.display = 'block'; // Mostra opções de pagamento
-            startButton.style.display = 'none'; // Esconde o botão de iniciar simulado
+            quizOptions.style.display = 'none';
+            paymentOptions.style.display = 'block';
+            startScreen.classList.add('active');
         }
     } else {
+        startScreen.classList.add('active');
         authContainer.style.display = 'block';
-        quizOptions.style.display = 'none';
-        logoutButton.style.display = 'none';
-        paymentOptions.style.display = 'none';
         startButton.disabled = true;
     }
 }
@@ -218,7 +289,6 @@ async function loadProgress() {
         console.error('Erro ao carregar o progresso:', error);
     }
     
-    // Se não houver progresso, seleciona e embaralha as questões
     selectAndShuffleQuestions();
 }
 
@@ -508,7 +578,6 @@ restartButton.addEventListener('click', () => {
     resultsScreen.classList.remove('active');
     startScreen.classList.add('active');
     startButton.innerText = 'Iniciar Simulador';
-    // Reinicia o estado do simulador
     currentQuestionIndex = 0;
     userAnswers = new Array(questions.length).fill(null);
     timeRemaining = 5 * 60 * 60;
@@ -544,6 +613,27 @@ signupButton.addEventListener('click', async () => {
 
 logoutButton.addEventListener('click', async () => {
     await signOut();
+});
+
+forgotPasswordLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = prompt('Por favor, digite seu e-mail para recuperar a senha:');
+    if (email) {
+        handleForgotPassword(email);
+    }
+});
+
+// Event listener da tela de criação de senha
+createPasswordForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newPassword = newPasswordInput.value;
+    const confirmPassword = newPasswordConfirmInput.value;
+    
+    if (newPassword !== confirmPassword) {
+        alert('As senhas não coincidem. Por favor, tente novamente.');
+        return;
+    }
+    await updatePassword(newPassword);
 });
 
 // Inicia a aplicação
