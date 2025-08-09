@@ -125,6 +125,59 @@ async function updatePassword(newPassword) {
     }
 }
 
+// Função para gravação dos resultados na tabela quiz_results do Supabase
+async function saveQuizResults() {
+    if (!userSession) {
+        console.warn('Usuário não logado. Os resultados não serão salvos no banco de dados.');
+        return;
+    }
+
+    try {
+        // Recalculamos o performanceData aqui, pois é a informação que queremos salvar.
+        const performanceData = {};
+        questions.forEach((q, index) => {
+            const userAnswer = userAnswers[index];
+            const isCorrect = userAnswer === q.resposta_correta;
+            const area = q.area;
+            const assunto = q.assunto_especifico;
+
+            if (!performanceData[area]) {
+                performanceData[area] = { correct: 0, total: 0, subjects: {} };
+            }
+            performanceData[area].total++;
+            if (isCorrect) {
+                performanceData[area].correct++;
+            }
+
+            if (!performanceData[area].subjects[assunto]) {
+                performanceData[area].subjects[assunto] = { correct: 0, total: 0 };
+            }
+            performanceData[area].subjects[assunto].total++;
+            if (isCorrect) {
+                performanceData[area].subjects[assunto].correct++;
+            }
+        });
+
+        // O objeto que será inserido no Supabase
+        const resultObject = {
+            user_id: userSession.id,
+            area_results: performanceData
+        };
+
+        const { data, error } = await supabaseClient
+            .from('quiz_results')
+            .insert([resultObject]);
+
+        if (error) {
+            console.error('Erro ao salvar os resultados da prova no Supabase:', error.message);
+        } else {
+            console.log('Resultados salvos com sucesso:', data);
+        }
+    } catch (error) {
+        console.error('Erro ao processar e salvar os resultados:', error);
+    }
+}
+
 // Carrega as chaves do Supabase e depois as questões
 async function init() {
     try {
@@ -413,13 +466,62 @@ function startTimer() {
     }, 1000);
 }
 
+// Uma nova função que encapsula o cálculo, salvamento e renderização
+async function saveQuizResultsAndRender() {
+    const performanceData = {};
+    questions.forEach((q, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === q.resposta_correta;
+        const area = q.area;
+        const assunto = q.assunto_especifico;
+
+        if (!performanceData[area]) {
+            performanceData[area] = { correct: 0, total: 0, subjects: {} };
+        }
+        performanceData[area].total++;
+        if (isCorrect) {
+            performanceData[area].correct++;
+        }
+
+        if (!performanceData[area].subjects[assunto]) {
+            performanceData[area].subjects[assunto] = { correct: 0, total: 0 };
+        }
+        performanceData[area].subjects[assunto].total++;
+        if (isCorrect) {
+            performanceData[area].subjects[assunto].correct++;
+        }
+    });
+
+    // Salva os resultados no Supabase
+    if (userSession) {
+        try {
+            const { error } = await supabaseClient
+                .from('quiz_results')
+                .insert({ user_id: userSession.id, area_results: performanceData });
+                
+            if (error) {
+                console.error('Erro ao salvar os resultados da prova:', error);
+            } else {
+                console.log('Resultados da prova salvos com sucesso!');
+            }
+        } catch (err) {
+            console.error('Erro inesperado ao salvar resultados:', err);
+        }
+    }
+
+    // Renderiza os resultados na tela
+    renderResults(performanceData); // Modifiquei a função renderResults para receber os dados como argumento
+}
+
 // Finaliza o simulado
-function endQuiz() {
+async function endQuiz() {
     clearInterval(timerInterval);
     localStorage.removeItem('enareSimuProgress');
     quizScreen.classList.remove('active');
     resultsScreen.classList.add('active');
-    renderResults();
+
+    // Chama a função que apresenta os resultados e salva no quiz_results
+    await saveQuizResultsAndRender();
 }
 
 // Exibe a tela de resultados
@@ -642,5 +744,6 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
 
 
