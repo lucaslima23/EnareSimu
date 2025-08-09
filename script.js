@@ -236,7 +236,7 @@ async function checkUser() {
         const { data: profile, error } = await supabaseClient
             .from('profiles')
             .select('*')
-            .eq('id', user.id)
+            .eq('user_id', user.id)
             .single();
 
         if (error) {
@@ -755,6 +755,7 @@ createPasswordForm.addEventListener('submit', async (e) => {
 
 // Inicia a aplicação
 init();
+
 
 
 
